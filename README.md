@@ -2,7 +2,7 @@
 
 A rewrite of the original Reported! addon for World of Warcraft.
 
---
+---
 
 ## TODO
 
