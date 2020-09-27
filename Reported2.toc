@@ -1,0 +1,11 @@
+## Interface: 80300
+## Title : |cff1a9fc0Reported!|r|cff6b8bf52|r
+## Notes: Rewritten to work with Retail/Classic. All credit to Sneep for the original.
+## Author: Tim Douglas (neurotech#0659)
+## Version: 1.0
+## SavedVariablesPerCharacter: REPORTED_2
+
+Reported2_Events.lua
+Reported2_Dictionary.lua
+Reported2_Modules.lua
+Reported2.lua
