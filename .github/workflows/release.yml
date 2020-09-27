@@ -10,11 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout source code
+    - name: Checkout source code and prepare subdirectory
       uses: actions/checkout@v2
-      
-    - run: mkdir -p Reported2
-    - run: cp *.lua *.toc Reported2
+      run: mkdir -p Reported2
+      run: cp *.lua *.toc Reported2
     
     - name: Build Retail zip
       uses: edgarrc/action-7z@v1.0.4
@@ -22,7 +21,7 @@ jobs:
         args: 7z a Reported2.zip ./Reported2/
 
     - name: Publish Release (Retail)
-    - uses: "marvinpinto/action-automatic-releases@latest"
+      uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
