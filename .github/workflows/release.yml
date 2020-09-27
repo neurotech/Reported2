@@ -16,15 +16,17 @@ jobs:
 
     - run: cp *.lua *.toc ./Reported2/
     
+    - run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
+    
     - name: Build Retail zip
       uses: edgarrc/action-7z@v1.0.4
       with:
-        args: 7z a Reported2-${{ github.event.release.tag_name }}.zip ./Reported2/
+        args: 7z a Reported2-${{ env.RELEASE_VERSION }}.zip ./Reported2/
 
     - name: Build Classic zip
       uses: edgarrc/action-7z@v1.0.4
       with:
-        args: 7z a Reported2-${{ github.event.release.tag_name }}-classic.zip ./Reported2/
+        args: 7z a Reported2-${{ env.RELEASE_VERSION }}-classic.zip ./Reported2/
 
     - name: Publish Release (Retail)
       uses: "marvinpinto/action-automatic-releases@latest"
@@ -32,5 +34,5 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
         files: |
-          Reported2-${{ github.event.release.tag_name }}.zip
-          Reported2-${{ github.event.release.tag_name }}-classic.zip
+          Reported2-${{ env.RELEASE_VERSION }}.zip
+          Reported2-${{ env.RELEASE_VERSION }}-classic.zip
