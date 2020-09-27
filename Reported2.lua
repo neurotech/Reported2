@@ -1,4 +1,5 @@
 local panelBase, panelSeparator
+local rand = math.random
 local seatCount = 5
 local padding = 10
 local panelWidth = 430
@@ -10,7 +11,20 @@ local channelXOffset = playerXOffset + 100
 local swearXOffset = channelXOffset + 110
 local actionsXOffset = swearXOffset + 70
 
+local DelayMin = 2
+local DelayMax = 6
+
 offenders = {}
+
+if REPORTED2_PREFS == nil then
+  REPORTED2_PREFS = {}
+end
+
+for key, value in pairs(REPORTED2_DEFAULT_PREFS) do
+  if REPORTED2_PREFS[key] == nil or REPORTED2_PREFS[key] == "" then
+    REPORTED2_PREFS[key] = value
+  end
+end
 
 function CreatePanel()
   panelBase = CreateFrame("Frame", "PANEL_BASE", UIParent, BackdropTemplateMixin and "BackdropTemplate")
@@ -36,10 +50,6 @@ function CreatePanel()
   panelBase:RegisterForDrag("LeftButton")
   panelBase:SetScript("OnDragStart", panelBase.StartMoving)
   panelBase:SetScript("OnDragStop", panelBase.StopMovingOrSizing)
-
-  -- if #offenders == 0 then
-  --   panelBase:Hide()
-  -- end
 end
 
 function CreatePanelHeaderTextLeft()
@@ -137,7 +147,7 @@ function CreateSeat(index, offset)
   reportButton:Disable()
 end
 
-function AddOffender(playerName, classColour, swear, message, channelName, channelNumber, event)
+function AddOffender(playerName, classColour, swear, message, channelName, channelNumber, event, locked)
   table.insert(
     offenders,
     {
@@ -147,13 +157,10 @@ function AddOffender(playerName, classColour, swear, message, channelName, chann
       message = message,
       channelName = channelName,
       channelNumber = channelNumber,
-      event = event
+      event = event,
+      locked = locked
     }
   )
-end
-
-function RemoveOffender(index)
-  table.remove(offenders, index)
 end
 
 function getTableKeys(tab)
@@ -167,11 +174,10 @@ function getTableKeys(tab)
 end
 
 function GetReportedMessage(playerName)
-  local rand = math.random
-  local moduleKeys = getTableKeys(moduleText)
+  local moduleKeys = getTableKeys(modules)
   local randomModule = moduleKeys[rand(1, #moduleKeys)]
-  local line = rand(1, #moduleText[randomModule])
-  local text = moduleText[randomModule][line]
+  local line = rand(1, #modules[randomModule])
+  local text = modules[randomModule][line]
   text = text:gsub("%%Pl", playerName)
   text = text:gsub("%%PL", strupper(playerName))
   text = text:gsub("%%pl", strlower(playerName))
@@ -200,124 +206,131 @@ function ResetSeat(index)
 end
 
 function RenderOffenders()
-  for index = 1, seatCount do
-    ResetSeat(index)
-    table.sort(
-      offenders,
-      function(a, b)
-        return not a
-      end
-    )
-    local seat = _G["SEAT_" .. index]
-    local record = offenders[index]
-    if record then
-      local channel
-      local playerNameText = _G["SEAT_" .. index .. "PLAYER_NAME"]
-      playerNameText:SetTextColor(record.classColour.r, record.classColour.g, record.classColour.b, 1)
-      playerNameText:SetText(record.playerName)
-
-      if record.channelName == "" then
-        channel = events[record.event]
-      else
-        channel = record.channelName:gsub(" .*", "")
-      end
-
-      local channelColour = eventColours[record.event]
-      local channelText = _G["SEAT_" .. index .. "CHANNEL"]
-      channelText:SetTextColor(255, 255, 255, 1)
-      channelText:SetText("|cff" .. channelColour .. channel .. "|r")
-
-      local swearText = _G["SEAT_" .. index .. "SWEAR"]
-      swearText:SetText("|cff" .. "fa1459" .. record.swear .. "|r")
-
+  if REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] then
+    for index = 1, seatCount do
+      ResetSeat(index)
+      table.sort(
+        offenders,
+        function(a, b)
+          return not a
+        end
+      )
       local seat = _G["SEAT_" .. index]
+      local record = offenders[index]
+      if record then
+        local channel
+        local playerNameText = _G["SEAT_" .. index .. "PLAYER_NAME"]
+        playerNameText:SetTextColor(record.classColour.r, record.classColour.g, record.classColour.b, 1)
+        playerNameText:SetText(record.playerName)
 
-      local reportButton = _G["SEAT_" .. index .. "REPORT_BUTTON"]
-      reportButton:SetScript(
-        "OnClick",
-        function()
-          local reportedMessage, randomModule = GetReportedMessage(record.playerName)
-          print(
-            "|cff" ..
-              "ffffff" ..
-                "[" ..
-                  "|r" ..
-                    "|cff" ..
-                      "65b8ff" ..
-                        "Reported!" ..
-                          "|r" ..
-                            "|cff" ..
-                              "ffffff" ..
-                                "] " ..
-                                  "|r" ..
-                                    "|cff" ..
-                                      "FFF569" ..
-                                        "Reporting player '" ..
-                                          "|c" ..
-                                            record.classColour.colorStr ..
-                                              record.playerName ..
-                                                "|r" ..
-                                                  "|cff" ..
-                                                    "FFF569" ..
-                                                      "' using the " ..
-                                                        "|r" ..
-                                                          "|cff" ..
-                                                            "5077f3" ..
-                                                              randomModule ..
-                                                                "|r" .. "|cff" .. "FFF569" .. " module." .. "|r"
+        if record.channelName == "" then
+          channel = events[record.event]
+        else
+          channel = record.channelName:gsub(" .*", "")
+        end
+
+        local channelColour = eventColours[record.event]
+        local channelText = _G["SEAT_" .. index .. "CHANNEL"]
+        channelText:SetTextColor(255, 255, 255, 1)
+        channelText:SetText("|cff" .. channelColour .. channel .. "|r")
+
+        local swearText = _G["SEAT_" .. index .. "SWEAR"]
+        swearText:SetText("|cff" .. "fa1459" .. record.swear .. "|r")
+
+        local seat = _G["SEAT_" .. index]
+
+        local reportButton = _G["SEAT_" .. index .. "REPORT_BUTTON"]
+        reportButton:SetScript(
+          "OnClick",
+          function()
+            local reportedMessage, randomModule = GetReportedMessage(record.playerName)
+
+            print(utilities.CreateReportNotification(record.playerName, randomModule, record.classColour.colorStr))
+            SendChatMessage(reportedMessage, events[record.event], nil, record.channelNumber)
+            table.remove(offenders, index)
+
+            RenderOffenders()
+          end
+        )
+
+        reportButton:SetScript(
+          "OnEnter",
+          function(button)
+            button:SetBackdropBorderColor(0.31372549019, 0.46, 0.95294117647, 1)
+          end
+        )
+
+        reportButton:SetScript(
+          "OnLeave",
+          function(button)
+            button:SetBackdropBorderColor(0, 0, 0, 1)
+          end
+        )
+
+        local reportButtonTitle = _G["SEAT_" .. index .. "REPORT_BUTTON_TEXT"]
+        local delay = rand(DelayMin, DelayMax)
+
+        if record.locked then
+          reportButtonTitle:SetText("|cff" .. "32333e" .. "Wait" .. "|r")
+
+          C_Timer.After(
+            delay,
+            function()
+              record.locked = false
+              reportButton:Enable()
+              reportButtonTitle:SetText("|cff" .. "5077f3" .. "Report" .. "|r")
+            end
           )
-          SendChatMessage(reportedMessage, events[record.event], nil, record.channelNumber)
-          table.remove(offenders, index)
-          RenderOffenders()
+        else
+          reportButtonTitle:SetText("|cff" .. "5077f3" .. "Report" .. "|r")
+          reportButton:Enable()
         end
-      )
 
-      reportButton:SetScript(
-        "OnEnter",
-        function(button)
-          button:SetBackdropBorderColor(0.31372549019, 0.46, 0.95294117647, 1)
+        local skipButton = _G["SEAT_" .. index .. "SKIP_BUTTON"]
+        skipButton:SetScript(
+          "OnClick",
+          function()
+            table.remove(offenders, index)
+            RenderOffenders()
+          end
+        )
+
+        skipButton:SetScript(
+          "OnEnter",
+          function(button)
+            button:SetBackdropBorderColor(0.30196078431, 0.30588235294, 0.3725490196, 1)
+          end
+        )
+
+        skipButton:SetScript(
+          "OnLeave",
+          function(button)
+            button:SetBackdropBorderColor(0, 0, 0, 1)
+          end
+        )
+
+        local skipButtonTitle = _G["SEAT_" .. index .. "SKIP_BUTTON_TEXT"]
+
+        if record.locked then
+          skipButtonTitle:SetText("|cff" .. "32333e" .. "Wait" .. "|r")
+
+          C_Timer.After(
+            delay,
+            function()
+              record.locked = false
+              skipButton:Enable()
+              skipButtonTitle:SetText("|cff" .. "4d4e5f" .. "Skip" .. "|r")
+            end
+          )
+        else
+          skipButtonTitle:SetText("|cff" .. "4d4e5f" .. "Skip" .. "|r")
+          skipButton:Enable()
         end
-      )
-
-      reportButton:SetScript(
-        "OnLeave",
-        function(button)
-          button:SetBackdropBorderColor(0, 0, 0, 1)
-        end
-      )
-
-      local reportButtonTitle = _G["SEAT_" .. index .. "REPORT_BUTTON_TEXT"]
-      reportButtonTitle:SetText("|cff" .. "5077f3" .. "Report" .. "|r")
-
-      local skipButton = _G["SEAT_" .. index .. "SKIP_BUTTON"]
-      skipButton:SetScript(
-        "OnClick",
-        function()
-          table.remove(offenders, index)
-          RenderOffenders()
-        end
-      )
-
-      skipButton:SetScript(
-        "OnEnter",
-        function(button)
-          button:SetBackdropBorderColor(0.30196078431, 0.30588235294, 0.3725490196, 1)
-        end
-      )
-
-      skipButton:SetScript(
-        "OnLeave",
-        function(button)
-          button:SetBackdropBorderColor(0, 0, 0, 1)
-        end
-      )
-
-      local skipButtonTitle = _G["SEAT_" .. index .. "SKIP_BUTTON_TEXT"]
-      skipButtonTitle:SetText("|cff" .. "4d4e5f" .. "Skip" .. "|r")
-
-      reportButton:Enable()
-      skipButton:Enable()
+      end
     end
+    panelBase:Show()
+  else
+    panelBase:Hide()
   end
 end
 
@@ -326,7 +339,6 @@ function Initialise()
 
   chatListener:RegisterEvent("CHAT_MSG_SAY")
   chatListener:RegisterEvent("CHAT_MSG_YELL")
-  chatListener:RegisterEvent("CHAT_MSG_RAID")
   chatListener:RegisterEvent("CHAT_MSG_RAID")
   chatListener:RegisterEvent("CHAT_MSG_PARTY")
   chatListener:RegisterEvent("CHAT_MSG_INSTANCE_CHAT")
@@ -350,7 +362,7 @@ function Initialise()
       local guid = select(12, ...)
 
       local class
-      if not guid then
+      if not guid or guid == "" then
         class = "PRIEST"
       else
         class = select(2, GetPlayerInfoByGUID(guid))
@@ -376,11 +388,12 @@ function Initialise()
       end
 
       if hasSwear then
-        panelBase:Show()
+        sounds.PlaySwearDetectedSound()
         if #offenders >= seatCount then
           print("Waiting room is full!")
         else
-          AddOffender(playerName, classColour, detectedWord, message, channelName, channelIndex, event)
+          local locked = true
+          AddOffender(playerName, classColour, detectedWord, message, channelName, channelIndex, event, locked)
           RenderOffenders()
         end
       end
@@ -389,3 +402,31 @@ function Initialise()
 end
 
 Initialise()
+
+if REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] then
+  panelBase:Show()
+else
+  panelBase:Hide()
+end
+
+function SetPanelVisibility(visible)
+  if visible then
+    panelBase:Show()
+    REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] = true
+  else
+    panelBase:Hide()
+    REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] = false
+  end
+end
+
+function SlashCommandHandler(msg, editbox)
+  if msg == "show" then
+    SetPanelVisibility(true)
+  end
+
+  if msg == "hide" then
+    SetPanelVisibility(false)
+  end
+end
+
+SlashCmdList["REPORTEDTWO"] = SlashCommandHandler
