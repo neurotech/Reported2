@@ -28,7 +28,7 @@ jobs:
         with:
           args: 7z a Reported2-${{ env.RELEASE_VERSION }}-classic.zip ./Reported2/
 
-      - name: Publish Release (Retail)
+      - name: Publish Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"

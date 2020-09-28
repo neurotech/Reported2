@@ -10,17 +10,17 @@ local normalTex = [[Interface\Addons\Reported2\KMT56]]
 local edgeTex = [[Interface\Buttons\WHITE8X8]]
 
 function ApplyCheckedTexture(checkbox)
-  local checkedTexture = checkbox:GetCheckedTexture()
+  local checkboxCheckedTexture = checkbox:GetCheckedTexture()
 
-  checkedTexture:SetVertexColor(Palette.RGB.TEAL.r, Palette.RGB.TEAL.g, Palette.RGB.TEAL.b, 1)
-  checkedTexture:SetInside()
+  checkboxCheckedTexture:SetVertexColor(Palette.RGB.TEAL.r, Palette.RGB.TEAL.g, Palette.RGB.TEAL.b, 1)
+  checkboxCheckedTexture:SetInside()
 end
 
 function ApplyNormalTexture(checkbox)
-  local normalTexture = checkbox:GetNormalTexture()
+  local checkBoxNormalTexture = checkbox:GetNormalTexture()
 
-  normalTexture:SetVertexColor(Palette.RGB.WHITE.r, Palette.RGB.WHITE.g, Palette.RGB.WHITE.b, 0.1)
-  normalTexture:SetInside()
+  checkBoxNormalTexture:SetVertexColor(Palette.RGB.WHITE.r, Palette.RGB.WHITE.g, Palette.RGB.WHITE.b, 0.1)
+  checkBoxNormalTexture:SetInside()
 end
 
 function CreateCheckbox(labelText, parent, anchorPoint, relativePoint)
