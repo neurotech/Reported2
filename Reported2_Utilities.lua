@@ -1,28 +1,47 @@
-utilities = {}
-colours = {}
-
-colours.START = "|cff"
-colours.START_NO_ALPHA = "|c"
-colours.END = "|r"
-
-colours.PALE_BLUE = "B8C8F9"
-colours.BLUE = "6B8BF5"
-colours.BRIGHT_YELLOW = "FFF569"
-colours.RICH_YELLOW = "FFB83C"
-colours.RED = "FA1459"
-colours.TEAL = "00FF96"
-colours.WHITE = "ffffff"
+Utilities = {}
 
 function CreateReportNotification(playerName, moduleName, classColour)
-  local leftBracket = colours.START .. colours.WHITE .. "["
-  local reportedPrefix = colours.START .. colours.TEAL .. "Reported! 2"
-  local rightBracket = colours.START .. colours.WHITE .. "]"
+  local leftBracket = Palette.START .. Palette.WHITE .. "["
+  local reportedPrefix = Palette.START .. Palette.TEAL .. "Reported! 2"
+  local rightBracket = Palette.START .. Palette.WHITE .. "]"
   local reportedPlayer = " Reported player '"
-  local playerClassColoured = colours.START_NO_ALPHA .. classColour .. playerName .. colours.END
+  local playerClassColoured = Palette.START_NO_ALPHA .. classColour .. playerName .. Palette.END
   local usingTheModule =
-    "' using the " .. colours.START .. colours.TEAL .. moduleName .. colours.END .. " module." .. colours.END
+    "' using the " .. Palette.START .. Palette.TEAL .. moduleName .. Palette.END .. " module." .. Palette.END
 
   return leftBracket .. reportedPrefix .. rightBracket .. reportedPlayer .. playerClassColoured .. usingTheModule
 end
 
-utilities.CreateReportNotification = CreateReportNotification
+function GenerateContributorsString()
+  local contributors = {"weasel", "Sneep", "TrashEmoji", "Bronzong", "Krakyn", "neurotech"}
+  local whiteColourString = Palette.START .. Palette.WHITE
+  local pinkColourString = Palette.START .. Palette.PINK
+  local contributorsPrefix = whiteColourString .. "Contributors: "
+  local commaString = whiteColourString .. ", "
+
+  local contributorsString = contributorsPrefix
+
+  for index, contributor in pairs(contributors) do
+    if index == #contributors then
+      contributorsString = contributorsString .. pinkColourString .. contributor .. Palette.END
+    else
+      contributorsString = contributorsString .. pinkColourString .. contributor .. Palette.END .. commaString
+    end
+  end
+
+  return contributorsString
+end
+
+function getTableKeys(tab)
+  local keyset = {}
+
+  for k, v in pairs(tab) do
+    keyset[#keyset + 1] = k
+  end
+
+  return keyset
+end
+
+Utilities.CreateReportNotification = CreateReportNotification
+Utilities.GenerateContributorsString = GenerateContributorsString
+Utilities.getTableKeys = getTableKeys

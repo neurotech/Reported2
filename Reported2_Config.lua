@@ -1,111 +1,79 @@
-function CreateConfigPanel()
-  local padding = 10
-  local checkboxWidth = 12
-  local checkboxHeight = 12
+Config = {}
 
-  local configFrame =
-    CreateFrame(
-    "Frame",
-    "Reported2ConfigFrame",
-    InterfaceOptionsFramePanelContainer,
-    BackdropTemplateMixin and "BackdropTemplate"
-  )
-  configFrame:Hide()
-  configFrame.name = "Reported! 2"
-  InterfaceOptions_AddCategory(configFrame)
+local configFrame,
+  titleLabel,
+  versionLabel,
+  contributorsLabel,
+  separator,
+  generalOptionsLabel,
+  showWaitingRoomCheckbox,
+  showWaitingRoomLabel,
+  muteSoundsCheckbox,
+  muteSoundsLabel
 
-  local titleLabel = configFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-  titleLabel:SetPoint("TOPLEFT", configFrame, "TOPLEFT", padding, -padding)
-  titleLabel:SetText(
-    colours.START ..
-      colours.PALE_BLUE ..
-        "Reported" ..
-          colours.START .. colours.BLUE .. "!" .. colours.START .. colours.RICH_YELLOW .. " 2" .. colours.END
-  )
-
-  local versionLabel = configFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-  versionLabel:SetPoint("BOTTOMLEFT", titleLabel, "BOTTOMRIGHT", padding, 0)
-  versionLabel:SetText(colours.START .. colours.WHITE .. "v" .. GetAddOnMetadata("Reported2", "Version"))
-
-  local contributorsLabel = configFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-  contributorsLabel:SetPoint("TOPRIGHT", configFrame, "TOPRIGHT", -padding, -padding)
-  contributorsLabel:SetText(
-    colours.START ..
-      colours.WHITE ..
-        "Contributors: " .. colours.START .. colours.TEAL .. "weasel, Sneep, TrashEmoji, Bronzong, Krakyn, neurotech"
-  )
-
-  local separator =
-    CreateFrame("Frame", "Reported2ConfigFrameSeparator", configFrame, BackdropTemplateMixin and "BackdropTemplate")
-  separator:SetPoint("TOP", 0, -padding * 3.5)
-  separator:SetSize(InterfaceOptionsFramePanelContainer:GetWidth() - (padding * 2), 1)
-  separator:SetBackdrop(
-    {
-      bgFile = "bgFile",
-      tile = false,
-      tileEdge = false,
-      tileSize = 0,
-      edgeSize = 0,
-      insets = {left = 0, right = 0, top = 0, bottom = 0}
-    }
-  )
-  separator:SetBackdropColor(0, 0, 0, 0.5)
-
-  local generalOptionsLabel = configFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-  generalOptionsLabel:SetPoint("TOPLEFT", separator, "BOTTOMLEFT", 0, -padding)
-  generalOptionsLabel:SetText("General Options")
-
-  local showWaitingRoomCheckbox = CreateFrame("CheckButton", nil, configFrame, "InterfaceOptionsCheckButtonTemplate")
-  showWaitingRoomCheckbox:SetSize(checkboxWidth, checkboxHeight)
-  showWaitingRoomCheckbox:SetPoint("TOPLEFT", generalOptionsLabel, "BOTTOMLEFT", padding, -padding)
+function UpdateConfigFrameValues()
   showWaitingRoomCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL])
-
-  -- -
-  local checked = showWaitingRoomCheckbox:CreateTexture()
-  checked:SetAllPoints()
-  checked:SetBlendMode("ADD")
-  checked:SetColorTexture(46 / 255, 230 / 255, 46 / 255, 1)
-
-  local normal = showWaitingRoomCheckbox:CreateTexture()
-  normal:SetAllPoints()
-  normal:SetBlendMode("BLEND")
-  normal:SetColorTexture(0, 0, 0, 0.4)
-
-  showWaitingRoomCheckbox:SetNormalTexture(unchecked)
-  showWaitingRoomCheckbox:SetCheckedTexture(checked)
-  showWaitingRoomCheckbox:SetHighlightTexture(nil)
-  showWaitingRoomCheckbox:SetPushedTexture(nil)
-  -- -
-
-  local showWaitingRoomLabel = configFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-  showWaitingRoomLabel:SetPoint("LEFT", showWaitingRoomCheckbox, "RIGHT", padding, 0)
-  showWaitingRoomLabel:SetText("Show Waiting Room")
-
-  local muteSoundsCheckbox = CreateFrame("CheckButton", nil, configFrame, "InterfaceOptionsCheckButtonTemplate")
-  muteSoundsCheckbox:SetPoint("TOPLEFT", showWaitingRoomCheckbox, "BOTTOMLEFT", 0, 0)
   muteSoundsCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS])
 
-  local muteSoundsLabel = configFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-  muteSoundsLabel:SetPoint("LEFT", muteSoundsCheckbox, "RIGHT", 0, 0)
-  muteSoundsLabel:SetText("Mute sounds")
+  globalChannelsCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_CHANNEL])
+  guildChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_GUILD])
+  officerChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_OFFICER])
+  partyLeaderChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_PARTY])
+  partyChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_PARTY_LEADER])
+  raidLeaderChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_RAID])
+  raidChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_RAID_LEADER])
+  sayChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_SAY])
+  whisperChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_WHISPER])
+  yellChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_YELL])
+end
 
-  -- Form Actions
+function CreatePanel()
+  configFrame = UI.Config.CreateConfigFrame()
+  titleLabel = UI.Config.CreateTitleLabel(configFrame)
+  versionLabel = UI.Config.CreateVersionLabel(configFrame, titleLabel)
+  contributorsLabel = UI.Config.CreateContributorsLabel(configFrame)
+  separator = UI.Config.CreateSeparator(configFrame)
 
-  -- On show
-  configFrame:SetScript(
-    "OnShow",
-    function()
-      showWaitingRoomCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL])
-      muteSoundsCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS])
-    end
-  )
+  -- General Options
+  generalOptionsLabel = UI.Config.CreateOptionsLabel("General Options", configFrame, separator)
 
-  -- Click Okay
-  function configFrame.okay(arg1, arg2, arg3, ...)
+  local showWaitingRoomText = "Show Waiting Room"
+  local showWaitingRoomShortcutText = Palette.START .. Palette.GREY .. " — Shortcut: /r2 show & /r2 hide" .. Palette.END
+
+  showWaitingRoomCheckbox, showWaitingRoomLabel =
+    UI.Config.CreateCheckbox(showWaitingRoomText .. showWaitingRoomShortcutText, configFrame, generalOptionsLabel)
+
+  muteSoundsCheckbox, muteSoundsLabel = UI.Config.CreateCheckbox("Mute sounds", configFrame, showWaitingRoomCheckbox)
+
+  -- Channel Options
+  channelOptionsLabel =
+    UI.Config.CreateOptionsLabel("Channel Options", configFrame, muteSoundsCheckbox, UI.Sizes.Padding * 2)
+  channelOptionsSubLabel =
+    UI.Config.CreateOptionsSubLabel("Select which channels to monitor:", configFrame, channelOptionsLabel)
+
+  -- Channels
+  UI.Config.CreateChannelCheckboxes(configFrame)
+
+  -- Config Frame - Form actions
+  configFrame:SetScript("OnShow", UpdateConfigFrameValues)
+
+  function configFrame.okay()
     REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] = showWaitingRoomCheckbox:GetChecked()
     REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS] = muteSoundsCheckbox:GetChecked()
+
+    REPORTED2_PREFS[CHAT_MSG_CHANNEL] = globalChannelsCheckbox:GetChecked()
+    REPORTED2_PREFS[CHAT_MSG_GUILD] = guildChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[CHAT_MSG_OFFICER] = officerChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[CHAT_MSG_PARTY] = partyLeaderChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[CHAT_MSG_PARTY_LEADER] = partyChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[CHAT_MSG_RAID] = raidLeaderChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[CHAT_MSG_RAID_LEADER] = raidChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[CHAT_MSG_SAY] = sayChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[CHAT_MSG_WHISPER] = whisperChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[CHAT_MSG_YELL] = yellChannelCheckbox:GetChecked()
+
     RenderOffenders()
   end
 end
 
-CreateConfigPanel()
+Config.CreatePanel = CreatePanel
