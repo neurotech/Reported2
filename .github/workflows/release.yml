@@ -10,29 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - run: mkdir -p Reported2
+      - run: mkdir -p Reported2
 
-    - run: cp *.lua *.toc *.mp3 ./Reported2/
-    
-    - run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
-    
-    - name: Build Retail zip
-      uses: edgarrc/action-7z@v1.0.4
-      with:
-        args: 7z a Reported2-${{ env.RELEASE_VERSION }}.zip ./Reported2/
+      - run: cp *.lua *.toc *.mp3 *.tga ./Reported2/
 
-    - name: Build Classic zip
-      uses: edgarrc/action-7z@v1.0.4
-      with:
-        args: 7z a Reported2-${{ env.RELEASE_VERSION }}-classic.zip ./Reported2/
+      - run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
 
-    - name: Publish Release (Retail)
-      uses: "marvinpinto/action-automatic-releases@latest"
-      with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        prerelease: false
-        files: |
-          Reported2-${{ env.RELEASE_VERSION }}.zip
-          Reported2-${{ env.RELEASE_VERSION }}-classic.zip
+      - name: Build Retail zip
+        uses: edgarrc/action-7z@v1.0.4
+        with:
+          args: 7z a Reported2-${{ env.RELEASE_VERSION }}.zip ./Reported2/
+
+      - name: Build Classic zip
+        uses: edgarrc/action-7z@v1.0.4
+        with:
+          args: 7z a Reported2-${{ env.RELEASE_VERSION }}-classic.zip ./Reported2/
+
+      - name: Publish Release (Retail)
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            Reported2-${{ env.RELEASE_VERSION }}.zip
+            Reported2-${{ env.RELEASE_VERSION }}-classic.zip
