@@ -13,14 +13,24 @@ function ApplyCheckedTexture(checkbox)
   local checkboxCheckedTexture = checkbox:GetCheckedTexture()
 
   checkboxCheckedTexture:SetVertexColor(Palette.RGB.TEAL.r, Palette.RGB.TEAL.g, Palette.RGB.TEAL.b, 1)
-  checkboxCheckedTexture:SetInside()
+  --checkboxCheckedTexture:SetInside()
+
+  local xOffset = 1
+  local yOffset = 1
+  checkboxCheckedTexture:SetPoint("TOPLEFT", checkbox, "TOPLEFT", xOffset, -yOffset)
+  checkboxCheckedTexture:SetPoint("BOTTOMRIGHT", checkbox, "BOTTOMRIGHT", -xOffset, yOffset)
 end
 
 function ApplyNormalTexture(checkbox)
   local checkBoxNormalTexture = checkbox:GetNormalTexture()
 
   checkBoxNormalTexture:SetVertexColor(Palette.RGB.WHITE.r, Palette.RGB.WHITE.g, Palette.RGB.WHITE.b, 0.1)
-  checkBoxNormalTexture:SetInside()
+  --checkBoxNormalTexture:SetInside()
+
+  local xOffset = 1
+  local yOffset = 1
+  checkBoxNormalTexture:SetPoint("TOPLEFT", checkbox, "TOPLEFT", xOffset, -yOffset)
+  checkBoxNormalTexture:SetPoint("BOTTOMRIGHT", checkbox, "BOTTOMRIGHT", -xOffset, yOffset)
 end
 
 function CreateCheckbox(labelText, parent, anchorPoint, relativePoint)
