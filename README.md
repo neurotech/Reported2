@@ -9,7 +9,6 @@ A rewrite of the original Reported! addon for World of Warcraft. Rewritten to wo
 - `/r2 toggle`
 - `/r2` - shows basic help text
 - Sound for clicking Report
-- Classic support
 
 ## Done
 
@@ -17,3 +16,4 @@ A rewrite of the original Reported! addon for World of Warcraft. Rewritten to wo
 - `/reported2`/`/r2` toggle
 - Play sound when swear detected
 - Random delay before SendChatMessage (random value between 3 to 5 seconds?)
+- Classic support

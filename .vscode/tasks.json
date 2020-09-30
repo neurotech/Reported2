@@ -6,7 +6,7 @@
     {
       "label": "dev",
       "type": "shell",
-      "command": "cp *.lua *.toc *.mp3 *.tga /d/games/World\\ of\\ Warcraft/_retail_/Interface/AddOns/Reported2/ && cp *.lua *.toc *.mp3 *.tga /d/games/World\\ of\\ Warcraft/_classic_/Interface/AddOns/Reported2/",
+      "command": "./dev.sh",
       "problemMatcher": [],
       "group": {
         "kind": "build",
