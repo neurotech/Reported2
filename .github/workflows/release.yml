@@ -3,39 +3,40 @@ name: "Tagged Release"
 on:
   push:
     tags:
-      - "v*"
+      - "*"
 
 jobs:
   tagged-release:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
       - uses: actions/checkout@v2
 
-      - run: mkdir -p Reported2
-
-      - run: cp *.lua *.toc *.mp3 *.tga ./Reported2/
-
+      - name: Set RELEASE_VERSION environment variable
       - run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
 
-      - name: Set interface version for Retail
-        uses: cschleiden/replace-tokens@v1
-        with:
-          files: '["**/*.toc"]'
-        env:
-          INTERFACE_VERSION: 80300
+      - name: Prepare files for automatic versioning
+      - run: mkdir -p Reported2
+      - run: touch Reported2-Retail.toc Reported2-Classic.toc
+
+      - name: Apply versions to TOC files
+      - run: sed -i "s/ADDON_VERSION/${{ env.RELEASE_VERSION }}/g" Reported2.toctemplate
+      - run: cat Reported2.toctemplate > Reported2-Retail.toc
+      - run: cat Reported2.toctemplate > Reported2-Classic.toc
+      - run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/retail)/g" Reported2-Retail.toc
+      - run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/classic)/g" Reported2-Classic.toc
+
+      - name: Prepare directory for zipping
+      - run: cp *.lua *.mp3 *.tga ./Reported2/
+      - run: cp Reported2-Retail.toc ./Reported2/Reported2.toc
 
       - name: Build Retail zip
         uses: edgarrc/action-7z@v1.0.4
         with:
           args: 7z a Reported2-${{ env.RELEASE_VERSION }}.zip ./Reported2/
 
-      - name: Set interface version for Retail
-        uses: cschleiden/replace-tokens@v1
-        with:
-          files: '["**/*.toc"]'
-        env:
-          INTERFACE_VERSION: 11305
+      - run: cp Reported2-Classic.toc ./Reported2/Reported2.toc
 
       - name: Build Classic zip
         uses: edgarrc/action-7z@v1.0.4
