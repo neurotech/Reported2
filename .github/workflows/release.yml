@@ -11,18 +11,17 @@ jobs:
 
     steps:
       - name: Checkout code and generate TOC files
-      - uses: actions/checkout@v2
-
-      - run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
-      - run: mkdir -p Reported2
-      - run: touch Reported2-Retail.toc Reported2-Classic.toc
-      - run: sed -i "s/ADDON_VERSION/${{ env.RELEASE_VERSION }}/g" Reported2.toctemplate
-      - run: cat Reported2.toctemplate > Reported2-Retail.toc
-      - run: cat Reported2.toctemplate > Reported2-Classic.toc
-      - run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/retail)/g" Reported2-Retail.toc
-      - run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/classic)/g" Reported2-Classic.toc
-      - run: cp *.lua *.mp3 *.tga ./Reported2/
-      - run: cp Reported2-Retail.toc ./Reported2/Reported2.toc
+        uses: actions/checkout@v2
+        run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
+        run: mkdir -p Reported2
+        run: touch Reported2-Retail.toc Reported2-Classic.toc
+        run: sed -i "s/ADDON_VERSION/${{ env.RELEASE_VERSION }}/g" Reported2.toctemplate
+        run: cat Reported2.toctemplate > Reported2-Retail.toc
+        run: cat Reported2.toctemplate > Reported2-Classic.toc
+        run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/retail)/g" Reported2-Retail.toc
+        run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/classic)/g" Reported2-Classic.toc
+        run: cp *.lua *.mp3 *.tga ./Reported2/
+        run: cp Reported2-Retail.toc ./Reported2/Reported2.toc
 
       - name: Build Retail zip
         uses: edgarrc/action-7z@v1.0.4
