@@ -9,28 +9,25 @@ UI.Sizes.CheckboxHeight = 20
 local normalTex = [[Interface\Addons\Reported2\KMT56]]
 local edgeTex = [[Interface\Buttons\WHITE8X8]]
 
+function SetTextureInside(parent, texture)
+  local xOffset = 1
+  local yOffset = 1
+  texture:SetPoint("TOPLEFT", parent, "TOPLEFT", xOffset, -yOffset)
+  texture:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -xOffset, yOffset)
+end
+
 function ApplyCheckedTexture(checkbox)
   local checkboxCheckedTexture = checkbox:GetCheckedTexture()
 
   checkboxCheckedTexture:SetVertexColor(Palette.RGB.TEAL.r, Palette.RGB.TEAL.g, Palette.RGB.TEAL.b, 1)
-  --checkboxCheckedTexture:SetInside()
-
-  local xOffset = 1
-  local yOffset = 1
-  checkboxCheckedTexture:SetPoint("TOPLEFT", checkbox, "TOPLEFT", xOffset, -yOffset)
-  checkboxCheckedTexture:SetPoint("BOTTOMRIGHT", checkbox, "BOTTOMRIGHT", -xOffset, yOffset)
+  SetTextureInside(checkbox, checkboxCheckedTexture)
 end
 
 function ApplyNormalTexture(checkbox)
   local checkBoxNormalTexture = checkbox:GetNormalTexture()
 
   checkBoxNormalTexture:SetVertexColor(Palette.RGB.WHITE.r, Palette.RGB.WHITE.g, Palette.RGB.WHITE.b, 0.1)
-  --checkBoxNormalTexture:SetInside()
-
-  local xOffset = 1
-  local yOffset = 1
-  checkBoxNormalTexture:SetPoint("TOPLEFT", checkbox, "TOPLEFT", xOffset, -yOffset)
-  checkBoxNormalTexture:SetPoint("BOTTOMRIGHT", checkbox, "BOTTOMRIGHT", -xOffset, yOffset)
+  SetTextureInside(checkbox, checkBoxNormalTexture)
 end
 
 function CreateCheckbox(labelText, parent, anchorPoint, relativePoint)
