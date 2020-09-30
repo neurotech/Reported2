@@ -76,4 +76,17 @@ function CreatePanel()
   end
 end
 
+function OpenConfigMenu()
+  -- https://wowwiki.fandom.com/wiki/Using_the_Interface_Options_Addons_panel
+  -- ------------------------------------------------------------------------
+  -- Note: Call this function twice (in a row), there is a bug in Blizzard's code which makes the first call
+  -- (after login or /reload) fail. It opens interface options but not on the addon's interface options;
+  -- instead it opens the default interface options.
+  -- If you call it twice in a row, it works as intended.
+
+  InterfaceOptionsFrame_OpenToCategory(configFrame.name)
+  InterfaceOptionsFrame_OpenToCategory(configFrame.name)
+end
+
 Config.CreatePanel = CreatePanel
+Config.OpenConfigMenu = OpenConfigMenu

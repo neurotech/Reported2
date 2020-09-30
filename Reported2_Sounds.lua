@@ -1,4 +1,4 @@
-sounds = {}
+Sounds = {}
 
 function PlaySwearDetectedSound()
   if not REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS] then
@@ -18,6 +18,6 @@ function PlaySkipSound()
   end
 end
 
-sounds.PlaySwearDetectedSound = PlaySwearDetectedSound
-sounds.PlayReportMadeSound = PlayReportMadeSound
-sounds.PlaySkipSound = PlaySkipSound
+Sounds.PlaySwearDetectedSound = PlaySwearDetectedSound
+Sounds.PlayReportMadeSound = PlayReportMadeSound
+Sounds.PlaySkipSound = PlaySkipSound

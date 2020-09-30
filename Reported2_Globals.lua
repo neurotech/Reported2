@@ -3,18 +3,22 @@ OFFENDERS = {}
 Palette = {}
 Palette.RGB = {}
 
+Language = {}
+
+Language.Skip = "x"
+
 SEAT_COUNT = 5
 PADDING = 10
 SEAT_HEIGHT = PADDING * 3
-PANEL_WIDTH = 430
-PANEL_HEIGHT = 40 + (SEAT_COUNT * SEAT_HEIGHT) + (SEAT_COUNT * PADDING)
+PANEL_WIDTH = 405
+PANEL_HEIGHT = 45 + (SEAT_COUNT * SEAT_HEIGHT) + (SEAT_COUNT * (PADDING / 2))
 SEAT_WIDTH = PANEL_WIDTH - (PADDING * 2)
-PLAYER_X_OFFSET = 0 + PADDING
+PLAYER_X_OFFSET = 0 + (PADDING / 2)
 CHANNEL_X_OFFSET = PLAYER_X_OFFSET + 100
 SWEAR_X_OFFSET = CHANNEL_X_OFFSET + 110
-ACTIONS_X_OFFSET = SWEAR_X_OFFSET + 70
+ACTIONS_X_OFFSET = SWEAR_X_OFFSET + 80
 DELAY_MIN = 2
-DELAY_MAX = 6
+DELAY_MAX = 4
 
 rand = math.random
 
@@ -22,23 +26,53 @@ Palette.START = "|cff"
 Palette.START_NO_ALPHA = "|c"
 Palette.END = "|r"
 
+-- ↓ #6B8BF5 ↓ --
 Palette.BLUE = "6B8BF5"
+
+-- ↓ #FFF569 ↓ --
 Palette.BRIGHT_YELLOW = "FFF569"
+
+-- ↓ #32333e ↓ --
 Palette.DARK_GREY = "32333e"
+
+-- ↓ #4D4E5F ↓ --
 Palette.GREY = "4D4E5F"
+
+-- ↓ #8A8CA8 ↓ --
 Palette.LIGHT_GREY = "8A8CA8"
+
+-- ↓ #B8C8F9 ↓ --
 Palette.PALE_BLUE = "B8C8F9"
+
+-- ↓ #FF66BA ↓ --
 Palette.PINK = "FF66BA"
+
+-- ↓ #FA1459 ↓ --
 Palette.RED = "FA1459"
+
+-- ↓ #FFB83C ↓ --
 Palette.RICH_YELLOW = "FFB83C"
+
+-- ↓ #00FF96 ↓ --
 Palette.TEAL = "00FF96"
+
+-- ↓ #ffffff ↓ --
 Palette.WHITE = "ffffff"
 
 Palette.RGB.BLACK = {r = 0, g = 0, b = 0}
 Palette.RGB.TEAL = {r = 0 / 255, g = 1, b = 150 / 255}
 Palette.RGB.WHITE = {r = 1, g = 1, b = 1}
 
+Palette.RGB.DARK_GREY = {r = 7 / 255, g = 7 / 255, b = 7 / 255}
+Palette.RGB.GREY = {r = 18 / 255, g = 18 / 255, b = 18 / 255}
+Palette.RGB.LIGHT_GREY = {r = 51 / 255, g = 51 / 255, b = 51 / 255}
+
 SLASH_REPORTEDTWO1 = "/r2"
+SLASH_REPORTEDTWO2 = "/reported2"
+
+BUTTON_BG_TEXTURE = [[Interface\Addons\Reported2\KMT56]]
+FLAT_BG_TEXTURE = [[Interface\Buttons\WHITE8X8]]
+EDGE_TEXTURE = [[Interface\Buttons\WHITE8X8]]
 
 REPORTED2_PREFS_SHOW_PANEL = "REPORTED2_SHOW_PANEL"
 REPORTED2_PREFS_MUTE_SOUNDS = "REPORTED2_MUTE_SOUNDS"

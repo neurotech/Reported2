@@ -6,9 +6,6 @@ UI.Sizes.Padding = 10
 UI.Sizes.CheckboxWidth = 20
 UI.Sizes.CheckboxHeight = 20
 
-local normalTex = [[Interface\Addons\Reported2\KMT56]]
-local edgeTex = [[Interface\Buttons\WHITE8X8]]
-
 function SetTextureInside(parent, texture)
   local xOffset = 1
   local yOffset = 1
@@ -42,14 +39,14 @@ function CreateCheckbox(labelText, parent, anchorPoint, relativePoint)
   checkbox:SetPoint("TOPLEFT", anchorPoint, relativePoint, 0, -UI.Sizes.Padding)
   checkbox:SetBackdrop(
     {
-      edgeFile = edgeTex,
+      edgeFile = EDGE_TEXTURE,
       edgeSize = 1
     }
   )
   checkbox:SetBackdropBorderColor(Palette.RGB.BLACK.r, Palette.RGB.BLACK.g, Palette.RGB.BLACK.b, 1)
 
-  checkbox:SetCheckedTexture(normalTex)
-  checkbox:SetNormalTexture(normalTex)
+  checkbox:SetCheckedTexture(BUTTON_BG_TEXTURE)
+  checkbox:SetNormalTexture(BUTTON_BG_TEXTURE)
   checkbox:SetHighlightTexture(nil)
   checkbox:SetPushedTexture(nil)
   checkbox:SetDisabledTexture(nil)

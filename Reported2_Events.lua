@@ -49,3 +49,42 @@ Events.Colours = {
   [CHAT_MSG_WHISPER] = "FF7EFF",
   [CHAT_MSG_YELL] = "FF3F40"
 }
+
+Events.Colours.RGB = {
+  [CHAT_MSG_CHANNEL] = {r = 232 / 255, g = 224 / 255, b = 121 / 255},
+  [CHAT_MSG_GUILD] = {r = 64 / 255, g = 251 / 255, b = 64 / 255},
+  [CHAT_MSG_OFFICER] = {r = 64 / 255, g = 189 / 255, b = 64 / 255},
+  [CHAT_MSG_PARTY_LEADER] = {r = 118 / 255, g = 197 / 255, b = 255 / 255},
+  [CHAT_MSG_PARTY] = {r = 170 / 255, g = 167 / 255, b = 255 / 255},
+  [CHAT_MSG_RAID_LEADER] = {r = 255 / 255, g = 71 / 255, b = 9 / 255},
+  [CHAT_MSG_RAID] = {r = 255 / 255, g = 125 / 255, b = 0 / 255},
+  [CHAT_MSG_SAY] = {r = 255 / 255, g = 255 / 255, b = 255 / 255},
+  [CHAT_MSG_WHISPER] = {r = 255 / 255, g = 126 / 255, b = 255 / 255},
+  [CHAT_MSG_YELL] = {r = 255 / 255, g = 63 / 255, b = 64 / 255}
+}
+
+Events.DarkColours = {
+  [CHAT_MSG_CHANNEL] = "464324",
+  [CHAT_MSG_GUILD] = "134b13",
+  [CHAT_MSG_OFFICER] = "133913",
+  [CHAT_MSG_PARTY_LEADER] = "233b4d",
+  [CHAT_MSG_PARTY] = "33324d",
+  [CHAT_MSG_RAID_LEADER] = "4d1503",
+  [CHAT_MSG_RAID] = "4d2600",
+  [CHAT_MSG_SAY] = "4d4d4d",
+  [CHAT_MSG_WHISPER] = "4d264d",
+  [CHAT_MSG_YELL] = "4d1313"
+}
+
+Events.DarkColours.RGB = {
+  [CHAT_MSG_CHANNEL] = {r = 70 / 255, g = 67 / 255, b = 36 / 255},
+  [CHAT_MSG_GUILD] = {r = 19 / 255, g = 75 / 255, b = 19 / 255},
+  [CHAT_MSG_OFFICER] = {r = 19 / 255, g = 57 / 255, b = 19 / 255},
+  [CHAT_MSG_PARTY_LEADER] = {r = 35 / 255, g = 59 / 255, b = 77 / 255},
+  [CHAT_MSG_PARTY] = {r = 51 / 255, g = 50 / 255, b = 77 / 255},
+  [CHAT_MSG_RAID_LEADER] = {r = 77 / 255, g = 21 / 255, b = 3 / 255},
+  [CHAT_MSG_RAID] = {r = 77 / 255, g = 38 / 255, b = 0 / 255},
+  [CHAT_MSG_SAY] = {r = 77 / 255, g = 77 / 255, b = 77 / 255},
+  [CHAT_MSG_WHISPER] = {r = 77 / 255, g = 38 / 255, b = 77 / 255},
+  [CHAT_MSG_YELL] = {r = 77 / 255, g = 19 / 255, b = 19 / 255}
+}

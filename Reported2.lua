@@ -1,17 +1,3 @@
-local rand = rand
-
-function GetReportedMessage(playerName)
-  local moduleKeys = Utilities.getTableKeys(Modules)
-  local randomModule = moduleKeys[rand(1, #moduleKeys)]
-  local line = rand(1, #Modules[randomModule])
-  local text = Modules[randomModule][line]
-  text = text:gsub("%%Pl", playerName)
-  text = text:gsub("%%PL", strupper(playerName))
-  text = text:gsub("%%pl", strlower(playerName))
-
-  return text, randomModule
-end
-
 function ResetSeat(index)
   local playerNameText = _G["SEAT_" .. index .. "PLAYER_NAME"]
   local channelText = _G["SEAT_" .. index .. "CHANNEL"]
@@ -21,31 +7,57 @@ function ResetSeat(index)
   local skipButton = _G["SEAT_" .. index .. "SKIP_BUTTON"]
   local skipButtonTitle = _G["SEAT_" .. index .. "SKIP_BUTTON_TEXT"]
 
-  Panel.SetWidgetText(playerNameText, "|cff" .. "4d4e5f" .. "Player" .. "|r")
-  Panel.SetWidgetText(channelText, "|cff" .. "4d4e5f" .. "Channel" .. "|r")
-  Panel.SetWidgetText(swearText, "|cff" .. "4d4e5f" .. "Swear" .. "|r")
+  Panel.SetWidgetText(playerNameText, Palette.START .. Palette.GREY .. "Player" .. Palette.END)
+  Panel.SetWidgetText(channelText, Palette.START .. Palette.GREY .. "Channel" .. Palette.END)
+  Panel.SetWidgetText(swearText, Palette.START .. Palette.GREY .. "Swear" .. Palette.END)
 
   Panel.DisableButton(reportButton)
-  Panel.SetWidgetText(reportButtonTitle, "|cff" .. "32333e" .. "Report" .. "|r")
+  Panel.SetWidgetText(reportButtonTitle, Palette.START .. Palette.DARK_GREY .. "Report" .. Palette.END)
 
   Panel.DisableButton(skipButton)
-  Panel.SetWidgetText(skipButtonTitle, "|cff" .. "32333e" .. "Skip" .. "|r")
+  Panel.SetWidgetText(skipButtonTitle, Palette.START .. Palette.DARK_GREY .. Language.Skip .. Palette.END)
+end
+
+function ResetAllSeats()
+  for index = 1, SEAT_COUNT do
+    ResetSeat(index)
+  end
 end
 
 function RenderOffenders()
   if REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] then
+    ResetAllSeats()
+
     for index = 1, SEAT_COUNT do
-      ResetSeat(index)
       table.sort(
         OFFENDERS,
         function(a, b)
           return not a
         end
       )
+
       local seat = _G["SEAT_" .. index]
+      seat:SetBackdropColor(0, 0, 0, 0.15)
+      seat:SetBackdropBorderColor(0, 0, 0, 0.15)
+
       local record = OFFENDERS[index]
+
       if record then
         local channel
+
+        seat:SetBackdropColor(
+          Events.DarkColours.RGB[record.event].r,
+          Events.DarkColours.RGB[record.event].g,
+          Events.DarkColours.RGB[record.event].b,
+          0.24
+        )
+        seat:SetBackdropBorderColor(
+          Events.DarkColours.RGB[record.event].r,
+          Events.DarkColours.RGB[record.event].g,
+          Events.DarkColours.RGB[record.event].b,
+          0.75
+        )
+
         local playerNameText = _G["SEAT_" .. index .. "PLAYER_NAME"]
         Panel.SetWidgetText(
           playerNameText,
@@ -65,14 +77,12 @@ function RenderOffenders()
         local swearText = _G["SEAT_" .. index .. "SWEAR"]
         Panel.SetWidgetText(swearText, Palette.START .. Palette.RED .. record.swear .. Palette.END)
 
-        local seat = _G["SEAT_" .. index]
-
         local reportButton = _G["SEAT_" .. index .. "REPORT_BUTTON"]
         reportButton:SetScript(
           "OnClick",
           function()
             local channelNumber
-            local reportedMessage, randomModule = GetReportedMessage(record.playerName)
+            local reportedMessage, randomModule = Utilities.GetRandomReportedMessage(record.playerName)
 
             print(Utilities.CreateReportNotification(record.playerName, randomModule, record.classColour.colorStr))
 
@@ -84,6 +94,7 @@ function RenderOffenders()
 
             SendChatMessage(reportedMessage, Events.Readable[record.event], nil, channelNumber)
             table.remove(OFFENDERS, index)
+            Sounds.PlayReportMadeSound()
 
             RenderOffenders()
           end
@@ -92,13 +103,25 @@ function RenderOffenders()
         reportButton:SetScript(
           "OnEnter",
           function(button)
-            button:SetBackdropBorderColor(0.31372549019, 0.46, 0.95294117647, 1)
+            button:SetBackdropColor(
+              Events.DarkColours.RGB[record.event].r,
+              Events.DarkColours.RGB[record.event].g,
+              Events.DarkColours.RGB[record.event].b,
+              0.33
+            )
+            button:SetBackdropBorderColor(
+              Events.Colours.RGB[record.event].r,
+              Events.Colours.RGB[record.event].g,
+              Events.Colours.RGB[record.event].b,
+              0.5
+            )
           end
         )
 
         reportButton:SetScript(
           "OnLeave",
           function(button)
+            button:SetBackdropColor(Palette.RGB.GREY.r, Palette.RGB.GREY.g, Palette.RGB.GREY.b, 1)
             button:SetBackdropBorderColor(0, 0, 0, 1)
           end
         )
@@ -114,11 +137,17 @@ function RenderOffenders()
             function()
               record.locked = false
               Panel.EnableButton(reportButton)
-              Panel.SetWidgetText(reportButtonTitle, Palette.START .. Palette.BLUE .. "Report" .. Palette.END)
+              Panel.SetWidgetText(
+                reportButtonTitle,
+                Palette.START .. Events.Colours[record.event] .. "Report" .. Palette.END
+              )
             end
           )
         else
-          Panel.SetWidgetText(reportButtonTitle, Palette.START .. Palette.BLUE .. "Report" .. Palette.END)
+          Panel.SetWidgetText(
+            reportButtonTitle,
+            Palette.START .. Events.Colours[record.event] .. "Report" .. Palette.END
+          )
           Panel.EnableButton(reportButton)
         end
 
@@ -127,6 +156,7 @@ function RenderOffenders()
           "OnClick",
           function()
             table.remove(OFFENDERS, index)
+            Sounds.PlaySkipSound()
             RenderOffenders()
           end
         )
@@ -134,32 +164,42 @@ function RenderOffenders()
         skipButton:SetScript(
           "OnEnter",
           function(button)
-            button:SetBackdropBorderColor(0.30196078431, 0.30588235294, 0.3725490196, 1)
+            button:SetBackdropBorderColor(
+              Events.Colours.RGB[record.event].r,
+              Events.Colours.RGB[record.event].g,
+              Events.Colours.RGB[record.event].b,
+              0.33
+            )
           end
         )
 
         skipButton:SetScript(
           "OnLeave",
           function(button)
-            button:SetBackdropBorderColor(0, 0, 0, 1)
+            skipButton:SetBackdropBorderColor(
+              Palette.RGB.DARK_GREY.r,
+              Palette.RGB.DARK_GREY.g,
+              Palette.RGB.DARK_GREY.b,
+              1
+            )
           end
         )
 
         local skipButtonTitle = _G["SEAT_" .. index .. "SKIP_BUTTON_TEXT"]
 
         if record.locked then
-          Panel.SetWidgetText(skipButtonTitle, Palette.START .. Palette.DARK_GREY .. "Wait" .. Palette.END)
+          Panel.SetWidgetText(skipButtonTitle, Palette.START .. Palette.DARK_GREY .. "-" .. Palette.END)
 
           C_Timer.After(
             delay,
             function()
               record.locked = false
               skipButton:Enable()
-              Panel.SetWidgetText(skipButtonTitle, Palette.START .. Palette.GREY .. "Skip" .. Palette.END)
+              Panel.SetWidgetText(skipButtonTitle, Palette.START .. Palette.GREY .. Language.Skip .. Palette.END)
             end
           )
         else
-          Panel.SetWidgetText(skipButtonTitle, Palette.START .. Palette.GREY .. "Skip" .. Palette.END)
+          Panel.SetWidgetText(skipButtonTitle, Palette.START .. Palette.GREY .. Language.Skip .. Palette.END)
           Panel.EnableButton(skipButton)
         end
       end
@@ -190,7 +230,8 @@ function Initialise()
         local channelIndex = select(8, ...)
         local guid = select(12, ...)
 
-        local isSelf = playerName == currentPlayer
+        -- local isSelf = playerName == currentPlayer
+        local isSelf = false
 
         local class
         if not guid or guid == "" then
@@ -207,7 +248,7 @@ function Initialise()
 
         local paddedMessage = " " .. strlower(message) .. " "
 
-        for _, swearString in ipairs(dictionary) do
+        for _, swearString in ipairs(Dictionary) do
           detectedWord = paddedMessage:match(swearString)
           lastWord = swearString
 
@@ -219,7 +260,7 @@ function Initialise()
         end
 
         if hasSwear and not isSelf then
-          sounds.PlaySwearDetectedSound()
+          Sounds.PlaySwearDetectedSound()
           if #OFFENDERS >= SEAT_COUNT then
             print("Waiting room is full!")
           else
@@ -286,10 +327,10 @@ Config.CreatePanel()
 function SlashCommandHandler(msg, editbox)
   if msg == "show" then
     SetPanelVisibility(true)
-  end
-
-  if msg == "hide" then
+  elseif msg == "hide" then
     SetPanelVisibility(false)
+  else
+    Config.OpenConfigMenu()
   end
 end
 
