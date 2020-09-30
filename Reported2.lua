@@ -82,9 +82,6 @@ function RenderOffenders()
               channelNumber = record.channelNumber
             end
 
-            print(Events.Readable[record.event])
-            print(channelNumber)
-
             SendChatMessage(reportedMessage, Events.Readable[record.event], nil, channelNumber)
             table.remove(OFFENDERS, index)
 
