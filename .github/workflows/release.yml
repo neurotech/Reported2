@@ -18,10 +18,24 @@ jobs:
 
       - run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
 
+      - name: Set interface version for Retail
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["**/*.toc"]'
+        env:
+          INTERFACE_VERSION: 80300
+
       - name: Build Retail zip
         uses: edgarrc/action-7z@v1.0.4
         with:
           args: 7z a Reported2-${{ env.RELEASE_VERSION }}.zip ./Reported2/
+
+      - name: Set interface version for Retail
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["**/*.toc"]'
+        env:
+          INTERFACE_VERSION: 11305
 
       - name: Build Classic zip
         uses: edgarrc/action-7z@v1.0.4

@@ -1,4 +1,4 @@
-## Interface: 80300
+## Interface: #{INTERFACE_VERSION}#
 ## Title : Reported! |cff6b8bf52|r
 ## Notes: Rewritten to work with Retail & Classic by neurotech#0659. All credit to |cff0070DESneep|r for the original.
 ## Author: Tim Douglas (neurotech#0659)
