@@ -1,8 +1,8 @@
-## Interface: #{INTERFACE_VERSION}#
+## Interface: INTERFACE_VERSION
 ## Title : Reported! |cff6b8bf52|r
 ## Notes: Rewritten to work with Retail & Classic by neurotech#0659. All credit to |cff0070DESneep|r for the original.
 ## Author: Tim Douglas (neurotech#0659)
-## Version: 1.0
+## Version: ADDON_VERSION
 ## SavedVariablesPerCharacter: REPORTED2_PREFS
 
 Reported2_Events.lua
