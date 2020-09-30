@@ -1,0 +1,17 @@
+{
+  "name": "reported2",
+  "version": "0.0.14",
+  "description": "A rewrite of the original Reported! addon for World of Warcraft. Rewritten to work with Retail & Classic by neurotech#0659. All credit to Sneep for the original.",
+  "main": "Reported2.lua",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neurotech/Reported2.git"
+  },
+  "scripts": {
+    "release:patch": "npm version patch && git push --follow-tags"
+  },
+  "author": "Tim Douglas",
+  "license": "MIT",
+  "homepage": "https://github.com/neurotech/Reported2#readme",
+  "private": true
+}
