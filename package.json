@@ -1,6 +1,6 @@
 {
   "name": "reported2",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A rewrite of the original Reported! addon for World of Warcraft. Rewritten to work with Retail & Classic by neurotech#0659. All credit to Sneep for the original.",
   "main": "Reported2.lua",
   "repository": {
