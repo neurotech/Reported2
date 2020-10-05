@@ -182,6 +182,9 @@ function CreateChannelCheckboxes(configFrame)
   local partyChannelText = Palette.START .. Events.Colours[CHAT_MSG_PARTY] .. "Party chat" .. Palette.END
   partyChannelCheckbox, partyChannelLabel = CreateCheckbox(partyChannelText, configFrame, partyLeaderChannelCheckbox)
 
+  local yellChannelText = Palette.START .. Events.Colours[CHAT_MSG_YELL] .. "Yell" .. Palette.END
+  yellChannelCheckbox, yellChannelLabel = CreateCheckbox(yellChannelText, configFrame, partyChannelCheckbox)
+
   -- Right Column
   local rightChannelColumn =
     CreateFrame(
@@ -203,13 +206,19 @@ function CreateChannelCheckboxes(configFrame)
   local sayChannelText = Palette.START .. Events.Colours[CHAT_MSG_SAY] .. "Say" .. Palette.END
   sayChannelCheckbox, sayChannelLabel = CreateCheckbox(sayChannelText, configFrame, raidChannelCheckbox)
 
+  local instanceLeaderChannelText =
+    Palette.START .. Events.Colours[CHAT_MSG_INSTANCE_CHAT_LEADER] .. "Instance leader" .. Palette.END
+  instanceLeaderChannelCheckbox, instanceLeaderChannelLabel =
+    CreateCheckbox(instanceLeaderChannelText, configFrame, sayChannelCheckbox)
+
+  local instanceChannelText = Palette.START .. Events.Colours[CHAT_MSG_INSTANCE_CHAT] .. "Instance chat" .. Palette.END
+  instanceChannelCheckbox, instanceChannelLabel =
+    CreateCheckbox(instanceChannelText, configFrame, instanceLeaderChannelCheckbox)
+
   local whisperChannelText = Palette.START .. Events.Colours[CHAT_MSG_WHISPER] .. "Whispers" .. Palette.END
-  whisperChannelCheckbox, whisperChannelLabel = CreateCheckbox(whisperChannelText, configFrame, sayChannelCheckbox)
+  whisperChannelCheckbox, whisperChannelLabel = CreateCheckbox(whisperChannelText, configFrame, instanceChannelCheckbox)
 
-  local yellChannelText = Palette.START .. Events.Colours[CHAT_MSG_YELL] .. "Yells" .. Palette.END
-  yellChannelCheckbox, yellChannelLabel = CreateCheckbox(yellChannelText, configFrame, whisperChannelCheckbox)
-
-  return globalChannelsCheckbox, guildChannelCheckbox, officerChannelCheckbox, partyLeaderChannelCheckbox, partyChannelCheckbox, raidLeaderChannelCheckbox, raidChannelCheckbox, sayChannelCheckbox, whisperChannelCheckbox, yellChannelCheckbox
+  return globalChannelsCheckbox, guildChannelCheckbox, officerChannelCheckbox, partyLeaderChannelCheckbox, partyChannelCheckbox, sayChannelCheckbox, yellChannelCheckbox, raidLeaderChannelCheckbox, raidChannelCheckbox, instanceLeaderChannelCheckbox, instanceChannelCheckbox, whisperChannelCheckbox
 end
 
 UI.Config.CreateCheckbox = CreateCheckbox

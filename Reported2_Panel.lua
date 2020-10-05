@@ -27,7 +27,7 @@ end
 function CreatePanelHeaderTextLeft()
   local headerTextLeft =
     Palette.START ..
-    Palette.PALE_BLUE .. "Reported" .. Palette.END .. Palette.START .. Palette.BLUE .. "!" .. Palette.END
+    Palette.BLUE .. "Reported" .. Palette.END .. Palette.START .. Palette.PALE_BLUE .. "!" .. Palette.END
   local panelHeaderTextLeft = panelBase:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   panelHeaderTextLeft:SetPoint("TOPLEFT", PADDING, -PADDING)
   panelHeaderTextLeft:SetText(headerTextLeft)
