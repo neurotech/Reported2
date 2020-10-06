@@ -225,8 +225,10 @@ function Initialise()
         local channelIndex = select(8, ...)
         local guid = select(12, ...)
 
-        -- local isSelf = playerName == currentPlayer
-        local isSelf = false
+        local isSelf = playerName == currentPlayer
+
+        -- DEBUG:
+        -- local isSelf = false
 
         local class
         if not guid or guid == "" then
