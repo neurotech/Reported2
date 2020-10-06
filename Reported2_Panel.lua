@@ -1,6 +1,6 @@
 Panel = {}
 
-local panelBase, playerNameText, channelText, swearText, reportButton, reportButtonTitle, skipButton, skipButtonTitle
+local panelBase, playerNameText, channelText, reportButton, reportButtonTitle, skipButton, skipButtonTitle
 
 function CreatePanelBase()
   panelBase = CreateFrame("Frame", "PANEL_BASE", UIParent, BackdropTemplateMixin and "BackdropTemplate")
@@ -35,7 +35,8 @@ end
 
 function CreatePanelHeaderTextRight()
   local headerTextRight = Palette.START .. Palette.RICH_YELLOW .. "Waiting Room" .. Palette.END
-  local panelHeaderTextRight = panelBase:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  local panelHeaderTextRight =
+    panelBase:CreateFontString("REPORTED2_PANEL_HEADER_TEXT_RIGHT", "OVERLAY", "GameFontNormal")
   panelHeaderTextRight:SetPoint("TOPRIGHT", -PADDING, -PADDING)
   panelHeaderTextRight:SetText(headerTextRight)
 end
@@ -83,10 +84,6 @@ function CreateSeat(index, offset)
   channelText = seat:CreateFontString("SEAT_" .. index .. "CHANNEL", "OVERLAY", "GameFontNormal")
   channelText:SetPoint("TOPLEFT", CHANNEL_X_OFFSET, -PADDING * 0.75)
   channelText:SetText(Palette.START .. Palette.GREY .. "Channel" .. Palette.END)
-
-  swearText = seat:CreateFontString("SEAT_" .. index .. "SWEAR", "OVERLAY", "GameFontNormal")
-  swearText:SetPoint("TOPLEFT", SWEAR_X_OFFSET, -PADDING * 0.75)
-  swearText:SetText(Palette.START .. Palette.GREY .. "Swear" .. Palette.END)
 
   reportButton = CreateFrame("Button", "SEAT_" .. index .. "REPORT_BUTTON", seat)
   reportButton:SetBackdrop(
@@ -186,6 +183,22 @@ function EnableButton(button)
   button:Enable()
 end
 
+function FlashHeaderTextRight()
+  local flashTime = 0.150
+  local headerTextRight = _G["REPORTED2_PANEL_HEADER_TEXT_RIGHT"]
+  local normalText = Palette.START .. Palette.RICH_YELLOW .. "Waiting Room" .. Palette.END
+  local flashedText = Palette.START .. Palette.BRIGHT_YELLOW .. "Waiting Room" .. Palette.END
+
+  headerTextRight:SetText(flashedText)
+
+  C_Timer.After(
+    flashTime,
+    function()
+      headerTextRight:SetText(normalText)
+    end
+  )
+end
+
 Panel.CreatePanel = CreatePanel
 Panel.AddOffender = AddOffender
 
@@ -195,3 +208,5 @@ Panel.HidePanel = HidePanel
 Panel.SetWidgetText = SetWidgetText
 Panel.DisableButton = DisableButton
 Panel.EnableButton = EnableButton
+
+Panel.FlashHeaderTextRight = FlashHeaderTextRight

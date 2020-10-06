@@ -1,7 +1,6 @@
 function ResetSeat(index)
   local playerNameText = _G["SEAT_" .. index .. "PLAYER_NAME"]
   local channelText = _G["SEAT_" .. index .. "CHANNEL"]
-  local swearText = _G["SEAT_" .. index .. "SWEAR"]
   local reportButton = _G["SEAT_" .. index .. "REPORT_BUTTON"]
   local reportButtonTitle = _G["SEAT_" .. index .. "REPORT_BUTTON_TEXT"]
   local skipButton = _G["SEAT_" .. index .. "SKIP_BUTTON"]
@@ -9,7 +8,6 @@ function ResetSeat(index)
 
   Panel.SetWidgetText(playerNameText, Palette.START .. Palette.GREY .. "Player" .. Palette.END)
   Panel.SetWidgetText(channelText, Palette.START .. Palette.GREY .. "Channel" .. Palette.END)
-  Panel.SetWidgetText(swearText, Palette.START .. Palette.GREY .. "Swear" .. Palette.END)
 
   Panel.DisableButton(reportButton)
   Panel.SetWidgetText(reportButtonTitle, Palette.START .. Palette.DARK_GREY .. "Report" .. Palette.END)
@@ -73,9 +71,6 @@ function RenderOffenders()
         local channelColour = Events.Colours[record.event]
         local channelText = _G["SEAT_" .. index .. "CHANNEL"]
         Panel.SetWidgetText(channelText, Palette.START .. channelColour .. channel .. Palette.END)
-
-        local swearText = _G["SEAT_" .. index .. "SWEAR"]
-        Panel.SetWidgetText(swearText, Palette.START .. Palette.RED .. record.swear .. Palette.END)
 
         local reportButton = _G["SEAT_" .. index .. "REPORT_BUTTON"]
         reportButton:SetScript(
@@ -261,6 +256,8 @@ function Initialise()
 
         if hasSwear and not isSelf then
           Sounds.PlaySwearDetectedSound()
+          Panel.FlashHeaderTextRight()
+
           if #OFFENDERS >= SEAT_COUNT then
             print("Waiting room is full!")
           else
