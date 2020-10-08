@@ -108,7 +108,8 @@ Modules["Achievements"] = {
 }
 
 Modules["Dad"] = {
-  ["Description"] = "[DAD] Dad mod: For dads. (dad) - Concept by Badfinger. Thanks to Mostly Talid and me",
+  ["Description"] = "[DAD] Dad mod: For dads. (dad)",
+  ["Credit"] = "Badfinger & Mostly Talid",
   "Whoa there slugger, one more out of you and no allowance this week.",
   "Don't let your mother catch you saying that.",
   "Easy killer, maybe it's time to think about private school.",
@@ -128,7 +129,7 @@ Modules["Dad"] = {
 
 Modules["Troll"] = {
   ["Description"] = "Trolling 101.",
-  ["Credit"] = "By Funholy and friends",
+  ["Credit"] = "Funholy and friends",
   "Hey %Pl, did you know that every time you swear your gearscore goes down?",
   "Hey %Pl, did you know that every time you swear your average item level goes down?",
   "Hey %Pl, did you know that every time you swear your raider.io score goes down?",
@@ -206,12 +207,12 @@ Modules["Rapture"] = {
   ["Credit"] = "Stubby",
   "Be careful, %Pl, you won't be raptured using language like that!",
   "Jesus said that what goes into a man's mouth does not defile him, but what comes out of it. He must have forseen %Pl's language!",
-  "There were 88 reasons the Rapture should have happened in 1988... there must be %c reasons why it will happen soon, and %Pl's language is one of them!",
+  "There were 88 reasons the Rapture should have happened in 1988... there must be countless reasons why it will happen soon, and %Pl's language is one of them!",
   "During the Great Tribulation, you and the other sinners can swear all you want, %Pl, but it's against the Blizzard TOS.",
   "We need to ban abortion, homosexual behavior, drugs, and words like the ones %Pl uses. It's written in the Bible!",
   "Only God knows the day and hour of the Rapture, and only Blizzard knows the day and hour of %Pl's Rapture (banning) from World of Warcraft!",
   "In the last days 144,000 unsaved virgins will come to Christ, %Pl. Are you one of those virgins?",
-  "The chances that evolution can happen are %c to 1. Good thing Blizzard intelligently designed the reporting system, so there is a 100% chance that %Pl will be banned.",
+  "The chances that evolution can happen are a million to 1. Good thing Blizzard intelligently designed the reporting system, so there is a 100% chance that %Pl will be banned.",
   "During the Great White Throne judgment, God will condemn people with filthy language like %Pl's to an eternity in a lake of fire, along with liberals and non-Christians."
 }
 
@@ -233,7 +234,7 @@ Modules["GamerCulture"] = {
 
 Modules["RP"] = {
   ["Description"] = "Shit all over lore to troll people on RP servers.",
-  ["Credit"] = "Made by Grooveh, Moon Guard goons, and Gentlemanne",
+  ["Credit"] = "Grooveh, Moon Guard goons, and Gentlemanne",
   "%Pl, swearing is against WoW canon. There is no swearing anywhere in the history of the World of Warcraft. Reported for breaking lore on an RP server and being offensive.",
   "%pl, the lich king was turned into ner'zhul because he swore too much, and you're right on that path mister.",
   "Prince Arthas Menethil tried to kill Illidan to save the world from evil, %Pl. Please don't swear, it's against what the prince was fighting for.",
@@ -303,7 +304,7 @@ Modules["RP"] = {
 }
 
 Modules["SJW"] = {
-  ["Description"] = "literally",
+  ["Description"] = "literally.",
   ["Credit"] = "neurotech",
   "I'm literally shaking right now after reading the toxic swear word that %Pl just said. Reported and CANCELLED %Pl.",
   "%Pl swearing just now is the literal opposite of being a decent human being. Losing all faith in humanity right now. Reported.",
@@ -314,7 +315,7 @@ Modules["SJW"] = {
 }
 
 Modules["Quran"] = {
-  ["Description"] = "Here we go.",
+  ["Description"] = "This one might be too strong.",
   ["Credit"] = "neurotech",
   "%Pl keep in mind the words of Imam Ali next time you swear: 'For every swear word you give, a scorpion is created in your grave.' Reported.",
   "The Prophet said: 'Do not swear by your fathers; and whoever wants to swear should swear by Allah.' %Pl has been reported accordingly.",

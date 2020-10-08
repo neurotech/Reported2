@@ -54,7 +54,20 @@ function GetRandomReportedMessage(playerName)
   return text, randomModule
 end
 
+function GetSortedModuleNames(modulesList)
+  local sortedModuleNames = {}
+
+  for moduleName in pairs(modulesList) do
+    table.insert(sortedModuleNames, moduleName)
+  end
+
+  table.sort(sortedModuleNames)
+
+  return sortedModuleNames
+end
+
 Utilities.CreateReportNotification = CreateReportNotification
 Utilities.GenerateContributorsString = GenerateContributorsString
 Utilities.GetTableKeys = GetTableKeys
 Utilities.GetRandomReportedMessage = GetRandomReportedMessage
+Utilities.GetSortedModuleNames = GetSortedModuleNames

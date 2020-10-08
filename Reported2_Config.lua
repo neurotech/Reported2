@@ -9,7 +9,8 @@ local configFrame,
   showWaitingRoomCheckbox,
   showWaitingRoomLabel,
   muteSoundsCheckbox,
-  muteSoundsLabel
+  muteSoundsLabel,
+  modulesFrame
 
 function UpdateConfigFrameValues()
   showWaitingRoomCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL])
@@ -26,6 +27,77 @@ function UpdateConfigFrameValues()
   sayChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_SAY])
   whisperChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_WHISPER])
   yellChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_YELL])
+end
+
+function CreateModulesPanel()
+  modulesFrame = UI.Config.CreateModulesFrame(configFrame)
+  UI.Config.CreateTitleLabel(modulesFrame)
+  UI.Config.CreateVersionLabel(modulesFrame, titleLabel)
+  UI.Config.CreateContributorsLabel(modulesFrame)
+  local separator = UI.Config.CreateSeparator(modulesFrame)
+  local modulesLabel = UI.Config.CreateOptionsLabel("Modules", modulesFrame, separator)
+
+  local scrollFrame =
+    CreateFrame("ScrollFrame", "InGameTest", modulesFrame, BackdropTemplateMixin and "BackdropTemplate")
+  scrollFrame:SetPoint("TOPLEFT", modulesLabel, 0, -modulesLabel:GetHeight() * 1.5)
+  scrollFrame:SetSize(
+    InterfaceOptionsFramePanelContainer:GetWidth() - UI.Sizes.Padding * 2,
+    InterfaceOptionsFramePanelContainer:GetHeight() - UI.Sizes.Padding * 12
+  )
+  scrollFrame:SetBackdrop(
+    {
+      bgFile = FLAT_BG_TEXTURE,
+      edgeFile = EDGE_TEXTURE,
+      edgeSize = 1
+    }
+  )
+  scrollFrame:SetBackdropColor(0, 0, 0, 0.3)
+  scrollFrame:SetBackdropBorderColor(0, 0, 0, 1)
+
+  scrollFrame:EnableMouseWheel(true)
+  scrollFrame:SetScript(
+    "OnMouseWheel",
+    function(self, delta)
+      local newValue = self:GetVerticalScroll() - (delta * 20)
+
+      if (newValue < 0) then
+        newValue = 0
+      elseif (newValue > self:GetVerticalScrollRange()) then
+        newValue = self:GetVerticalScrollRange()
+      end
+
+      self:SetVerticalScroll(newValue)
+    end
+  )
+
+  local scrollChild = CreateFrame("Frame", nil, scrollFrame)
+  scrollChild:SetPoint("TOPLEFT")
+  scrollChild:SetSize(scrollFrame:GetWidth(), 480)
+
+  scrollFrame:SetScrollChild(scrollChild)
+
+  local offset = UI.Sizes.Padding
+  local sortedModules = Utilities.GetSortedModuleNames(Modules)
+
+  for i, moduleName in ipairs(sortedModules) do
+    local moduleContent = Modules[moduleName]
+    local moduleNameText = moduleName
+    local moduleCreditText = moduleContent["Credit"]
+    local moduleDescriptionText = moduleContent["Description"]
+    local isLastModule = i == #sortedModules
+
+    local moduleCheckboxAndLabelFrame, moduleCheckbox, moduleLabel =
+      UI.Config.CreateModuleCheckboxAndLabel(
+      moduleNameText,
+      moduleCreditText,
+      moduleDescriptionText,
+      scrollChild,
+      offset,
+      isLastModule
+    )
+
+    offset = offset + moduleCheckboxAndLabelFrame:GetHeight() + UI.Sizes.Padding * 1.5
+  end
 end
 
 function CreatePanel()
@@ -54,6 +126,8 @@ function CreatePanel()
 
   -- Channels
   UI.Config.CreateChannelCheckboxes(configFrame)
+
+  CreateModulesPanel()
 
   -- Config Frame - Form actions
   configFrame:SetScript("OnShow", UpdateConfigFrameValues)

@@ -3,8 +3,8 @@ UI.Config = {}
 UI.Sizes = {}
 
 UI.Sizes.Padding = 10
-UI.Sizes.CheckboxWidth = 20
-UI.Sizes.CheckboxHeight = 20
+UI.Sizes.CheckboxWidth = 16
+UI.Sizes.CheckboxHeight = 16
 
 function SetTextureInside(parent, texture)
   local xOffset = 1
@@ -58,6 +58,60 @@ function CreateCheckbox(labelText, parent, anchorPoint, relativePoint)
   label:SetText(labelText)
 
   return checkbox, label
+end
+
+function CreateModuleCheckboxAndLabel(moduleName, moduleCredit, moduleDescription, parent, vOffset, isLastModule)
+  local moduleCheckboxAndLabelFrame = CreateFrame("Frame", "FUCK", parent)
+  moduleCheckboxAndLabelFrame:SetPoint("TOPLEFT")
+
+  local checkbox = CreateFrame("CheckButton", nil, moduleCheckboxAndLabelFrame, "InterfaceOptionsCheckButtonTemplate")
+  local nameAndCreditLabel = moduleCheckboxAndLabelFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+  local descriptionLabel = moduleCheckboxAndLabelFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+
+  local nameAndCreditText = moduleName
+
+  if (moduleCredit) then
+    nameAndCreditText = nameAndCreditText .. " by " .. moduleCredit
+  end
+
+  checkbox:SetSize(UI.Sizes.CheckboxWidth, UI.Sizes.CheckboxHeight)
+  checkbox:SetPoint("TOPLEFT", UI.Sizes.Padding, -vOffset)
+  checkbox:SetBackdrop(
+    {
+      edgeFile = EDGE_TEXTURE,
+      edgeSize = 1
+    }
+  )
+  checkbox:SetBackdropBorderColor(Palette.RGB.BLACK.r, Palette.RGB.BLACK.g, Palette.RGB.BLACK.b, 1)
+
+  checkbox:SetCheckedTexture(BUTTON_BG_TEXTURE)
+  checkbox:SetNormalTexture(BUTTON_BG_TEXTURE)
+  checkbox:SetHighlightTexture(nil)
+  checkbox:SetPushedTexture(nil)
+  checkbox:SetDisabledTexture(nil)
+
+  ApplyNormalTexture(checkbox)
+  ApplyCheckedTexture(checkbox)
+
+  nameAndCreditLabel:SetWordWrap(true)
+  nameAndCreditLabel:SetPoint("LEFT", checkbox, "RIGHT", UI.Sizes.Padding, 0)
+  nameAndCreditLabel:SetText(nameAndCreditText)
+  nameAndCreditLabel:SetWidth(parent:GetWidth())
+  nameAndCreditLabel:SetJustifyH("LEFT")
+
+  descriptionLabel:SetPoint("LEFT", checkbox, "RIGHT", UI.Sizes.Padding, -UI.Sizes.Padding * 2)
+  descriptionLabel:SetText(moduleDescription)
+  descriptionLabel:SetWidth(parent:GetWidth() - 100)
+  descriptionLabel:SetWordWrap(true)
+  descriptionLabel:SetJustifyH("LEFT")
+
+  moduleCheckboxAndLabelFrame:SetSize(parent:GetWidth(), checkbox:GetHeight() + (UI.Sizes.Padding * 2))
+
+  if isLastModule then
+    descriptionLabel:SetHeight(descriptionLabel:GetHeight() + UI.Sizes.Padding * 2)
+  end
+
+  return moduleCheckboxAndLabelFrame, checkbox, nameLabel, offset
 end
 
 function CreateConfigFrame()
@@ -221,7 +275,23 @@ function CreateChannelCheckboxes(configFrame)
   return globalChannelsCheckbox, guildChannelCheckbox, officerChannelCheckbox, partyLeaderChannelCheckbox, partyChannelCheckbox, sayChannelCheckbox, yellChannelCheckbox, raidLeaderChannelCheckbox, raidChannelCheckbox, instanceLeaderChannelCheckbox, instanceChannelCheckbox, whisperChannelCheckbox
 end
 
+function CreateModulesFrame(configFrame)
+  local modulesFrame =
+    CreateFrame(
+    "Frame",
+    "Reported2ConfigFrame_Modules",
+    InterfaceOptionsFramePanelContainer,
+    BackdropTemplateMixin and "BackdropTemplate"
+  )
+  modulesFrame.name = "Modules"
+  modulesFrame.parent = configFrame.name
+  InterfaceOptions_AddCategory(modulesFrame)
+
+  return modulesFrame
+end
+
 UI.Config.CreateCheckbox = CreateCheckbox
+UI.Config.CreateModuleCheckboxAndLabel = CreateModuleCheckboxAndLabel
 
 UI.Config.CreateConfigFrame = CreateConfigFrame
 UI.Config.CreateTitleLabel = CreateTitleLabel
@@ -231,3 +301,4 @@ UI.Config.CreateSeparator = CreateSeparator
 UI.Config.CreateOptionsLabel = CreateOptionsLabel
 UI.Config.CreateOptionsSubLabel = CreateOptionsSubLabel
 UI.Config.CreateChannelCheckboxes = CreateChannelCheckboxes
+UI.Config.CreateModulesFrame = CreateModulesFrame

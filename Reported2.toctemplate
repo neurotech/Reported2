@@ -7,10 +7,10 @@
 
 Reported2_Events.lua
 Reported2_Globals.lua
+Reported2_Modules.lua
 Reported2_Utilities.lua
 Reported2_Sounds.lua
 Reported2_Dictionary.lua
-Reported2_Modules.lua
 Reported2_UI.lua
 Reported2_Config.lua
 Reported2_Panel.lua
