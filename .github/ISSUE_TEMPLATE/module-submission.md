@@ -1,21 +1,35 @@
 ---
 name: Module Submission
-about: Describe this issue template's purpose here.
+about: Use this template to submit a module.
 title: Module Submission - MODULE_NAME_HERE
 labels: module submission
 assignees: neurotech
 
 ---
 
+**Module Name:** 
+
+**Module Credit:** 
+
+**Module Description:** 
+
+**Module Items:**
+
+```
+Module items here
+```
+
+---
+
 `Reported! 2` requires the following pieces of information for a module:
 
-Module Name: The name of the module as it will appear in the Interface options - for example: "Shakespeare".
+**Module Name:** The name of the module as it will appear in the Interface options - for example: "Shakespeare".
 
-Module Credit: The name of the person/people who wrote the module - for example: "Kerbtree".
+**Module Credit:** The name of the person/people who wrote the module - for example: "Kerbtree".
 
-Module Description: A succinct description of the theme/tone of the module.
+**Module Description:** A succinct description of the theme/tone of the module.
 
-Module Items
+**Module Items**
 
 A list of the phrases that `Reported! 2` will randomly pull from. For example:
 
@@ -28,17 +42,3 @@ There are three "codes" for substituting the player's name in a module item. Usi
 `%pl` - will return `playername`
 `%Pl` - will return `Playername`
 `%PL` - will return `PLAYERNAME`
-
----
-
-Module Name: 
-
-Module Credit: 
-
-Module Description: 
-
-Module Items:
-
-```
-Module items here
-```
