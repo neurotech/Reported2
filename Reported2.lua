@@ -301,16 +301,23 @@ addonLoaded:SetScript(
   function(self, event, arg1)
     if event == "ADDON_LOADED" and arg1 == "Reported2" then
       if REPORTED2_PREFS == nil then
+        -- Seed preferences with defaults
         REPORTED2_PREFS = {}
         for key, value in pairs(REPORTED2_DEFAULT_PREFS) do
           REPORTED2_PREFS[key] = value
         end
       else
-        -- ?
+        -- Update prefs with any missing keys
+        for key, value in pairs(REPORTED2_DEFAULT_PREFS) do
+          if REPORTED2_PREFS[key] == nil then
+            REPORTED2_PREFS[key] = value
+          end
+        end
       end
 
       Initialise()
       Panel.CreatePanel()
+      Config.CreatePanel()
       RenderOffenders()
       SetPanelVisibility(REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL])
 
@@ -320,8 +327,6 @@ addonLoaded:SetScript(
     end
   end
 )
-
-Config.CreatePanel()
 
 function SlashCommandHandler(msg, editbox)
   if msg == "show" then

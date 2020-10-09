@@ -27,6 +27,16 @@ function UpdateConfigFrameValues()
   sayChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_SAY])
   whisperChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_WHISPER])
   yellChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_YELL])
+
+  for index, moduleName in ipairs(REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES]) do
+    local checkbox = _G["MODULE_CHECKBOX_" .. string.upper(moduleName)]
+    checkbox:SetChecked(true)
+  end
+
+  for index, moduleName in ipairs(REPORTED2_PREFS[REPORTED2_PREFS_DISABLED_MODULES]) do
+    local checkbox = _G["MODULE_CHECKBOX_" .. string.upper(moduleName)]
+    checkbox:SetChecked(false)
+  end
 end
 
 function CreateModulesPanel()
@@ -67,6 +77,7 @@ function CreateModulesPanel()
       end
 
       self:SetVerticalScroll(newValue)
+      modulesFrame.scrollbar:SetValue(newValue)
     end
   )
 
@@ -76,15 +87,52 @@ function CreateModulesPanel()
 
   scrollFrame:SetScrollChild(scrollChild)
 
+  local scrollBar = CreateFrame("Slider", nil, scrollFrame)
+  scrollBar:SetFrameLevel(4)
+  scrollBar:SetPoint("TOPLEFT", scrollFrame, "TOPRIGHT", -(UI.Sizes.Padding * 1.5), 0)
+  scrollBar:SetPoint("BOTTOMLEFT", scrollFrame, "BOTTOMRIGHT", UI.Sizes.Padding * 0.5, 0)
+  scrollBar:SetMinMaxValues(1, InterfaceOptionsFramePanelContainer:GetHeight())
+  scrollBar:SetValueStep(1)
+  scrollBar.scrollStep = 1
+  scrollBar:SetValue(0)
+  scrollBar:SetWidth(UI.Sizes.Padding * 1.5)
+  scrollBar:SetScript(
+    "OnValueChanged",
+    function(self, value)
+      self:GetParent():SetVerticalScroll(value)
+    end
+  )
+  local scrollbg =
+    CreateFrame("Frame", "MODULES_FRAME_SCROLLBAR_BG", scrollBar, BackdropTemplateMixin and "BackdropTemplate")
+  scrollbg:SetFrameLevel(3)
+  scrollbg:SetAllPoints(scrollBar)
+  scrollbg:SetBackdrop(
+    {
+      bgFile = FLAT_BG_TEXTURE,
+      edgeFile = EDGE_TEXTURE,
+      edgeSize = 1
+    }
+  )
+  scrollbg:SetBackdropBorderColor(Palette.RGB.BLACK.r, Palette.RGB.BLACK.g, Palette.RGB.BLACK.b, 1)
+  scrollbg:SetBackdropColor(0, 0, 0, 0.45)
+
+  scrollBar:SetThumbTexture(BUTTON_BG_TEXTURE)
+  local thumbTexture = scrollBar:GetThumbTexture()
+  thumbTexture:SetVertexColor(Palette.RGB.TEAL.r, Palette.RGB.TEAL.g, Palette.RGB.TEAL.b, 1)
+  thumbTexture:SetWidth(scrollBar:GetWidth() - 2)
+  thumbTexture:SetHeight(UI.Sizes.Padding * 2)
+
+  modulesFrame.scrollbar = scrollBar
+
   local offset = UI.Sizes.Padding
   local sortedModules = Utilities.GetSortedModuleNames(Modules)
 
-  for i, moduleName in ipairs(sortedModules) do
+  for index, moduleName in ipairs(sortedModules) do
     local moduleContent = Modules[moduleName]
     local moduleNameText = moduleName
     local moduleCreditText = moduleContent["Credit"]
     local moduleDescriptionText = moduleContent["Description"]
-    local isLastModule = i == #sortedModules
+    local isLastModule = index == #sortedModules
 
     local moduleCheckboxAndLabelFrame, moduleCheckbox, moduleLabel =
       UI.Config.CreateModuleCheckboxAndLabel(
@@ -98,6 +146,106 @@ function CreateModulesPanel()
 
     offset = offset + moduleCheckboxAndLabelFrame:GetHeight() + UI.Sizes.Padding * 1.5
   end
+
+  local enableAllButton = CreateFrame("BUTTON", nil, scrollFrame)
+  enableAllButton:SetBackdrop(
+    {
+      bgFile = BUTTON_BG_TEXTURE,
+      edgeFile = EDGE_TEXTURE,
+      edgeSize = 1
+    }
+  )
+
+  enableAllButton:SetSize(80, 30)
+  enableAllButton:SetPoint(
+    "BOTTOMRIGHT",
+    -(enableAllButton:GetWidth() + UI.Sizes.Padding),
+    -(enableAllButton:GetHeight() + UI.Sizes.Padding)
+  )
+  enableAllButton:SetBackdropColor(Palette.RGB.GREY.r, Palette.RGB.GREY.g, Palette.RGB.GREY.b, 1)
+  enableAllButton:SetBackdropBorderColor(Palette.RGB.DARK_GREY.r, Palette.RGB.DARK_GREY.g, Palette.RGB.DARK_GREY.b, 1)
+
+  local enableAllButtonText = enableAllButton:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  enableAllButtonText:SetPoint("CENTER", enableAllButton, "CENTER")
+  enableAllButtonText:SetText(Palette.START .. Palette.TEAL .. "Enable all" .. Palette.END)
+
+  local disableAllButton = CreateFrame("BUTTON", nil, scrollFrame)
+  disableAllButton:SetBackdrop(
+    {
+      bgFile = BUTTON_BG_TEXTURE,
+      edgeFile = EDGE_TEXTURE,
+      edgeSize = 1
+    }
+  )
+
+  disableAllButton:SetSize(80, 30)
+  disableAllButton:SetPoint("BOTTOMRIGHT", 0, -(disableAllButton:GetHeight() + UI.Sizes.Padding))
+  disableAllButton:SetBackdropColor(Palette.RGB.GREY.r, Palette.RGB.GREY.g, Palette.RGB.GREY.b, 1)
+  disableAllButton:SetBackdropBorderColor(Palette.RGB.DARK_GREY.r, Palette.RGB.DARK_GREY.g, Palette.RGB.DARK_GREY.b, 1)
+
+  local disableAllButtonText = disableAllButton:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  disableAllButtonText:SetPoint("CENTER", disableAllButton, "CENTER")
+  disableAllButtonText:SetText(Palette.START .. Palette.RED .. "Disable all" .. Palette.END)
+
+  enableAllButton:SetScript(
+    "OnClick",
+    function()
+      local sortedModules = Utilities.GetSortedModuleNames(Modules)
+      for index, moduleName in ipairs(sortedModules) do
+        local checkbox = _G["MODULE_CHECKBOX_" .. string.upper(moduleName)]
+        checkbox:SetChecked(true)
+      end
+    end
+  )
+  enableAllButton:SetScript(
+    "OnEnter",
+    function()
+      enableAllButtonText:SetText(Palette.START .. Palette.WHITE .. "Enable all" .. Palette.END)
+      enableAllButton:SetBackdropBorderColor(Palette.RGB.TEAL.r, Palette.RGB.TEAL.g, Palette.RGB.TEAL.b, 1)
+    end
+  )
+  enableAllButton:SetScript(
+    "OnLeave",
+    function()
+      enableAllButtonText:SetText(Palette.START .. Palette.TEAL .. "Enable all" .. Palette.END)
+      enableAllButton:SetBackdropBorderColor(
+        Palette.RGB.DARK_GREY.r,
+        Palette.RGB.DARK_GREY.g,
+        Palette.RGB.DARK_GREY.b,
+        1
+      )
+    end
+  )
+
+  disableAllButton:SetScript(
+    "OnClick",
+    function()
+      local sortedModules = Utilities.GetSortedModuleNames(Modules)
+      for index, moduleName in ipairs(sortedModules) do
+        local checkbox = _G["MODULE_CHECKBOX_" .. string.upper(moduleName)]
+        checkbox:SetChecked(false)
+      end
+    end
+  )
+  disableAllButton:SetScript(
+    "OnEnter",
+    function()
+      disableAllButtonText:SetText(Palette.START .. Palette.WHITE .. "Disable all" .. Palette.END)
+      disableAllButton:SetBackdropBorderColor(Palette.RGB.RED.r, Palette.RGB.RED.g, Palette.RGB.RED.b, 1)
+    end
+  )
+  disableAllButton:SetScript(
+    "OnLeave",
+    function()
+      disableAllButtonText:SetText(Palette.START .. Palette.RED .. "Disable all" .. Palette.END)
+      disableAllButton:SetBackdropBorderColor(
+        Palette.RGB.DARK_GREY.r,
+        Palette.RGB.DARK_GREY.g,
+        Palette.RGB.DARK_GREY.b,
+        1
+      )
+    end
+  )
 end
 
 function CreatePanel()
@@ -148,6 +296,34 @@ function CreatePanel()
     REPORTED2_PREFS[CHAT_MSG_SAY] = sayChannelCheckbox:GetChecked()
     REPORTED2_PREFS[CHAT_MSG_WHISPER] = whisperChannelCheckbox:GetChecked()
     REPORTED2_PREFS[CHAT_MSG_YELL] = yellChannelCheckbox:GetChecked()
+
+    REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES] = {}
+    REPORTED2_PREFS[REPORTED2_PREFS_DISABLED_MODULES] = {}
+
+    local sortedModules = Utilities.GetSortedModuleNames(Modules)
+
+    for index, moduleName in ipairs(sortedModules) do
+      local checkbox = _G["MODULE_CHECKBOX_" .. string.upper(moduleName)]
+      local isChecked = checkbox:GetChecked()
+
+      if isChecked then
+        table.insert(REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES], moduleName)
+      else
+        table.insert(REPORTED2_PREFS[REPORTED2_PREFS_DISABLED_MODULES], moduleName)
+      end
+    end
+
+    if #REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES] == 0 then
+      local indexOfDefaultModule
+      for index, value in pairs(REPORTED2_PREFS[REPORTED2_PREFS_DISABLED_MODULES]) do
+        if value == "Default" then
+          indexOfDefaultModule = index
+        end
+      end
+
+      table.remove(REPORTED2_PREFS[REPORTED2_PREFS_DISABLED_MODULES], indexOfDefaultModule)
+      table.insert(REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES], "Default")
+    end
 
     RenderOffenders()
   end

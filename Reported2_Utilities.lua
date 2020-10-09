@@ -43,8 +43,8 @@ function GetTableKeys(tab)
 end
 
 function GetRandomReportedMessage(playerName)
-  local moduleKeys = GetTableKeys(Modules)
-  local randomModule = moduleKeys[rand(1, #moduleKeys)]
+  local enabledModules = REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES]
+  local randomModule = enabledModules[rand(1, #enabledModules)]
   local line = rand(1, #Modules[randomModule])
   local text = Modules[randomModule][line]
   text = text:gsub("%%Pl", playerName)

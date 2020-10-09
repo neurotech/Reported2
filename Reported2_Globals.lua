@@ -46,6 +46,9 @@ Palette.PALE_BLUE = "B8C8F9"
 -- ↓ #FF66BA ↓ --
 Palette.PINK = "FF66BA"
 
+-- ↓ #9560FF ↓ --
+Palette.PURPLE = "9560FF"
+
 -- ↓ #FA1459 ↓ --
 Palette.RED = "FA1459"
 
@@ -59,6 +62,7 @@ Palette.TEAL = "00FF96"
 Palette.WHITE = "ffffff"
 
 Palette.RGB.BLACK = {r = 0, g = 0, b = 0}
+Palette.RGB.RED = {r = 250 / 255, g = 20 / 255, b = 89 / 255}
 Palette.RGB.TEAL = {r = 0 / 255, g = 1, b = 150 / 255}
 Palette.RGB.WHITE = {r = 1, g = 1, b = 1}
 
@@ -75,10 +79,14 @@ EDGE_TEXTURE = [[Interface\Buttons\WHITE8X8]]
 
 REPORTED2_PREFS_SHOW_PANEL = "REPORTED2_SHOW_PANEL"
 REPORTED2_PREFS_MUTE_SOUNDS = "REPORTED2_MUTE_SOUNDS"
+REPORTED2_PREFS_ENABLED_MODULES = "REPORTED2_PREFS_ENABLED_MODULES"
+REPORTED2_PREFS_DISABLED_MODULES = "REPORTED2_PREFS_DISABLED_MODULES"
 
 REPORTED2_DEFAULT_PREFS = {
   [REPORTED2_PREFS_SHOW_PANEL] = true,
   [REPORTED2_PREFS_MUTE_SOUNDS] = false,
+  [REPORTED2_PREFS_ENABLED_MODULES] = {},
+  [REPORTED2_PREFS_DISABLED_MODULES] = {},
   [CHAT_MSG_CHANNEL] = true,
   [CHAT_MSG_GUILD] = false,
   [CHAT_MSG_OFFICER] = false,
@@ -90,3 +98,9 @@ REPORTED2_DEFAULT_PREFS = {
   [CHAT_MSG_WHISPER] = true,
   [CHAT_MSG_YELL] = true
 }
+
+local sortedModules = Utilities.GetSortedModuleNames(Modules)
+
+for index, moduleName in ipairs(sortedModules) do
+  table.insert(REPORTED2_DEFAULT_PREFS[REPORTED2_PREFS_ENABLED_MODULES], moduleName)
+end

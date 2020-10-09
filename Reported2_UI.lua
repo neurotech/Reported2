@@ -61,21 +61,38 @@ function CreateCheckbox(labelText, parent, anchorPoint, relativePoint)
 end
 
 function CreateModuleCheckboxAndLabel(moduleName, moduleCredit, moduleDescription, parent, vOffset, isLastModule)
-  local moduleCheckboxAndLabelFrame = CreateFrame("Frame", "FUCK", parent)
-  moduleCheckboxAndLabelFrame:SetPoint("TOPLEFT")
+  local moduleCheckboxAndLabelFrame =
+    CreateFrame(
+    "Frame",
+    "MODULE_FRAME_" .. string.upper(moduleName),
+    parent,
+    BackdropTemplateMixin and "BackdropTemplate"
+  )
+  moduleCheckboxAndLabelFrame:SetPoint("TOPLEFT", 0, -vOffset)
 
-  local checkbox = CreateFrame("CheckButton", nil, moduleCheckboxAndLabelFrame, "InterfaceOptionsCheckButtonTemplate")
+  local checkbox =
+    CreateFrame(
+    "CheckButton",
+    "MODULE_CHECKBOX_" .. string.upper(moduleName),
+    moduleCheckboxAndLabelFrame,
+    "InterfaceOptionsCheckButtonTemplate"
+  )
   local nameAndCreditLabel = moduleCheckboxAndLabelFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
   local descriptionLabel = moduleCheckboxAndLabelFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 
-  local nameAndCreditText = moduleName
+  local nameAndCreditText = Palette.START .. Palette.PURPLE .. moduleName .. Palette.END
 
   if (moduleCredit) then
-    nameAndCreditText = nameAndCreditText .. " by " .. moduleCredit
+    nameAndCreditText =
+      nameAndCreditText ..
+      Palette.START ..
+        Palette.LIGHT_GREY .. " by " .. Palette.START .. Palette.BRIGHT_YELLOW .. moduleCredit .. Palette.END
   end
 
+  local descriptionText = Palette.START .. Palette.WHITE .. moduleDescription .. Palette.END
+
   checkbox:SetSize(UI.Sizes.CheckboxWidth, UI.Sizes.CheckboxHeight)
-  checkbox:SetPoint("TOPLEFT", UI.Sizes.Padding, -vOffset)
+  checkbox:SetPoint("TOPLEFT", UI.Sizes.Padding, 0)
   checkbox:SetBackdrop(
     {
       edgeFile = EDGE_TEXTURE,
@@ -100,7 +117,7 @@ function CreateModuleCheckboxAndLabel(moduleName, moduleCredit, moduleDescriptio
   nameAndCreditLabel:SetJustifyH("LEFT")
 
   descriptionLabel:SetPoint("LEFT", checkbox, "RIGHT", UI.Sizes.Padding, -UI.Sizes.Padding * 2)
-  descriptionLabel:SetText(moduleDescription)
+  descriptionLabel:SetText(descriptionText)
   descriptionLabel:SetWidth(parent:GetWidth() - 100)
   descriptionLabel:SetWordWrap(true)
   descriptionLabel:SetJustifyH("LEFT")
