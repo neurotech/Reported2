@@ -291,7 +291,27 @@ addonLoaded:SetScript(
 
       addonLoaded:UnregisterEvent("ADDON_LOADED")
     elseif event == "PLAYER_LOGOUT" then
-    -- ?
+    -- --
+    end
+  end
+)
+
+local combatListener = CreateFrame("Frame")
+combatListener:RegisterEvent("PLAYER_REGEN_DISABLED")
+combatListener:RegisterEvent("PLAYER_REGEN_ENABLED")
+combatListener:SetScript(
+  "OnEvent",
+  function(self, event)
+    if event == "PLAYER_REGEN_DISABLED" then
+      if REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT] and REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] then
+        Panel.HidePanel()
+      end
+    end
+
+    if event == "PLAYER_REGEN_ENABLED" then
+      if REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT] and REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] then
+        Panel.ShowPanel()
+      end
     end
   end
 )

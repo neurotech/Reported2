@@ -14,6 +14,7 @@ local configFrame,
 
 function UpdateConfigFrameValues()
   showWaitingRoomCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL])
+  hideInCombatCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT])
   muteSoundsCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS])
   globalChannelsCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_CHANNEL])
   guildChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_GUILD])
@@ -259,12 +260,16 @@ function CreatePanel()
   generalOptionsLabel = UI.Config.CreateOptionsLabel("General Options", configFrame, separator)
 
   local showWaitingRoomText = "Show Waiting Room"
+  local hideInCombatText = "Hide in combat"
   local showWaitingRoomShortcutText = Palette.START .. Palette.GREY .. " — Shortcut: /r2 show & /r2 hide" .. Palette.END
 
   showWaitingRoomCheckbox, showWaitingRoomLabel =
     UI.Config.CreateCheckbox(showWaitingRoomText .. showWaitingRoomShortcutText, configFrame, generalOptionsLabel)
 
-  muteSoundsCheckbox, muteSoundsLabel = UI.Config.CreateCheckbox("Mute sounds", configFrame, showWaitingRoomCheckbox)
+  hideInCombatCheckbox, hideInCombatLabel =
+    UI.Config.CreateCheckbox(hideInCombatText, configFrame, showWaitingRoomCheckbox)
+
+  muteSoundsCheckbox, muteSoundsLabel = UI.Config.CreateCheckbox("Mute sounds", configFrame, hideInCombatCheckbox)
 
   -- Channel Options
   channelOptionsLabel =
@@ -282,6 +287,7 @@ function CreatePanel()
 
   function configFrame.okay()
     REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] = showWaitingRoomCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT] = hideInCombatCheckbox:GetChecked()
     REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS] = muteSoundsCheckbox:GetChecked()
 
     REPORTED2_PREFS[CHAT_MSG_CHANNEL] = globalChannelsCheckbox:GetChecked()

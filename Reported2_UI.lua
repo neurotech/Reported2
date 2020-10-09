@@ -233,7 +233,7 @@ function CreateChannelCheckboxes(configFrame)
     configFrame,
     BackdropTemplateMixin and "BackdropTemplate"
   )
-  leftChannelColumn:SetPoint("TOPLEFT", UI.Sizes.Padding, -180)
+  leftChannelColumn:SetPoint("TOPLEFT", UI.Sizes.Padding, -200)
   leftChannelColumn:SetSize(200, 200)
 
   local globalChannelsText = Palette.START .. Events.Colours[CHAT_MSG_CHANNEL] .. "Global channels" .. Palette.END
@@ -264,7 +264,7 @@ function CreateChannelCheckboxes(configFrame)
     configFrame,
     BackdropTemplateMixin and "BackdropTemplate"
   )
-  rightChannelColumn:SetPoint("TOPLEFT", UI.Sizes.Padding + leftChannelColumn:GetWidth(), -180)
+  rightChannelColumn:SetPoint("TOPLEFT", UI.Sizes.Padding + leftChannelColumn:GetWidth(), -200)
   rightChannelColumn:SetSize(200, 200)
 
   local raidLeaderChannelText = Palette.START .. Events.Colours[CHAT_MSG_RAID_LEADER] .. "Raid leader" .. Palette.END
