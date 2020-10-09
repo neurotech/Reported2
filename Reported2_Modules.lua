@@ -182,7 +182,7 @@ Modules["Dictionary"] = {
   "Verses - against. - Oxford English Dictionary 2009. Its going to be Blizzard verses %Pl if those swears keep up, and I know whose going to win!",
   "Rediculous - unbelievable. - Oxford English Dictionary 2009. %Pl, you're terrible gramar and swearing are rediculous.",
   "Tauren - A neutral crystalline substance obtained from bile - Webster's Dictionary 1995.  All the Tauren in %Pl's energy drink is agitating his stomach and making him swear.",
-  "Orc - See also: Killer Whale - Webster's Dictonary 1995. %Plis just mad that he can't solo the Orc for the Winterfin quest.",
+  "Orc - See also: Killer Whale - Webster's Dictonary 1995. %Pl is just mad that he can't solo the Orc for the Winterfin quest.",
   "Dwarf - A star with relatively small mass and low or average luminosity - Webster's Dictionary 1995. I'm going to throw %Pl into a Dwarf if he doesn't chill out",
   "Elf - Acronym for Extremely Low Frequency - Webster's Dictionary 1995. Don't broadcast swears on an elf or any other fequency, %Pl",
   "Troll - To sing or utter in a full, rolling voice - Webster's Dictionary 1995. %Pl rolled a Darkspear because of his lovely trolling voice, but he shouldn't use it to swear." -- An actual definition of troll.
