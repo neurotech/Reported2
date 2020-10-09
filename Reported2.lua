@@ -122,29 +122,9 @@ function RenderOffenders()
         )
 
         local reportButtonTitle = _G["SEAT_" .. index .. "REPORT_BUTTON_TEXT"]
-        local delay = rand(DELAY_MIN, DELAY_MAX)
 
-        if record.locked then
-          Panel.SetWidgetText(reportButtonTitle, Palette.START .. Palette.DARK_GREY .. "Wait" .. Palette.END)
-
-          C_Timer.After(
-            delay,
-            function()
-              record.locked = false
-              Panel.EnableButton(reportButton)
-              Panel.SetWidgetText(
-                reportButtonTitle,
-                Palette.START .. Events.Colours[record.event] .. "Report" .. Palette.END
-              )
-            end
-          )
-        else
-          Panel.SetWidgetText(
-            reportButtonTitle,
-            Palette.START .. Events.Colours[record.event] .. "Report" .. Palette.END
-          )
-          Panel.EnableButton(reportButton)
-        end
+        Panel.SetWidgetText(reportButtonTitle, Palette.START .. Events.Colours[record.event] .. "Report" .. Palette.END)
+        Panel.EnableButton(reportButton)
 
         local skipButton = _G["SEAT_" .. index .. "SKIP_BUTTON"]
         skipButton:SetScript(
@@ -181,22 +161,8 @@ function RenderOffenders()
         )
 
         local skipButtonTitle = _G["SEAT_" .. index .. "SKIP_BUTTON_TEXT"]
-
-        if record.locked then
-          Panel.SetWidgetText(skipButtonTitle, Palette.START .. Palette.DARK_GREY .. "-" .. Palette.END)
-
-          C_Timer.After(
-            delay,
-            function()
-              record.locked = false
-              skipButton:Enable()
-              Panel.SetWidgetText(skipButtonTitle, Palette.START .. Palette.GREY .. Language.Skip .. Palette.END)
-            end
-          )
-        else
-          Panel.SetWidgetText(skipButtonTitle, Palette.START .. Palette.GREY .. Language.Skip .. Palette.END)
-          Panel.EnableButton(skipButton)
-        end
+        Panel.SetWidgetText(skipButtonTitle, Palette.START .. Palette.GREY .. Language.Skip .. Palette.END)
+        Panel.EnableButton(skipButton)
       end
     end
   end
@@ -228,7 +194,7 @@ function Initialise()
         local isSelf = playerName == currentPlayer
 
         -- DEBUG:
-        -- local isSelf = false
+        local isSelf = false
 
         local class
         if not guid or guid == "" then
@@ -257,26 +223,28 @@ function Initialise()
         end
 
         if hasSwear and not isSelf then
-          Sounds.PlaySwearDetectedSound()
-          Panel.FlashHeaderTextRight()
+          local delay = rand(DELAY_MIN, DELAY_MAX)
 
-          if #OFFENDERS >= SEAT_COUNT then
-            print("Waiting room is full!")
-          else
-            local locked = true
-            AddOffender(
-              playerName,
-              sender,
-              classColour,
-              detectedWord,
-              message,
-              channelName,
-              channelIndex,
-              event,
-              locked
-            )
-            RenderOffenders()
-          end
+          C_Timer.After(
+            delay,
+            function()
+              Sounds.PlaySwearDetectedSound()
+              Panel.FlashHeaderTextRight()
+
+              if #OFFENDERS >= SEAT_COUNT then
+                local leftBracket = Palette.START .. Palette.WHITE .. "["
+                local reportedPrefix = Palette.START .. Palette.TEAL .. "Reported! 2"
+                local rightBracket = Palette.START .. Palette.WHITE .. "]"
+                print(leftBracket .. reportedPrefix .. rightBracket .. " The waiting room is full!")
+              else
+                AddOffender(playerName, sender, classColour, detectedWord, message, channelName, channelIndex, event)
+                RenderOffenders()
+              end
+            end
+          )
+        -- --
+
+        -- --
         end
       end
     end

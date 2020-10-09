@@ -126,16 +126,7 @@ function CreateSeat(index, offset)
   reportButton:Disable()
 end
 
-function AddOffender(
-  playerName,
-  playerNameWithRealm,
-  classColour,
-  swear,
-  message,
-  channelName,
-  channelNumber,
-  event,
-  locked)
+function AddOffender(playerName, playerNameWithRealm, classColour, swear, message, channelName, channelNumber, event)
   table.insert(
     OFFENDERS,
     {
@@ -147,7 +138,6 @@ function AddOffender(
       channelName = channelName,
       channelNumber = channelNumber,
       event = event,
-      locked = locked,
       messageTime = date("%I:%M %p")
     }
   )
