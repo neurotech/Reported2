@@ -4,14 +4,13 @@ about: Use this template to submit a module.
 title: Module Submission - MODULE_NAME_HERE
 labels: module submission
 assignees: neurotech
-
 ---
 
-**Module Name:** 
+**Module Name:**
 
-**Module Credit:** 
+**Module Credit:**
 
-**Module Description:** 
+**Module Description:**
 
 **Module Items:**
 
@@ -42,3 +41,21 @@ There are three "codes" for substituting the player's name in a module item. Usi
 `%pl` - will return `playername`
 `%Pl` - will return `Playername`
 `%PL` - will return `PLAYERNAME`
+
+---
+
+**Example:**
+
+**Module Name:** You_Are_Ban
+
+**Module Credit:** neurotech
+
+**Module Description:** Your gonna love this one
+
+**Module Items:**
+
+```
+%Pl has just broken the second rule of WoW: - 'Do not swear'. Drafting up a report to a GM right now. Enjoy you're ban.
+Yet another example of flagrant rule-breaking by the WoW community. %Pl your language has not gone unnoticed. Enjoy you're ban
+Due to %Pl's use of extremely inappropriate language, I have taken it upon myself to report them. I hope they enjoy they're ban.
+```
