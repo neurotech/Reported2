@@ -3,7 +3,7 @@ Panel = {}
 local panelBase, playerNameText, channelText, reportButton, reportButtonTitle, skipButton, skipButtonTitle
 
 function CreatePanelBase()
-  panelBase = CreateFrame("Frame", "PANEL_BASE", UIParent, BackdropTemplateMixin and "BackdropTemplate")
+  panelBase = CreateFrame("Frame", "REPORTED2_PANEL_BASE", UIParent, BackdropTemplateMixin and "BackdropTemplate")
   panelBase:SetPoint("CENTER")
   panelBase:SetSize(PANEL_WIDTH, PANEL_HEIGHT)
   panelBase:SetBackdrop(
@@ -42,7 +42,8 @@ function CreatePanelHeaderTextRight()
 end
 
 function CreatePanelSeparator()
-  panelSeparator = CreateFrame("Frame", "PANEL_SEPARATOR", panelBase, BackdropTemplateMixin and "BackdropTemplate")
+  panelSeparator =
+    CreateFrame("Frame", "REPORTED2_PANEL_SEPARATOR", panelBase, BackdropTemplateMixin and "BackdropTemplate")
   panelSeparator:SetPoint("TOP", 0, -30)
   panelSeparator:SetSize(PANEL_WIDTH - (PADDING * 2), 1)
   panelSeparator:SetBackdrop(
@@ -63,7 +64,8 @@ function CreateSeats(numberOfSeats)
 end
 
 function CreateSeat(index, offset)
-  local seat = CreateFrame("Frame", "SEAT_" .. index, panelSeparator, BackdropTemplateMixin and "BackdropTemplate")
+  local seat =
+    CreateFrame("Frame", "REPORTED2_SEAT_" .. index, panelSeparator, BackdropTemplateMixin and "BackdropTemplate")
 
   seat:SetPoint("TOP", 0, offset)
   seat:SetSize(SEAT_WIDTH, SEAT_HEIGHT)
@@ -77,15 +79,15 @@ function CreateSeat(index, offset)
   seat:SetBackdropColor(0, 0, 0, 0.15)
   seat:SetBackdropBorderColor(0, 0, 0, 0.15)
 
-  playerNameText = seat:CreateFontString("SEAT_" .. index .. "PLAYER_NAME", "OVERLAY", "GameFontNormal")
+  playerNameText = seat:CreateFontString("REPORTED2_SEAT_" .. index .. "PLAYER_NAME", "OVERLAY", "GameFontNormal")
   playerNameText:SetPoint("TOPLEFT", PLAYER_X_OFFSET, -PADDING * 0.75)
   playerNameText:SetText(Palette.START .. Palette.GREY .. "Player" .. Palette.END)
 
-  channelText = seat:CreateFontString("SEAT_" .. index .. "CHANNEL", "OVERLAY", "GameFontNormal")
+  channelText = seat:CreateFontString("REPORTED2_SEAT_" .. index .. "CHANNEL", "OVERLAY", "GameFontNormal")
   channelText:SetPoint("TOPLEFT", CHANNEL_X_OFFSET, -PADDING * 0.75)
   channelText:SetText(Palette.START .. Palette.GREY .. "Channel" .. Palette.END)
 
-  reportButton = CreateFrame("Button", "SEAT_" .. index .. "REPORT_BUTTON", seat)
+  reportButton = CreateFrame("Button", "REPORTED2_SEAT_" .. index .. "REPORT_BUTTON", seat)
   reportButton:SetBackdrop(
     {
       bgFile = BUTTON_BG_TEXTURE,
@@ -100,11 +102,11 @@ function CreateSeat(index, offset)
   reportButton:SetBackdropBorderColor(Palette.RGB.DARK_GREY.r, Palette.RGB.DARK_GREY.g, Palette.RGB.DARK_GREY.b, 1)
 
   reportButtonTitle =
-    reportButton:CreateFontString("SEAT_" .. index .. "REPORT_BUTTON_TEXT", "OVERLAY", "GameFontNormal")
+    reportButton:CreateFontString("REPORTED2_SEAT_" .. index .. "REPORT_BUTTON_TEXT", "OVERLAY", "GameFontNormal")
   reportButtonTitle:SetPoint("CENTER", reportButton, "CENTER")
   reportButtonTitle:SetText(Palette.START .. Palette.DARK_GREY .. "Report" .. Palette.END)
 
-  skipButton = CreateFrame("Button", "SEAT_" .. index .. "SKIP_BUTTON", seat)
+  skipButton = CreateFrame("Button", "REPORTED2_SEAT_" .. index .. "SKIP_BUTTON", seat)
   skipButton:SetBackdrop(
     {
       bgFile = BUTTON_BG_TEXTURE,
@@ -118,7 +120,8 @@ function CreateSeat(index, offset)
   skipButton:SetBackdropColor(Palette.RGB.GREY.r, Palette.RGB.GREY.g, Palette.RGB.GREY.b, 1)
   skipButton:SetBackdropBorderColor(Palette.RGB.DARK_GREY.r, Palette.RGB.DARK_GREY.g, Palette.RGB.DARK_GREY.b, 1)
 
-  skipButtonTitle = skipButton:CreateFontString("SEAT_" .. index .. "SKIP_BUTTON_TEXT", "OVERLAY", "GameFontNormal")
+  skipButtonTitle =
+    skipButton:CreateFontString("REPORTED2_SEAT_" .. index .. "SKIP_BUTTON_TEXT", "OVERLAY", "GameFontNormal")
   skipButtonTitle:SetPoint("CENTER", skipButton, "CENTER")
   skipButtonTitle:SetText(Palette.START .. Palette.DARK_GREY .. Language.Skip .. Palette.END)
 

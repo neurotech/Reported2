@@ -49,7 +49,12 @@ function CreateModulesPanel()
   local modulesLabel = UI.Config.CreateOptionsLabel("Modules", modulesFrame, separator)
 
   local scrollFrame =
-    CreateFrame("ScrollFrame", "InGameTest", modulesFrame, BackdropTemplateMixin and "BackdropTemplate")
+    CreateFrame(
+    "ScrollFrame",
+    "REPORTED2_MODULES_SCROLL_FRAME",
+    modulesFrame,
+    BackdropTemplateMixin and "BackdropTemplate"
+  )
   scrollFrame:SetPoint("TOPLEFT", modulesLabel, 0, -modulesLabel:GetHeight() * 1.5)
   scrollFrame:SetSize(
     InterfaceOptionsFramePanelContainer:GetWidth() - UI.Sizes.Padding * 2,

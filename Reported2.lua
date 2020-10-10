@@ -1,10 +1,10 @@
 function ResetSeat(index)
-  local playerNameText = _G["SEAT_" .. index .. "PLAYER_NAME"]
-  local channelText = _G["SEAT_" .. index .. "CHANNEL"]
-  local reportButton = _G["SEAT_" .. index .. "REPORT_BUTTON"]
-  local reportButtonTitle = _G["SEAT_" .. index .. "REPORT_BUTTON_TEXT"]
-  local skipButton = _G["SEAT_" .. index .. "SKIP_BUTTON"]
-  local skipButtonTitle = _G["SEAT_" .. index .. "SKIP_BUTTON_TEXT"]
+  local playerNameText = _G["REPORTED2_SEAT_" .. index .. "PLAYER_NAME"]
+  local channelText = _G["REPORTED2_SEAT_" .. index .. "CHANNEL"]
+  local reportButton = _G["REPORTED2_SEAT_" .. index .. "REPORT_BUTTON"]
+  local reportButtonTitle = _G["REPORTED2_SEAT_" .. index .. "REPORT_BUTTON_TEXT"]
+  local skipButton = _G["REPORTED2_SEAT_" .. index .. "SKIP_BUTTON"]
+  local skipButtonTitle = _G["REPORTED2_SEAT_" .. index .. "SKIP_BUTTON_TEXT"]
 
   Panel.SetWidgetText(playerNameText, Palette.START .. Palette.GREY .. "Player" .. Palette.END)
   Panel.SetWidgetText(channelText, Palette.START .. Palette.GREY .. "Channel" .. Palette.END)
@@ -34,7 +34,7 @@ function RenderOffenders()
         end
       )
 
-      local seat = _G["SEAT_" .. index]
+      local seat = _G["REPORTED2_SEAT_" .. index]
       seat:SetBackdropColor(0, 0, 0, 0.15)
       seat:SetBackdropBorderColor(0, 0, 0, 0.15)
 
@@ -56,7 +56,7 @@ function RenderOffenders()
           0.75
         )
 
-        local playerNameText = _G["SEAT_" .. index .. "PLAYER_NAME"]
+        local playerNameText = _G["REPORTED2_SEAT_" .. index .. "PLAYER_NAME"]
         Panel.SetWidgetText(
           playerNameText,
           Palette.START_NO_ALPHA .. record.classColour.colorStr .. record.playerName .. Palette.END
@@ -69,10 +69,10 @@ function RenderOffenders()
         end
 
         local channelColour = Events.Colours[record.event]
-        local channelText = _G["SEAT_" .. index .. "CHANNEL"]
+        local channelText = _G["REPORTED2_SEAT_" .. index .. "CHANNEL"]
         Panel.SetWidgetText(channelText, Palette.START .. channelColour .. channel .. Palette.END)
 
-        local reportButton = _G["SEAT_" .. index .. "REPORT_BUTTON"]
+        local reportButton = _G["REPORTED2_SEAT_" .. index .. "REPORT_BUTTON"]
         reportButton:SetScript(
           "OnClick",
           function()
@@ -121,12 +121,12 @@ function RenderOffenders()
           end
         )
 
-        local reportButtonTitle = _G["SEAT_" .. index .. "REPORT_BUTTON_TEXT"]
+        local reportButtonTitle = _G["REPORTED2_SEAT_" .. index .. "REPORT_BUTTON_TEXT"]
 
         Panel.SetWidgetText(reportButtonTitle, Palette.START .. Events.Colours[record.event] .. "Report" .. Palette.END)
         Panel.EnableButton(reportButton)
 
-        local skipButton = _G["SEAT_" .. index .. "SKIP_BUTTON"]
+        local skipButton = _G["REPORTED2_SEAT_" .. index .. "SKIP_BUTTON"]
         skipButton:SetScript(
           "OnClick",
           function()
@@ -160,7 +160,7 @@ function RenderOffenders()
           end
         )
 
-        local skipButtonTitle = _G["SEAT_" .. index .. "SKIP_BUTTON_TEXT"]
+        local skipButtonTitle = _G["REPORTED2_SEAT_" .. index .. "SKIP_BUTTON_TEXT"]
         Panel.SetWidgetText(skipButtonTitle, Palette.START .. Palette.GREY .. Language.Skip .. Palette.END)
         Panel.EnableButton(skipButton)
       end
