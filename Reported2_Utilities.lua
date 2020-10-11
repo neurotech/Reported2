@@ -1,21 +1,23 @@
-Utilities = {}
+Reported2.Utilities = {}
 
 function CreateReportNotification(playerName, moduleName, classColour)
-  local leftBracket = Palette.START .. Palette.WHITE .. "["
-  local reportedPrefix = Palette.START .. Palette.TEAL .. "Reported! 2"
-  local rightBracket = Palette.START .. Palette.WHITE .. "]"
+  local leftBracket = Reported2.Palette.START .. Reported2.Palette.WHITE .. "["
+  local reportedPrefix = Reported2.Palette.START .. Reported2.Palette.TEAL .. "Reported! 2"
+  local rightBracket = Reported2.Palette.START .. Reported2.Palette.WHITE .. "]"
   local reportedPlayer = " Reported player '"
-  local playerClassColoured = Palette.START_NO_ALPHA .. classColour .. playerName .. Palette.END
+  local playerClassColoured = Reported2.Palette.START_NO_ALPHA .. classColour .. playerName .. Reported2.Palette.END
   local usingTheModule =
-    "' using the " .. Palette.START .. Palette.TEAL .. moduleName .. Palette.END .. " module." .. Palette.END
+    "' using the " ..
+    Reported2.Palette.START ..
+      Reported2.Palette.TEAL .. moduleName .. Reported2.Palette.END .. " module." .. Reported2.Palette.END
 
   return leftBracket .. reportedPrefix .. rightBracket .. reportedPlayer .. playerClassColoured .. usingTheModule
 end
 
 function GenerateContributorsString()
   local contributors = {"weasel", "Sneep", "TrashEmoji", "Bronzong", "Krakyn", "neurotech"}
-  local whiteColourString = Palette.START .. Palette.WHITE
-  local pinkColourString = Palette.START .. Palette.PINK
+  local whiteColourString = Reported2.Palette.START .. Reported2.Palette.WHITE
+  local pinkColourString = Reported2.Palette.START .. Reported2.Palette.PINK
   local contributorsPrefix = whiteColourString .. "Contributors: "
   local commaString = whiteColourString .. ", "
 
@@ -23,9 +25,9 @@ function GenerateContributorsString()
 
   for index, contributor in pairs(contributors) do
     if index == #contributors then
-      contributorsString = contributorsString .. pinkColourString .. contributor .. Palette.END
+      contributorsString = contributorsString .. pinkColourString .. contributor .. Reported2.Palette.END
     else
-      contributorsString = contributorsString .. pinkColourString .. contributor .. Palette.END .. commaString
+      contributorsString = contributorsString .. pinkColourString .. contributor .. Reported2.Palette.END .. commaString
     end
   end
 
@@ -44,9 +46,9 @@ end
 
 function GetRandomReportedMessage(playerName)
   local enabledModules = REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES]
-  local randomModule = enabledModules[rand(1, #enabledModules)]
-  local line = rand(1, #Modules[randomModule])
-  local text = Modules[randomModule][line]
+  local randomModule = enabledModules[Reported2.rand(1, #enabledModules)]
+  local line = Reported2.rand(1, #Reported2.Modules[randomModule])
+  local text = Reported2.Modules[randomModule][line]
   text = text:gsub("%%Pl", playerName)
   text = text:gsub("%%PL", strupper(playerName))
   text = text:gsub("%%pl", strlower(playerName))
@@ -66,8 +68,8 @@ function GetSortedModuleNames(modulesList)
   return sortedModuleNames
 end
 
-Utilities.CreateReportNotification = CreateReportNotification
-Utilities.GenerateContributorsString = GenerateContributorsString
-Utilities.GetTableKeys = GetTableKeys
-Utilities.GetRandomReportedMessage = GetRandomReportedMessage
-Utilities.GetSortedModuleNames = GetSortedModuleNames
+Reported2.Utilities.CreateReportNotification = CreateReportNotification
+Reported2.Utilities.GenerateContributorsString = GenerateContributorsString
+Reported2.Utilities.GetTableKeys = GetTableKeys
+Reported2.Utilities.GetRandomReportedMessage = GetRandomReportedMessage
+Reported2.Utilities.GetSortedModuleNames = GetSortedModuleNames

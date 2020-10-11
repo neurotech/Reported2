@@ -1,10 +1,10 @@
-UI = {}
-UI.Config = {}
-UI.Sizes = {}
+Reported2.UI = {}
+Reported2.UI.Config = {}
+Reported2.UI.Sizes = {}
 
-UI.Sizes.Padding = 10
-UI.Sizes.CheckboxWidth = 16
-UI.Sizes.CheckboxHeight = 16
+Reported2.UI.Sizes.Padding = 10
+Reported2.UI.Sizes.CheckboxWidth = 16
+Reported2.UI.Sizes.CheckboxHeight = 16
 
 function SetTextureInside(parent, texture)
   local xOffset = 1
@@ -16,14 +16,24 @@ end
 function ApplyCheckedTexture(checkbox)
   local checkboxCheckedTexture = checkbox:GetCheckedTexture()
 
-  checkboxCheckedTexture:SetVertexColor(Palette.RGB.TEAL.r, Palette.RGB.TEAL.g, Palette.RGB.TEAL.b, 1)
+  checkboxCheckedTexture:SetVertexColor(
+    Reported2.Palette.RGB.TEAL.r,
+    Reported2.Palette.RGB.TEAL.g,
+    Reported2.Palette.RGB.TEAL.b,
+    1
+  )
   SetTextureInside(checkbox, checkboxCheckedTexture)
 end
 
 function ApplyNormalTexture(checkbox)
   local checkBoxNormalTexture = checkbox:GetNormalTexture()
 
-  checkBoxNormalTexture:SetVertexColor(Palette.RGB.WHITE.r, Palette.RGB.WHITE.g, Palette.RGB.WHITE.b, 0.1)
+  checkBoxNormalTexture:SetVertexColor(
+    Reported2.Palette.RGB.WHITE.r,
+    Reported2.Palette.RGB.WHITE.g,
+    Reported2.Palette.RGB.WHITE.b,
+    0.1
+  )
   SetTextureInside(checkbox, checkBoxNormalTexture)
 end
 
@@ -35,18 +45,23 @@ function CreateCheckbox(labelText, parent, anchorPoint, relativePoint)
     relativePoint = "BOTTOMLEFT"
   end
 
-  checkbox:SetSize(UI.Sizes.CheckboxWidth, UI.Sizes.CheckboxHeight)
-  checkbox:SetPoint("TOPLEFT", anchorPoint, relativePoint, 0, -UI.Sizes.Padding)
+  checkbox:SetSize(Reported2.UI.Sizes.CheckboxWidth, Reported2.UI.Sizes.CheckboxHeight)
+  checkbox:SetPoint("TOPLEFT", anchorPoint, relativePoint, 0, -Reported2.UI.Sizes.Padding)
   checkbox:SetBackdrop(
     {
-      edgeFile = EDGE_TEXTURE,
+      edgeFile = Reported2.EDGE_TEXTURE,
       edgeSize = 1
     }
   )
-  checkbox:SetBackdropBorderColor(Palette.RGB.BLACK.r, Palette.RGB.BLACK.g, Palette.RGB.BLACK.b, 1)
+  checkbox:SetBackdropBorderColor(
+    Reported2.Palette.RGB.BLACK.r,
+    Reported2.Palette.RGB.BLACK.g,
+    Reported2.Palette.RGB.BLACK.b,
+    1
+  )
 
-  checkbox:SetCheckedTexture(BUTTON_BG_TEXTURE)
-  checkbox:SetNormalTexture(BUTTON_BG_TEXTURE)
+  checkbox:SetCheckedTexture(Reported2.BUTTON_BG_TEXTURE)
+  checkbox:SetNormalTexture(Reported2.BUTTON_BG_TEXTURE)
   checkbox:SetHighlightTexture(nil)
   checkbox:SetPushedTexture(nil)
   checkbox:SetDisabledTexture(nil)
@@ -54,7 +69,7 @@ function CreateCheckbox(labelText, parent, anchorPoint, relativePoint)
   ApplyNormalTexture(checkbox)
   ApplyCheckedTexture(checkbox)
 
-  label:SetPoint("LEFT", checkbox, "RIGHT", UI.Sizes.Padding, 0)
+  label:SetPoint("LEFT", checkbox, "RIGHT", Reported2.UI.Sizes.Padding, 0)
   label:SetText(labelText)
 
   return checkbox, label
@@ -64,7 +79,7 @@ function CreateModuleCheckboxAndLabel(moduleName, moduleCredit, moduleDescriptio
   local moduleCheckboxAndLabelFrame =
     CreateFrame(
     "Frame",
-    "MODULE_FRAME_" .. string.upper(moduleName),
+    "REPORTED2_MODULE_FRAME_" .. string.upper(moduleName),
     parent,
     BackdropTemplateMixin and "BackdropTemplate"
   )
@@ -73,36 +88,43 @@ function CreateModuleCheckboxAndLabel(moduleName, moduleCredit, moduleDescriptio
   local checkbox =
     CreateFrame(
     "CheckButton",
-    "MODULE_CHECKBOX_" .. string.upper(moduleName),
+    "REPORTED2_MODULE_CHECKBOX_" .. string.upper(moduleName),
     moduleCheckboxAndLabelFrame,
     "InterfaceOptionsCheckButtonTemplate"
   )
   local nameAndCreditLabel = moduleCheckboxAndLabelFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
   local descriptionLabel = moduleCheckboxAndLabelFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 
-  local nameAndCreditText = Palette.START .. Palette.PURPLE .. moduleName .. Palette.END
+  local nameAndCreditText = Reported2.Palette.START .. Reported2.Palette.PURPLE .. moduleName .. Reported2.Palette.END
 
   if (moduleCredit) then
     nameAndCreditText =
       nameAndCreditText ..
-      Palette.START ..
-        Palette.LIGHT_GREY .. " by " .. Palette.START .. Palette.BRIGHT_YELLOW .. moduleCredit .. Palette.END
+      Reported2.Palette.START ..
+        Reported2.Palette.LIGHT_GREY ..
+          " by " .. Reported2.Palette.START .. Reported2.Palette.BRIGHT_YELLOW .. moduleCredit .. Reported2.Palette.END
   end
 
-  local descriptionText = Palette.START .. Palette.WHITE .. moduleDescription .. Palette.END
+  local descriptionText =
+    Reported2.Palette.START .. Reported2.Palette.WHITE .. moduleDescription .. Reported2.Palette.END
 
-  checkbox:SetSize(UI.Sizes.CheckboxWidth, UI.Sizes.CheckboxHeight)
-  checkbox:SetPoint("TOPLEFT", UI.Sizes.Padding, 0)
+  checkbox:SetSize(Reported2.UI.Sizes.CheckboxWidth, Reported2.UI.Sizes.CheckboxHeight)
+  checkbox:SetPoint("TOPLEFT", Reported2.UI.Sizes.Padding, 0)
   checkbox:SetBackdrop(
     {
-      edgeFile = EDGE_TEXTURE,
+      edgeFile = Reported2.EDGE_TEXTURE,
       edgeSize = 1
     }
   )
-  checkbox:SetBackdropBorderColor(Palette.RGB.BLACK.r, Palette.RGB.BLACK.g, Palette.RGB.BLACK.b, 1)
+  checkbox:SetBackdropBorderColor(
+    Reported2.Palette.RGB.BLACK.r,
+    Reported2.Palette.RGB.BLACK.g,
+    Reported2.Palette.RGB.BLACK.b,
+    1
+  )
 
-  checkbox:SetCheckedTexture(BUTTON_BG_TEXTURE)
-  checkbox:SetNormalTexture(BUTTON_BG_TEXTURE)
+  checkbox:SetCheckedTexture(Reported2.BUTTON_BG_TEXTURE)
+  checkbox:SetNormalTexture(Reported2.BUTTON_BG_TEXTURE)
   checkbox:SetHighlightTexture(nil)
   checkbox:SetPushedTexture(nil)
   checkbox:SetDisabledTexture(nil)
@@ -111,21 +133,21 @@ function CreateModuleCheckboxAndLabel(moduleName, moduleCredit, moduleDescriptio
   ApplyCheckedTexture(checkbox)
 
   nameAndCreditLabel:SetWordWrap(true)
-  nameAndCreditLabel:SetPoint("LEFT", checkbox, "RIGHT", UI.Sizes.Padding, 0)
+  nameAndCreditLabel:SetPoint("LEFT", checkbox, "RIGHT", Reported2.UI.Sizes.Padding, 0)
   nameAndCreditLabel:SetText(nameAndCreditText)
   nameAndCreditLabel:SetWidth(parent:GetWidth())
   nameAndCreditLabel:SetJustifyH("LEFT")
 
-  descriptionLabel:SetPoint("LEFT", checkbox, "RIGHT", UI.Sizes.Padding, -UI.Sizes.Padding * 2)
+  descriptionLabel:SetPoint("LEFT", checkbox, "RIGHT", Reported2.UI.Sizes.Padding, -Reported2.UI.Sizes.Padding * 2)
   descriptionLabel:SetText(descriptionText)
   descriptionLabel:SetWidth(parent:GetWidth() - 100)
   descriptionLabel:SetWordWrap(true)
   descriptionLabel:SetJustifyH("LEFT")
 
-  moduleCheckboxAndLabelFrame:SetSize(parent:GetWidth(), checkbox:GetHeight() + (UI.Sizes.Padding * 2))
+  moduleCheckboxAndLabelFrame:SetSize(parent:GetWidth(), checkbox:GetHeight() + (Reported2.UI.Sizes.Padding * 2))
 
   if isLastModule then
-    descriptionLabel:SetHeight(descriptionLabel:GetHeight() + UI.Sizes.Padding * 2)
+    descriptionLabel:SetHeight(descriptionLabel:GetHeight() + Reported2.UI.Sizes.Padding * 2)
   end
 
   return moduleCheckboxAndLabelFrame, checkbox, nameLabel, offset
@@ -150,12 +172,14 @@ end
 function CreateTitleLabel(configFrame)
   local titleLabel = configFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 
-  titleLabel:SetPoint("TOPLEFT", configFrame, "TOPLEFT", UI.Sizes.Padding, -UI.Sizes.Padding)
+  titleLabel:SetPoint("TOPLEFT", configFrame, "TOPLEFT", Reported2.UI.Sizes.Padding, -Reported2.UI.Sizes.Padding)
   titleLabel:SetText(
-    Palette.START ..
-      Palette.PALE_BLUE ..
+    Reported2.Palette.START ..
+      Reported2.Palette.PALE_BLUE ..
         "Reported" ..
-          Palette.START .. Palette.BLUE .. "!" .. Palette.START .. Palette.RICH_YELLOW .. " 2" .. Palette.END
+          Reported2.Palette.START ..
+            Reported2.Palette.BLUE ..
+              "!" .. Reported2.Palette.START .. Reported2.Palette.RICH_YELLOW .. " 2" .. Reported2.Palette.END
   )
 
   return titleLabel
@@ -164,8 +188,10 @@ end
 function CreateVersionLabel(configFrame, titleLabel)
   local versionLabel = configFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
 
-  versionLabel:SetPoint("BOTTOMLEFT", titleLabel, "BOTTOMRIGHT", UI.Sizes.Padding, 0)
-  versionLabel:SetText(Palette.START .. Palette.WHITE .. "v" .. GetAddOnMetadata("Reported2", "Version"))
+  versionLabel:SetPoint("BOTTOMLEFT", titleLabel, "BOTTOMRIGHT", Reported2.UI.Sizes.Padding, 0)
+  versionLabel:SetText(
+    Reported2.Palette.START .. Reported2.Palette.WHITE .. "v" .. GetAddOnMetadata("Reported2", "Version")
+  )
 
   return versionLabel
 end
@@ -173,8 +199,14 @@ end
 function CreateContributorsLabel(configFrame)
   local contributorsLabel = configFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
 
-  contributorsLabel:SetPoint("TOPRIGHT", configFrame, "TOPRIGHT", -UI.Sizes.Padding, -UI.Sizes.Padding)
-  contributorsLabel:SetText(Utilities.GenerateContributorsString())
+  contributorsLabel:SetPoint(
+    "TOPRIGHT",
+    configFrame,
+    "TOPRIGHT",
+    -Reported2.UI.Sizes.Padding,
+    -Reported2.UI.Sizes.Padding
+  )
+  contributorsLabel:SetText(Reported2.Utilities.GenerateContributorsString())
 
   return contributorsLabel
 end
@@ -183,19 +215,19 @@ function CreateSeparator(configFrame)
   local separator =
     CreateFrame("Frame", "Reported2ConfigFrameSeparator", configFrame, BackdropTemplateMixin and "BackdropTemplate")
 
-  separator:SetPoint("TOP", 0, -UI.Sizes.Padding * 3.5)
-  separator:SetSize(InterfaceOptionsFramePanelContainer:GetWidth() - (UI.Sizes.Padding * 2), 1)
+  separator:SetPoint("TOP", 0, -Reported2.UI.Sizes.Padding * 3.5)
+  separator:SetSize(InterfaceOptionsFramePanelContainer:GetWidth() - (Reported2.UI.Sizes.Padding * 2), 1)
   separator:SetBackdrop(
     {
-      bgFile = "bgFile",
-      tile = false,
-      tileEdge = false,
-      tileSize = 0,
-      edgeSize = 0,
-      insets = {left = 0, right = 0, top = 0, bottom = 0}
+      bgFile = Reported2.FLAT_BG_TEXTURE
     }
   )
-  separator:SetBackdropColor(Palette.RGB.BLACK.r, Palette.RGB.BLACK.g, Palette.RGB.BLACK.b, 0.5)
+  separator:SetBackdropColor(
+    Reported2.Palette.RGB.BLACK.r,
+    Reported2.Palette.RGB.BLACK.g,
+    Reported2.Palette.RGB.BLACK.b,
+    0.5
+  )
 
   return separator
 end
@@ -204,7 +236,7 @@ function CreateOptionsLabel(labelText, parent, anchorPoint, yPadding)
   local optionsLabel = parent:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 
   if yPadding == nil then
-    yPadding = UI.Sizes.Padding
+    yPadding = Reported2.UI.Sizes.Padding
   end
 
   optionsLabel:SetPoint("TOPLEFT", anchorPoint, "BOTTOMLEFT", 0, -yPadding)
@@ -216,8 +248,8 @@ end
 function CreateOptionsSubLabel(labelText, parent, anchorPoint)
   local optionsSubLabel = parent:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 
-  optionsSubLabel:SetPoint("TOPLEFT", anchorPoint, "BOTTOMLEFT", 0, -UI.Sizes.Padding)
-  optionsSubLabel:SetText(Palette.START .. Palette.LIGHT_GREY .. labelText .. Palette.END)
+  optionsSubLabel:SetPoint("TOPLEFT", anchorPoint, "BOTTOMLEFT", 0, -Reported2.UI.Sizes.Padding)
+  optionsSubLabel:SetText(Reported2.Palette.START .. Reported2.Palette.LIGHT_GREY .. labelText .. Reported2.Palette.END)
 
   return optionsSubLabel
 end
@@ -233,27 +265,34 @@ function CreateChannelCheckboxes(configFrame)
     configFrame,
     BackdropTemplateMixin and "BackdropTemplate"
   )
-  leftChannelColumn:SetPoint("TOPLEFT", UI.Sizes.Padding, -200)
+  leftChannelColumn:SetPoint("TOPLEFT", Reported2.UI.Sizes.Padding, -240)
   leftChannelColumn:SetSize(200, 200)
 
-  local globalChannelsText = Palette.START .. Events.Colours[CHAT_MSG_CHANNEL] .. "Global channels" .. Palette.END
+  local globalChannelsText =
+    Reported2.Palette.START .. Reported2.Events.Colours[CHAT_MSG_CHANNEL] .. "Global channels" .. Reported2.Palette.END
   globalChannelsCheckbox, globalChannelsLabel =
     CreateCheckbox(globalChannelsText, configFrame, leftChannelColumn, relativePoint)
 
-  local guildChannelText = Palette.START .. Events.Colours[CHAT_MSG_GUILD] .. "Guild chat" .. Palette.END
+  local guildChannelText =
+    Reported2.Palette.START .. Reported2.Events.Colours[CHAT_MSG_GUILD] .. "Guild chat" .. Reported2.Palette.END
   guildChannelCheckbox, guildChannelLabel = CreateCheckbox(guildChannelText, configFrame, globalChannelsCheckbox)
 
-  local officerChannelText = Palette.START .. Events.Colours[CHAT_MSG_OFFICER] .. "Officer chat" .. Palette.END
+  local officerChannelText =
+    Reported2.Palette.START .. Reported2.Events.Colours[CHAT_MSG_OFFICER] .. "Officer chat" .. Reported2.Palette.END
   officerChannelCheckbox, officerChannelLabel = CreateCheckbox(officerChannelText, configFrame, guildChannelCheckbox)
 
-  local partyLeaderChannelText = Palette.START .. Events.Colours[CHAT_MSG_PARTY_LEADER] .. "Party leader" .. Palette.END
+  local partyLeaderChannelText =
+    Reported2.Palette.START ..
+    Reported2.Events.Colours[CHAT_MSG_PARTY_LEADER] .. "Party leader" .. Reported2.Palette.END
   partyLeaderChannelCheckbox, partyLeaderChannelLabel =
     CreateCheckbox(partyLeaderChannelText, configFrame, officerChannelCheckbox)
 
-  local partyChannelText = Palette.START .. Events.Colours[CHAT_MSG_PARTY] .. "Party chat" .. Palette.END
+  local partyChannelText =
+    Reported2.Palette.START .. Reported2.Events.Colours[CHAT_MSG_PARTY] .. "Party chat" .. Reported2.Palette.END
   partyChannelCheckbox, partyChannelLabel = CreateCheckbox(partyChannelText, configFrame, partyLeaderChannelCheckbox)
 
-  local yellChannelText = Palette.START .. Events.Colours[CHAT_MSG_YELL] .. "Yell" .. Palette.END
+  local yellChannelText =
+    Reported2.Palette.START .. Reported2.Events.Colours[CHAT_MSG_YELL] .. "Yell" .. Reported2.Palette.END
   yellChannelCheckbox, yellChannelLabel = CreateCheckbox(yellChannelText, configFrame, partyChannelCheckbox)
 
   -- Right Column
@@ -264,29 +303,36 @@ function CreateChannelCheckboxes(configFrame)
     configFrame,
     BackdropTemplateMixin and "BackdropTemplate"
   )
-  rightChannelColumn:SetPoint("TOPLEFT", UI.Sizes.Padding + leftChannelColumn:GetWidth(), -200)
+  rightChannelColumn:SetPoint("TOPLEFT", Reported2.UI.Sizes.Padding + leftChannelColumn:GetWidth(), -240)
   rightChannelColumn:SetSize(200, 200)
 
-  local raidLeaderChannelText = Palette.START .. Events.Colours[CHAT_MSG_RAID_LEADER] .. "Raid leader" .. Palette.END
+  local raidLeaderChannelText =
+    Reported2.Palette.START .. Reported2.Events.Colours[CHAT_MSG_RAID_LEADER] .. "Raid leader" .. Reported2.Palette.END
   raidLeaderChannelCheckbox, raidLeaderChannelLabel =
     CreateCheckbox(raidLeaderChannelText, configFrame, rightChannelColumn, relativePoint)
 
-  local raidChannelText = Palette.START .. Events.Colours[CHAT_MSG_RAID] .. "Raid chat" .. Palette.END
+  local raidChannelText =
+    Reported2.Palette.START .. Reported2.Events.Colours[CHAT_MSG_RAID] .. "Raid chat" .. Reported2.Palette.END
   raidChannelCheckbox, raidChannelLabel = CreateCheckbox(raidChannelText, configFrame, raidLeaderChannelCheckbox)
 
-  local sayChannelText = Palette.START .. Events.Colours[CHAT_MSG_SAY] .. "Say" .. Palette.END
+  local sayChannelText =
+    Reported2.Palette.START .. Reported2.Events.Colours[CHAT_MSG_SAY] .. "Say" .. Reported2.Palette.END
   sayChannelCheckbox, sayChannelLabel = CreateCheckbox(sayChannelText, configFrame, raidChannelCheckbox)
 
   local instanceLeaderChannelText =
-    Palette.START .. Events.Colours[CHAT_MSG_INSTANCE_CHAT_LEADER] .. "Instance leader" .. Palette.END
+    Reported2.Palette.START ..
+    Reported2.Events.Colours[CHAT_MSG_INSTANCE_CHAT_LEADER] .. "Instance leader" .. Reported2.Palette.END
   instanceLeaderChannelCheckbox, instanceLeaderChannelLabel =
     CreateCheckbox(instanceLeaderChannelText, configFrame, sayChannelCheckbox)
 
-  local instanceChannelText = Palette.START .. Events.Colours[CHAT_MSG_INSTANCE_CHAT] .. "Instance chat" .. Palette.END
+  local instanceChannelText =
+    Reported2.Palette.START ..
+    Reported2.Events.Colours[CHAT_MSG_INSTANCE_CHAT] .. "Instance chat" .. Reported2.Palette.END
   instanceChannelCheckbox, instanceChannelLabel =
     CreateCheckbox(instanceChannelText, configFrame, instanceLeaderChannelCheckbox)
 
-  local whisperChannelText = Palette.START .. Events.Colours[CHAT_MSG_WHISPER] .. "Whispers" .. Palette.END
+  local whisperChannelText =
+    Reported2.Palette.START .. Reported2.Events.Colours[CHAT_MSG_WHISPER] .. "Whispers" .. Reported2.Palette.END
   whisperChannelCheckbox, whisperChannelLabel = CreateCheckbox(whisperChannelText, configFrame, instanceChannelCheckbox)
 
   return globalChannelsCheckbox, guildChannelCheckbox, officerChannelCheckbox, partyLeaderChannelCheckbox, partyChannelCheckbox, sayChannelCheckbox, yellChannelCheckbox, raidLeaderChannelCheckbox, raidChannelCheckbox, instanceLeaderChannelCheckbox, instanceChannelCheckbox, whisperChannelCheckbox
@@ -307,15 +353,15 @@ function CreateModulesFrame(configFrame)
   return modulesFrame
 end
 
-UI.Config.CreateCheckbox = CreateCheckbox
-UI.Config.CreateModuleCheckboxAndLabel = CreateModuleCheckboxAndLabel
+Reported2.UI.Config.CreateCheckbox = CreateCheckbox
+Reported2.UI.Config.CreateModuleCheckboxAndLabel = CreateModuleCheckboxAndLabel
 
-UI.Config.CreateConfigFrame = CreateConfigFrame
-UI.Config.CreateTitleLabel = CreateTitleLabel
-UI.Config.CreateVersionLabel = CreateVersionLabel
-UI.Config.CreateContributorsLabel = CreateContributorsLabel
-UI.Config.CreateSeparator = CreateSeparator
-UI.Config.CreateOptionsLabel = CreateOptionsLabel
-UI.Config.CreateOptionsSubLabel = CreateOptionsSubLabel
-UI.Config.CreateChannelCheckboxes = CreateChannelCheckboxes
-UI.Config.CreateModulesFrame = CreateModulesFrame
+Reported2.UI.Config.CreateConfigFrame = CreateConfigFrame
+Reported2.UI.Config.CreateTitleLabel = CreateTitleLabel
+Reported2.UI.Config.CreateVersionLabel = CreateVersionLabel
+Reported2.UI.Config.CreateContributorsLabel = CreateContributorsLabel
+Reported2.UI.Config.CreateSeparator = CreateSeparator
+Reported2.UI.Config.CreateOptionsLabel = CreateOptionsLabel
+Reported2.UI.Config.CreateOptionsSubLabel = CreateOptionsSubLabel
+Reported2.UI.Config.CreateChannelCheckboxes = CreateChannelCheckboxes
+Reported2.UI.Config.CreateModulesFrame = CreateModulesFrame

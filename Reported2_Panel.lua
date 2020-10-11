@@ -5,11 +5,11 @@ local panelBase, playerNameText, channelText, reportButton, reportButtonTitle, s
 function CreatePanelBase()
   panelBase = CreateFrame("Frame", "REPORTED2_PANEL_BASE", UIParent, BackdropTemplateMixin and "BackdropTemplate")
   panelBase:SetPoint("CENTER")
-  panelBase:SetSize(PANEL_WIDTH, PANEL_HEIGHT)
+  panelBase:SetSize(Reported2.PANEL_WIDTH, Reported2.PANEL_HEIGHT)
   panelBase:SetBackdrop(
     {
-      bgFile = FLAT_BG_TEXTURE,
-      edgeFile = EDGE_TEXTURE,
+      bgFile = Reported2.FLAT_BG_TEXTURE,
+      edgeFile = Reported2.EDGE_TEXTURE,
       edgeSize = 1
     }
   )
@@ -26,18 +26,21 @@ end
 
 function CreatePanelHeaderTextLeft()
   local headerTextLeft =
-    Palette.START ..
-    Palette.BLUE .. "Reported" .. Palette.END .. Palette.START .. Palette.PALE_BLUE .. "!" .. Palette.END
+    Reported2.Palette.START ..
+    Reported2.Palette.BLUE ..
+      "Reported" ..
+        Reported2.Palette.END .. Reported2.Palette.START .. Reported2.Palette.PALE_BLUE .. "!" .. Reported2.Palette.END
   local panelHeaderTextLeft = panelBase:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-  panelHeaderTextLeft:SetPoint("TOPLEFT", PADDING, -PADDING)
+  panelHeaderTextLeft:SetPoint("TOPLEFT", Reported2.PADDING, -Reported2.PADDING)
   panelHeaderTextLeft:SetText(headerTextLeft)
 end
 
 function CreatePanelHeaderTextRight()
-  local headerTextRight = Palette.START .. Palette.RICH_YELLOW .. "Waiting Room" .. Palette.END
+  local headerTextRight =
+    Reported2.Palette.START .. Reported2.Palette.RICH_YELLOW .. "Waiting Room" .. Reported2.Palette.END
   local panelHeaderTextRight =
     panelBase:CreateFontString("REPORTED2_PANEL_HEADER_TEXT_RIGHT", "OVERLAY", "GameFontNormal")
-  panelHeaderTextRight:SetPoint("TOPRIGHT", -PADDING, -PADDING)
+  panelHeaderTextRight:SetPoint("TOPRIGHT", -Reported2.PADDING, -Reported2.PADDING)
   panelHeaderTextRight:SetText(headerTextRight)
 end
 
@@ -45,10 +48,10 @@ function CreatePanelSeparator()
   panelSeparator =
     CreateFrame("Frame", "REPORTED2_PANEL_SEPARATOR", panelBase, BackdropTemplateMixin and "BackdropTemplate")
   panelSeparator:SetPoint("TOP", 0, -30)
-  panelSeparator:SetSize(PANEL_WIDTH - (PADDING * 2), 1)
+  panelSeparator:SetSize(Reported2.PANEL_WIDTH - (Reported2.PADDING * 2), 1)
   panelSeparator:SetBackdrop(
     {
-      bgFile = FLAT_BG_TEXTURE,
+      bgFile = Reported2.FLAT_BG_TEXTURE,
       edgeSize = 0
     }
   )
@@ -59,7 +62,7 @@ function CreateSeats(numberOfSeats)
   local offset = -10
   for index = 1, numberOfSeats do
     CreateSeat(index, offset)
-    offset = offset + -SEAT_HEIGHT + -(PADDING / 2)
+    offset = offset + -Reported2.SEAT_HEIGHT + -(Reported2.PADDING / 2)
   end
 end
 
@@ -68,11 +71,11 @@ function CreateSeat(index, offset)
     CreateFrame("Frame", "REPORTED2_SEAT_" .. index, panelSeparator, BackdropTemplateMixin and "BackdropTemplate")
 
   seat:SetPoint("TOP", 0, offset)
-  seat:SetSize(SEAT_WIDTH, SEAT_HEIGHT)
+  seat:SetSize(Reported2.SEAT_WIDTH, Reported2.SEAT_HEIGHT)
   seat:SetBackdrop(
     {
-      bgFile = FLAT_BG_TEXTURE,
-      edgeFile = EDGE_TEXTURE,
+      bgFile = Reported2.FLAT_BG_TEXTURE,
+      edgeFile = Reported2.EDGE_TEXTURE,
       edgeSize = 1
     }
   )
@@ -80,50 +83,76 @@ function CreateSeat(index, offset)
   seat:SetBackdropBorderColor(0, 0, 0, 0.15)
 
   playerNameText = seat:CreateFontString("REPORTED2_SEAT_" .. index .. "PLAYER_NAME", "OVERLAY", "GameFontNormal")
-  playerNameText:SetPoint("TOPLEFT", PLAYER_X_OFFSET, -PADDING * 0.75)
-  playerNameText:SetText(Palette.START .. Palette.GREY .. "Player" .. Palette.END)
+  playerNameText:SetPoint("TOPLEFT", Reported2.PLAYER_X_OFFSET, -Reported2.PADDING * 0.75)
+  playerNameText:SetText(Reported2.Palette.START .. Reported2.Palette.GREY .. "Player" .. Reported2.Palette.END)
 
   channelText = seat:CreateFontString("REPORTED2_SEAT_" .. index .. "CHANNEL", "OVERLAY", "GameFontNormal")
-  channelText:SetPoint("TOPLEFT", CHANNEL_X_OFFSET, -PADDING * 0.75)
-  channelText:SetText(Palette.START .. Palette.GREY .. "Channel" .. Palette.END)
+  channelText:SetPoint("TOPLEFT", Reported2.CHANNEL_X_OFFSET, -Reported2.PADDING * 0.75)
+  channelText:SetText(Reported2.Palette.START .. Reported2.Palette.GREY .. "Channel" .. Reported2.Palette.END)
 
   reportButton = CreateFrame("Button", "REPORTED2_SEAT_" .. index .. "REPORT_BUTTON", seat)
   reportButton:SetBackdrop(
     {
-      bgFile = BUTTON_BG_TEXTURE,
-      edgeFile = EDGE_TEXTURE,
+      bgFile = Reported2.BUTTON_BG_TEXTURE,
+      edgeFile = Reported2.EDGE_TEXTURE,
       edgeSize = 1
     }
   )
 
   reportButton:SetSize(60, 20)
-  reportButton:SetPoint("TOPLEFT", ACTIONS_X_OFFSET, -(PADDING / 2))
-  reportButton:SetBackdropColor(Palette.RGB.GREY.r, Palette.RGB.GREY.g, Palette.RGB.GREY.b, 1)
-  reportButton:SetBackdropBorderColor(Palette.RGB.DARK_GREY.r, Palette.RGB.DARK_GREY.g, Palette.RGB.DARK_GREY.b, 1)
+  reportButton:SetPoint("TOPLEFT", Reported2.ACTIONS_X_OFFSET, -(Reported2.PADDING / 2))
+  reportButton:SetBackdropColor(
+    Reported2.Palette.RGB.GREY.r,
+    Reported2.Palette.RGB.GREY.g,
+    Reported2.Palette.RGB.GREY.b,
+    1
+  )
+  reportButton:SetBackdropBorderColor(
+    Reported2.Palette.RGB.DARK_GREY.r,
+    Reported2.Palette.RGB.DARK_GREY.g,
+    Reported2.Palette.RGB.DARK_GREY.b,
+    1
+  )
 
   reportButtonTitle =
     reportButton:CreateFontString("REPORTED2_SEAT_" .. index .. "REPORT_BUTTON_TEXT", "OVERLAY", "GameFontNormal")
   reportButtonTitle:SetPoint("CENTER", reportButton, "CENTER")
-  reportButtonTitle:SetText(Palette.START .. Palette.DARK_GREY .. "Report" .. Palette.END)
+  reportButtonTitle:SetText(Reported2.Palette.START .. Reported2.Palette.DARK_GREY .. "Report" .. Reported2.Palette.END)
 
   skipButton = CreateFrame("Button", "REPORTED2_SEAT_" .. index .. "SKIP_BUTTON", seat)
   skipButton:SetBackdrop(
     {
-      bgFile = BUTTON_BG_TEXTURE,
-      edgeFile = EDGE_TEXTURE,
+      bgFile = Reported2.BUTTON_BG_TEXTURE,
+      edgeFile = Reported2.EDGE_TEXTURE,
       edgeSize = 1
     }
   )
 
   skipButton:SetSize(20, 20)
-  skipButton:SetPoint("TOPLEFT", ACTIONS_X_OFFSET + (PADDING / 2) + reportButton:GetWidth(), -(PADDING / 2))
-  skipButton:SetBackdropColor(Palette.RGB.GREY.r, Palette.RGB.GREY.g, Palette.RGB.GREY.b, 1)
-  skipButton:SetBackdropBorderColor(Palette.RGB.DARK_GREY.r, Palette.RGB.DARK_GREY.g, Palette.RGB.DARK_GREY.b, 1)
+  skipButton:SetPoint(
+    "TOPLEFT",
+    Reported2.ACTIONS_X_OFFSET + (Reported2.PADDING / 2) + reportButton:GetWidth(),
+    -(Reported2.PADDING / 2)
+  )
+  skipButton:SetBackdropColor(
+    Reported2.Palette.RGB.GREY.r,
+    Reported2.Palette.RGB.GREY.g,
+    Reported2.Palette.RGB.GREY.b,
+    1
+  )
+  skipButton:SetBackdropBorderColor(
+    Reported2.Palette.RGB.DARK_GREY.r,
+    Reported2.Palette.RGB.DARK_GREY.g,
+    Reported2.Palette.RGB.DARK_GREY.b,
+    1
+  )
 
   skipButtonTitle =
     skipButton:CreateFontString("REPORTED2_SEAT_" .. index .. "SKIP_BUTTON_TEXT", "OVERLAY", "GameFontNormal")
   skipButtonTitle:SetPoint("CENTER", skipButton, "CENTER")
-  skipButtonTitle:SetText(Palette.START .. Palette.DARK_GREY .. Language.Skip .. Palette.END)
+  skipButtonTitle:SetText(
+    Reported2.Palette.START .. Reported2.Palette.DARK_GREY .. Reported2.Language.Skip .. Reported2.Palette.END
+  )
 
   skipButton:Disable()
   reportButton:Disable()
@@ -131,7 +160,7 @@ end
 
 function AddOffender(playerName, playerNameWithRealm, classColour, swear, message, channelName, channelNumber, event)
   table.insert(
-    OFFENDERS,
+    Reported2.OFFENDERS,
     {
       playerName = playerName,
       playerNameWithRealm = playerNameWithRealm,
@@ -151,7 +180,7 @@ function CreatePanel()
   CreatePanelHeaderTextLeft()
   CreatePanelHeaderTextRight()
   CreatePanelSeparator()
-  CreateSeats(SEAT_COUNT)
+  CreateSeats(Reported2.SEAT_COUNT)
 
   panelBase:Hide()
 end
@@ -179,8 +208,9 @@ end
 function FlashHeaderTextRight()
   local flashTime = 0.150
   local headerTextRight = _G["REPORTED2_PANEL_HEADER_TEXT_RIGHT"]
-  local normalText = Palette.START .. Palette.RICH_YELLOW .. "Waiting Room" .. Palette.END
-  local flashedText = Palette.START .. Palette.BRIGHT_YELLOW .. "Waiting Room" .. Palette.END
+  local normalText = Reported2.Palette.START .. Reported2.Palette.RICH_YELLOW .. "Waiting Room" .. Reported2.Palette.END
+  local flashedText =
+    Reported2.Palette.START .. Reported2.Palette.BRIGHT_YELLOW .. "Waiting Room" .. Reported2.Palette.END
 
   headerTextRight:SetText(flashedText)
 
@@ -192,14 +222,14 @@ function FlashHeaderTextRight()
   )
 end
 
-Panel.CreatePanel = CreatePanel
-Panel.AddOffender = AddOffender
+Reported2.Panel.CreatePanel = CreatePanel
+Reported2.Panel.AddOffender = AddOffender
 
-Panel.ShowPanel = ShowPanel
-Panel.HidePanel = HidePanel
+Reported2.Panel.ShowPanel = ShowPanel
+Reported2.Panel.HidePanel = HidePanel
 
-Panel.SetWidgetText = SetWidgetText
-Panel.DisableButton = DisableButton
-Panel.EnableButton = EnableButton
+Reported2.Panel.SetWidgetText = SetWidgetText
+Reported2.Panel.DisableButton = DisableButton
+Reported2.Panel.EnableButton = EnableButton
 
-Panel.FlashHeaderTextRight = FlashHeaderTextRight
+Reported2.Panel.FlashHeaderTextRight = FlashHeaderTextRight

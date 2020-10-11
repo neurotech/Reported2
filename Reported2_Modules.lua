@@ -1,6 +1,6 @@
-Modules = {}
+Reported2.Modules = {}
 
-Modules["Default"] = {
+Reported2.Modules["Default"] = {
   ["Description"] = "Simple reported responses",
   "reported",
   "Reported!",
@@ -13,10 +13,10 @@ Modules["Default"] = {
   "Reported!!",
   "Reported!!!",
   "Reported player: %Pl. Enjoy you're ban.",
-  "Player %Pl has been reported for their distasteful and vulgar language."
+  "Player %Pl has been reported for their distasteful and vulgar Reported2.Language."
 }
 
-Modules["Harry_Potter"] = {
+Reported2.Modules["Harry_Potter"] = {
   ["Description"] = "Harry Potter hates muggles who swear",
   "VOLDEMORT JUMPS OUT AND REPORTS %Pl FOR THEIR VULGAR LANGUAGE",
   "heh... expeliarmous of your bad language %pl - ron weasley 2002",
@@ -32,7 +32,7 @@ Modules["Harry_Potter"] = {
   "My patronus charm is in the form of a report button. I cast Expecto patronum to protect myself against %Pl swearing"
 }
 
-Modules["Bro"] = {
+Reported2.Modules["Bro"] = {
   ["Description"] = "Same as chief module",
   "hey %pl chillout bro",
   "%pl relax bro",
@@ -42,7 +42,7 @@ Modules["Bro"] = {
   "whoa %pl take it down a level bro"
 }
 
-Modules["Chief"] = {
+Reported2.Modules["Chief"] = {
   ["Description"] = "Same as bro module",
   "hey %pl chillout chief",
   "%pl relax chief",
@@ -52,7 +52,7 @@ Modules["Chief"] = {
   "whoa %pl take it down a level chief"
 }
 
-Modules["Bible"] = {
+Reported2.Modules["Bible"] = {
   ["Description"] = "Bible shit",
   "HEY %Pl YOU CAN'T SWEAR IT'S IN THE 10 COMMANDMENTS RIGHT UNDER THE RIGHT TO BARE ARMS",
   "%Pl DID YOU KNOW ADAM AND EVE WERE THROWN OUT OF EDEN FOR SWEARING?  WATCH OUT",
@@ -66,7 +66,7 @@ Modules["Bible"] = {
   "%Pl: Luke 6:45: 'A good man brings good things out of the good stored up in his heart, and an evil man brings evil things out of the evil stored up in his heart. For the mouth speaks what the heart is full of.'"
 }
 
-Modules["Pro_Gamer"] = {
+Reported2.Modules["Pro_Gamer"] = {
   ["Description"] = "Pro Gaming is awesome",
   "i'm a professional pro gamer and i can get by without swearing, why can't %pl?",
   "look at %pl, he's so bad at wow he needs to swear all the time to make up for it.",
@@ -74,10 +74,10 @@ Modules["Pro_Gamer"] = {
   "hey %pl maybe if you were more confident in your gaming abilities you wouldn't have to swear so much",
   "i hope you know that blizzard didn't have swearing in mind when they designed molten core %pl, and neither should you if you want to conquer it",
   "do you think the french player Nymh got the world first level 80 by swearing, %pl?  no, he got it through hard work and good skill.",
-  "%pl chooses to substitute gaming skill with bad language. don't follow his example if you want to succeed."
+  "%pl chooses to substitute gaming skill with bad Reported2.Language. don't follow his example if you want to succeed."
 }
 
-Modules["Gandalf"] = {
+Reported2.Modules["Gandalf"] = {
   ["Description"] = "Gandalf really hates swear words",
   "A wizard never swears %pl baggins he says precisely what he means, and you swore, reported!",
   "Some who live deserve to swear and some who die deserve not to swear, who are you to give it to them %pl?",
@@ -87,17 +87,17 @@ Modules["Gandalf"] = {
   "mm yes this is interesting this scroll here whats this!?!? it says here %pl swore... i must consult sarumon - gandalf 2003"
 }
 
-Modules["Censor"] = {
+Reported2.Modules["Censor"] = {
   ["Description"] = "Good thing you caught yourself swearing!",
   "holy f@^k %Pl why did you just say that>???",
   "jesus f@&#*ng christ (sorry lord) %Pl don't say that, this is a rated T game!",
   "holy s&@t %Pl! blizzard please ban this swearer",
   "%Pl you b&@$*rd please don't say that",
   "gosh f#&@*ng  d@@$*mit %Pl stop swearing or my mum will kick me off the computer",
-  "f&#k, %Pl, stop swearing"
+  "f&#k, %Pl stop swearing"
 }
 
-Modules["Achievements"] = {
+Reported2.Modules["Achievements"] = {
   ["Description"] = "grats buddy!",
   ["Credit"] = "Pleads",
   "%Pl has earned the achievement [Reported For Swearing]!",
@@ -107,7 +107,7 @@ Modules["Achievements"] = {
   "%Pl has earned the achievement [Banned for Inappropriate Language]!"
 }
 
-Modules["Dad"] = {
+Reported2.Modules["Dad"] = {
   ["Description"] = "[DAD] Dad mod: For dads. (dad)",
   ["Credit"] = "Badfinger & Mostly Talid",
   "Whoa there slugger, one more out of you and no allowance this week.",
@@ -127,7 +127,7 @@ Modules["Dad"] = {
   "What did you just say, %Pl? No sone of mine is going to talk like that around his mother."
 }
 
-Modules["Troll"] = {
+Reported2.Modules["Troll"] = {
   ["Description"] = "Trolling 101.",
   ["Credit"] = "Funholy and friends",
   "Hey %Pl, did you know that every time you swear your gearscore goes down?",
@@ -141,7 +141,7 @@ Modules["Troll"] = {
   "LF more members for our guild [Dragon Lovers]! Message %Pl if you're looking for a guild that is exclusively for fans of Bad Dragon products."
 }
 
-Modules["Normal"] = {
+Reported2.Modules["Normal"] = {
   ["Description"] = "Please, Don't Troll.",
   ["Credit"] = "CuddlyZombie",
   "Hey %Pl, watch your language mate.",
@@ -153,7 +153,7 @@ Modules["Normal"] = {
   "I've had enough of that kind of language, %Pl!  I'm going to report you."
 }
 
-Modules["Shakespeare"] = {
+Reported2.Modules["Shakespeare"] = {
   ["Description"] = "Shakespeare.",
   ["Credit"] = "Kerbtree",
   "Is this a swearword I see before me?  The handle toward my hand?  Come, %Pl let me clutch thee - Macbeth, Act II, Scene I",
@@ -169,10 +169,10 @@ Modules["Shakespeare"] = {
   "How bitter a thing it is to look into swearing through %Pl's eyes! - As You Like It. Act V, Scene II."
 }
 
-Modules["Dictionary"] = {
+Reported2.Modules["Dictionary"] = {
   ["Description"] = "That's not how you spell 'oculus'.",
   ["Credit"] = "Technogeek and Funso Banjo, with addition from Has no meaning",
-  "Irony - made of, or having the properties of, iron. - Oxford English Dictionary 2009. %Pl may have an irony sword, but he'll be locked in an irony cage if the guards hear that language.",
+  "Irony - made of, or having the properties of, iron. - Oxford English Dictionary 2009. %Pl may have an irony sword, but he'll be locked in an irony cage if the guards hear that Reported2.Language.",
   "Except - to receive or agree to something - Oxford English Dictionary 2009. I do not except %Pl's bad language! And niether should you!",
   "Angle - a celestial attendant of God - Oxford English Dictionary 2009. %Pl, do you truly think the Angles can't hear your swears?",
   "Anecdote - a cure for a disease, or something which neutralizes poison - Oxford English Dictionary 2008. Reporting swearers is the anecdote to the poison which is %Pl.",
@@ -188,7 +188,7 @@ Modules["Dictionary"] = {
   "Troll - To sing or utter in a full, rolling voice - Webster's Dictionary 1995. %Pl rolled a Darkspear because of his lovely trolling voice, but he shouldn't use it to swear." -- An actual definition of troll.
 }
 
-Modules["Terms_of_Use"] = {
+Reported2.Modules["Terms_of_Use"] = {
   ["Description"] = "Letter of the law.",
   ["Credit"] = "Unknown",
   "As you well know, %Pl, the use of swear words is against the terms of use of World of Warcraft and I have reported you for it.",
@@ -202,7 +202,7 @@ Modules["Terms_of_Use"] = {
   "The existence of a profanity filter is no excuse for %Pl to violate the terms of use."
 }
 
-Modules["Rapture"] = {
+Reported2.Modules["Rapture"] = {
   ["Description"] = "It's like bioshock right???",
   ["Credit"] = "Stubby",
   "Be careful, %Pl, you won't be raptured using language like that!",
@@ -216,7 +216,7 @@ Modules["Rapture"] = {
   "During the Great White Throne judgment, God will condemn people with filthy language like %Pl's to an eternity in a lake of fire, along with liberals and non-Christians."
 }
 
-Modules["GamerCulture"] = {
+Reported2.Modules["GamerCulture"] = {
   ["Description"] = "Social activism for misogynists.",
   ["Credit"] = "Ocrumsprug",
   "%Pl trying to reclaim the 'raider' identity through swearing, shameful #gamergate",
@@ -232,7 +232,7 @@ Modules["GamerCulture"] = {
   "%Pl is amplifying the voices of the most oppressed social group by swearing: Gamers."
 }
 
-Modules["RP"] = {
+Reported2.Modules["RP"] = {
   ["Description"] = "Shit all over lore to troll people on RP servers.",
   ["Credit"] = "Grooveh, Moon Guard goons, and Gentlemanne",
   "%Pl, swearing is against WoW canon. There is no swearing anywhere in the history of the World of Warcraft. Reported for breaking lore on an RP server and being offensive.",
@@ -303,10 +303,10 @@ Modules["RP"] = {
   "Monks are a bad class, they should be peaceful and quiet and not melee spell casters. Monks don't make any sense. Just like the stupid words came out of %Pl's dirty mouth. Both of them should be silent."
 }
 
-Modules["SJW"] = {
+Reported2.Modules["SJW"] = {
   ["Description"] = "literally.",
   ["Credit"] = "neurotech",
-  "I'm literally shaking right now after reading the toxic swear word that %Pl just said. Reported and CANCELLED %Pl.",
+  "I'm literally shaking right now after reading the toxic swear word that %Pl just said. Reported and CANCELLED.",
   "%Pl swearing just now is the literal opposite of being a decent human being. Losing all faith in humanity right now. Reported.",
   "I literally can't even right now after reading %Pl's disgusting swear words. Reported in the hopes of getting him banned.",
   "%Pl: oof, that's one yike from me friendo. Reported.",
@@ -314,7 +314,7 @@ Modules["SJW"] = {
   "Ummmm, %Pl... you do realise that use of that word is highly problematic? Just shut up and listen to me oh sweet summer child: I am going to report you for swearing. Cancelled."
 }
 
-Modules["Quran"] = {
+Reported2.Modules["Quran"] = {
   ["Description"] = "This one might be too strong.",
   ["Credit"] = "neurotech",
   "%Pl keep in mind the words of Imam Ali next time you swear: 'For every swear word you give, a scorpion is created in your grave.' Reported.",

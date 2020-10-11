@@ -15,6 +15,7 @@ local configFrame,
 function UpdateConfigFrameValues()
   showWaitingRoomCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL])
   hideInCombatCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT])
+  showOnDetectionCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_SHOW_ON_DETECTION])
   muteSoundsCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS])
   globalChannelsCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_CHANNEL])
   guildChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_GUILD])
@@ -30,23 +31,23 @@ function UpdateConfigFrameValues()
   yellChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_YELL])
 
   for index, moduleName in ipairs(REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES]) do
-    local checkbox = _G["MODULE_CHECKBOX_" .. string.upper(moduleName)]
+    local checkbox = _G["REPORTED2_MODULE_CHECKBOX_" .. string.upper(moduleName)]
     checkbox:SetChecked(true)
   end
 
   for index, moduleName in ipairs(REPORTED2_PREFS[REPORTED2_PREFS_DISABLED_MODULES]) do
-    local checkbox = _G["MODULE_CHECKBOX_" .. string.upper(moduleName)]
+    local checkbox = _G["REPORTED2_MODULE_CHECKBOX_" .. string.upper(moduleName)]
     checkbox:SetChecked(false)
   end
 end
 
 function CreateModulesPanel()
-  modulesFrame = UI.Config.CreateModulesFrame(configFrame)
-  UI.Config.CreateTitleLabel(modulesFrame)
-  UI.Config.CreateVersionLabel(modulesFrame, titleLabel)
-  UI.Config.CreateContributorsLabel(modulesFrame)
-  local separator = UI.Config.CreateSeparator(modulesFrame)
-  local modulesLabel = UI.Config.CreateOptionsLabel("Modules", modulesFrame, separator)
+  modulesFrame = Reported2.UI.Config.CreateModulesFrame(configFrame)
+  Reported2.UI.Config.CreateTitleLabel(modulesFrame)
+  Reported2.UI.Config.CreateVersionLabel(modulesFrame, titleLabel)
+  Reported2.UI.Config.CreateContributorsLabel(modulesFrame)
+  local separator = Reported2.UI.Config.CreateSeparator(modulesFrame)
+  local modulesLabel = Reported2.UI.Config.CreateOptionsLabel("Modules", modulesFrame, separator)
 
   local scrollFrame =
     CreateFrame(
@@ -57,13 +58,13 @@ function CreateModulesPanel()
   )
   scrollFrame:SetPoint("TOPLEFT", modulesLabel, 0, -modulesLabel:GetHeight() * 1.5)
   scrollFrame:SetSize(
-    InterfaceOptionsFramePanelContainer:GetWidth() - UI.Sizes.Padding * 2,
-    InterfaceOptionsFramePanelContainer:GetHeight() - UI.Sizes.Padding * 12
+    InterfaceOptionsFramePanelContainer:GetWidth() - Reported2.UI.Sizes.Padding * 2,
+    InterfaceOptionsFramePanelContainer:GetHeight() - Reported2.UI.Sizes.Padding * 12
   )
   scrollFrame:SetBackdrop(
     {
-      bgFile = FLAT_BG_TEXTURE,
-      edgeFile = EDGE_TEXTURE,
+      bgFile = Reported2.FLAT_BG_TEXTURE,
+      edgeFile = Reported2.EDGE_TEXTURE,
       edgeSize = 1
     }
   )
@@ -95,13 +96,13 @@ function CreateModulesPanel()
 
   local scrollBar = CreateFrame("Slider", nil, scrollFrame)
   scrollBar:SetFrameLevel(4)
-  scrollBar:SetPoint("TOPLEFT", scrollFrame, "TOPRIGHT", -(UI.Sizes.Padding * 1.5), 0)
-  scrollBar:SetPoint("BOTTOMLEFT", scrollFrame, "BOTTOMRIGHT", UI.Sizes.Padding * 0.5, 0)
+  scrollBar:SetPoint("TOPLEFT", scrollFrame, "TOPRIGHT", -(Reported2.UI.Sizes.Padding * 1.5), 0)
+  scrollBar:SetPoint("BOTTOMLEFT", scrollFrame, "BOTTOMRIGHT", Reported2.UI.Sizes.Padding * 0.5, 0)
   scrollBar:SetMinMaxValues(1, InterfaceOptionsFramePanelContainer:GetHeight())
   scrollBar:SetValueStep(1)
   scrollBar.scrollStep = 1
   scrollBar:SetValue(0)
-  scrollBar:SetWidth(UI.Sizes.Padding * 1.5)
+  scrollBar:SetWidth(Reported2.UI.Sizes.Padding * 1.5)
   scrollBar:SetScript(
     "OnValueChanged",
     function(self, value)
@@ -114,34 +115,44 @@ function CreateModulesPanel()
   scrollbg:SetAllPoints(scrollBar)
   scrollbg:SetBackdrop(
     {
-      bgFile = FLAT_BG_TEXTURE,
-      edgeFile = EDGE_TEXTURE,
+      bgFile = Reported2.FLAT_BG_TEXTURE,
+      edgeFile = Reported2.EDGE_TEXTURE,
       edgeSize = 1
     }
   )
-  scrollbg:SetBackdropBorderColor(Palette.RGB.BLACK.r, Palette.RGB.BLACK.g, Palette.RGB.BLACK.b, 1)
+  scrollbg:SetBackdropBorderColor(
+    Reported2.Palette.RGB.BLACK.r,
+    Reported2.Palette.RGB.BLACK.g,
+    Reported2.Palette.RGB.BLACK.b,
+    1
+  )
   scrollbg:SetBackdropColor(0, 0, 0, 0.45)
 
-  scrollBar:SetThumbTexture(BUTTON_BG_TEXTURE)
+  scrollBar:SetThumbTexture(Reported2.BUTTON_BG_TEXTURE)
   local thumbTexture = scrollBar:GetThumbTexture()
-  thumbTexture:SetVertexColor(Palette.RGB.TEAL.r, Palette.RGB.TEAL.g, Palette.RGB.TEAL.b, 1)
+  thumbTexture:SetVertexColor(
+    Reported2.Palette.RGB.TEAL.r,
+    Reported2.Palette.RGB.TEAL.g,
+    Reported2.Palette.RGB.TEAL.b,
+    1
+  )
   thumbTexture:SetWidth(scrollBar:GetWidth() - 2)
-  thumbTexture:SetHeight(UI.Sizes.Padding * 2)
+  thumbTexture:SetHeight(Reported2.UI.Sizes.Padding * 2)
 
   modulesFrame.scrollbar = scrollBar
 
-  local offset = UI.Sizes.Padding
-  local sortedModules = Utilities.GetSortedModuleNames(Modules)
+  local offset = Reported2.UI.Sizes.Padding
+  local sortedModules = Reported2.Utilities.GetSortedModuleNames(Reported2.Modules)
 
   for index, moduleName in ipairs(sortedModules) do
-    local moduleContent = Modules[moduleName]
+    local moduleContent = Reported2.Modules[moduleName]
     local moduleNameText = moduleName
     local moduleCreditText = moduleContent["Credit"]
     local moduleDescriptionText = moduleContent["Description"]
     local isLastModule = index == #sortedModules
 
     local moduleCheckboxAndLabelFrame, moduleCheckbox, moduleLabel =
-      UI.Config.CreateModuleCheckboxAndLabel(
+      Reported2.UI.Config.CreateModuleCheckboxAndLabel(
       moduleNameText,
       moduleCreditText,
       moduleDescriptionText,
@@ -150,14 +161,14 @@ function CreateModulesPanel()
       isLastModule
     )
 
-    offset = offset + moduleCheckboxAndLabelFrame:GetHeight() + UI.Sizes.Padding * 1.5
+    offset = offset + moduleCheckboxAndLabelFrame:GetHeight() + Reported2.UI.Sizes.Padding * 1.5
   end
 
   local enableAllButton = CreateFrame("BUTTON", nil, scrollFrame)
   enableAllButton:SetBackdrop(
     {
-      bgFile = BUTTON_BG_TEXTURE,
-      edgeFile = EDGE_TEXTURE,
+      bgFile = Reported2.BUTTON_BG_TEXTURE,
+      edgeFile = Reported2.EDGE_TEXTURE,
       edgeSize = 1
     }
   )
@@ -165,40 +176,64 @@ function CreateModulesPanel()
   enableAllButton:SetSize(80, 30)
   enableAllButton:SetPoint(
     "BOTTOMRIGHT",
-    -(enableAllButton:GetWidth() + UI.Sizes.Padding),
-    -(enableAllButton:GetHeight() + UI.Sizes.Padding)
+    -(enableAllButton:GetWidth() + Reported2.UI.Sizes.Padding),
+    -(enableAllButton:GetHeight() + Reported2.UI.Sizes.Padding)
   )
-  enableAllButton:SetBackdropColor(Palette.RGB.GREY.r, Palette.RGB.GREY.g, Palette.RGB.GREY.b, 1)
-  enableAllButton:SetBackdropBorderColor(Palette.RGB.DARK_GREY.r, Palette.RGB.DARK_GREY.g, Palette.RGB.DARK_GREY.b, 1)
+  enableAllButton:SetBackdropColor(
+    Reported2.Palette.RGB.GREY.r,
+    Reported2.Palette.RGB.GREY.g,
+    Reported2.Palette.RGB.GREY.b,
+    1
+  )
+  enableAllButton:SetBackdropBorderColor(
+    Reported2.Palette.RGB.DARK_GREY.r,
+    Reported2.Palette.RGB.DARK_GREY.g,
+    Reported2.Palette.RGB.DARK_GREY.b,
+    1
+  )
 
   local enableAllButtonText = enableAllButton:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   enableAllButtonText:SetPoint("CENTER", enableAllButton, "CENTER")
-  enableAllButtonText:SetText(Palette.START .. Palette.TEAL .. "Enable all" .. Palette.END)
+  enableAllButtonText:SetText(
+    Reported2.Palette.START .. Reported2.Palette.TEAL .. "Enable all" .. Reported2.Palette.END
+  )
 
   local disableAllButton = CreateFrame("BUTTON", nil, scrollFrame)
   disableAllButton:SetBackdrop(
     {
-      bgFile = BUTTON_BG_TEXTURE,
-      edgeFile = EDGE_TEXTURE,
+      bgFile = Reported2.BUTTON_BG_TEXTURE,
+      edgeFile = Reported2.EDGE_TEXTURE,
       edgeSize = 1
     }
   )
 
   disableAllButton:SetSize(80, 30)
-  disableAllButton:SetPoint("BOTTOMRIGHT", 0, -(disableAllButton:GetHeight() + UI.Sizes.Padding))
-  disableAllButton:SetBackdropColor(Palette.RGB.GREY.r, Palette.RGB.GREY.g, Palette.RGB.GREY.b, 1)
-  disableAllButton:SetBackdropBorderColor(Palette.RGB.DARK_GREY.r, Palette.RGB.DARK_GREY.g, Palette.RGB.DARK_GREY.b, 1)
+  disableAllButton:SetPoint("BOTTOMRIGHT", 0, -(disableAllButton:GetHeight() + Reported2.UI.Sizes.Padding))
+  disableAllButton:SetBackdropColor(
+    Reported2.Palette.RGB.GREY.r,
+    Reported2.Palette.RGB.GREY.g,
+    Reported2.Palette.RGB.GREY.b,
+    1
+  )
+  disableAllButton:SetBackdropBorderColor(
+    Reported2.Palette.RGB.DARK_GREY.r,
+    Reported2.Palette.RGB.DARK_GREY.g,
+    Reported2.Palette.RGB.DARK_GREY.b,
+    1
+  )
 
   local disableAllButtonText = disableAllButton:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   disableAllButtonText:SetPoint("CENTER", disableAllButton, "CENTER")
-  disableAllButtonText:SetText(Palette.START .. Palette.RED .. "Disable all" .. Palette.END)
+  disableAllButtonText:SetText(
+    Reported2.Palette.START .. Reported2.Palette.RED .. "Disable all" .. Reported2.Palette.END
+  )
 
   enableAllButton:SetScript(
     "OnClick",
     function()
-      local sortedModules = Utilities.GetSortedModuleNames(Modules)
+      local sortedModules = Reported2.Utilities.GetSortedModuleNames(Reported2.Modules)
       for index, moduleName in ipairs(sortedModules) do
-        local checkbox = _G["MODULE_CHECKBOX_" .. string.upper(moduleName)]
+        local checkbox = _G["REPORTED2_MODULE_CHECKBOX_" .. string.upper(moduleName)]
         checkbox:SetChecked(true)
       end
     end
@@ -206,18 +241,27 @@ function CreateModulesPanel()
   enableAllButton:SetScript(
     "OnEnter",
     function()
-      enableAllButtonText:SetText(Palette.START .. Palette.WHITE .. "Enable all" .. Palette.END)
-      enableAllButton:SetBackdropBorderColor(Palette.RGB.TEAL.r, Palette.RGB.TEAL.g, Palette.RGB.TEAL.b, 1)
+      enableAllButtonText:SetText(
+        Reported2.Palette.START .. Reported2.Palette.WHITE .. "Enable all" .. Reported2.Palette.END
+      )
+      enableAllButton:SetBackdropBorderColor(
+        Reported2.Palette.RGB.TEAL.r,
+        Reported2.Palette.RGB.TEAL.g,
+        Reported2.Palette.RGB.TEAL.b,
+        1
+      )
     end
   )
   enableAllButton:SetScript(
     "OnLeave",
     function()
-      enableAllButtonText:SetText(Palette.START .. Palette.TEAL .. "Enable all" .. Palette.END)
+      enableAllButtonText:SetText(
+        Reported2.Palette.START .. Reported2.Palette.TEAL .. "Enable all" .. Reported2.Palette.END
+      )
       enableAllButton:SetBackdropBorderColor(
-        Palette.RGB.DARK_GREY.r,
-        Palette.RGB.DARK_GREY.g,
-        Palette.RGB.DARK_GREY.b,
+        Reported2.Palette.RGB.DARK_GREY.r,
+        Reported2.Palette.RGB.DARK_GREY.g,
+        Reported2.Palette.RGB.DARK_GREY.b,
         1
       )
     end
@@ -226,9 +270,9 @@ function CreateModulesPanel()
   disableAllButton:SetScript(
     "OnClick",
     function()
-      local sortedModules = Utilities.GetSortedModuleNames(Modules)
+      local sortedModules = Reported2.Utilities.GetSortedModuleNames(Reported2.Modules)
       for index, moduleName in ipairs(sortedModules) do
-        local checkbox = _G["MODULE_CHECKBOX_" .. string.upper(moduleName)]
+        local checkbox = _G["REPORTED2_MODULE_CHECKBOX_" .. string.upper(moduleName)]
         checkbox:SetChecked(false)
       end
     end
@@ -236,18 +280,27 @@ function CreateModulesPanel()
   disableAllButton:SetScript(
     "OnEnter",
     function()
-      disableAllButtonText:SetText(Palette.START .. Palette.WHITE .. "Disable all" .. Palette.END)
-      disableAllButton:SetBackdropBorderColor(Palette.RGB.RED.r, Palette.RGB.RED.g, Palette.RGB.RED.b, 1)
+      disableAllButtonText:SetText(
+        Reported2.Palette.START .. Reported2.Palette.WHITE .. "Disable all" .. Reported2.Palette.END
+      )
+      disableAllButton:SetBackdropBorderColor(
+        Reported2.Palette.RGB.RED.r,
+        Reported2.Palette.RGB.RED.g,
+        Reported2.Palette.RGB.RED.b,
+        1
+      )
     end
   )
   disableAllButton:SetScript(
     "OnLeave",
     function()
-      disableAllButtonText:SetText(Palette.START .. Palette.RED .. "Disable all" .. Palette.END)
+      disableAllButtonText:SetText(
+        Reported2.Palette.START .. Reported2.Palette.RED .. "Disable all" .. Reported2.Palette.END
+      )
       disableAllButton:SetBackdropBorderColor(
-        Palette.RGB.DARK_GREY.r,
-        Palette.RGB.DARK_GREY.g,
-        Palette.RGB.DARK_GREY.b,
+        Reported2.Palette.RGB.DARK_GREY.r,
+        Reported2.Palette.RGB.DARK_GREY.g,
+        Reported2.Palette.RGB.DARK_GREY.b,
         1
       )
     end
@@ -255,35 +308,50 @@ function CreateModulesPanel()
 end
 
 function CreatePanel()
-  configFrame = UI.Config.CreateConfigFrame()
-  titleLabel = UI.Config.CreateTitleLabel(configFrame)
-  versionLabel = UI.Config.CreateVersionLabel(configFrame, titleLabel)
-  contributorsLabel = UI.Config.CreateContributorsLabel(configFrame)
-  separator = UI.Config.CreateSeparator(configFrame)
+  configFrame = Reported2.UI.Config.CreateConfigFrame()
+  titleLabel = Reported2.UI.Config.CreateTitleLabel(configFrame)
+  versionLabel = Reported2.UI.Config.CreateVersionLabel(configFrame, titleLabel)
+  contributorsLabel = Reported2.UI.Config.CreateContributorsLabel(configFrame)
+  separator = Reported2.UI.Config.CreateSeparator(configFrame)
 
   -- General Options
-  generalOptionsLabel = UI.Config.CreateOptionsLabel("General Options", configFrame, separator)
+  generalOptionsLabel = Reported2.UI.Config.CreateOptionsLabel("General Options", configFrame, separator)
 
   local showWaitingRoomText = "Show Waiting Room"
   local hideInCombatText = "Hide in combat"
-  local showWaitingRoomShortcutText = Palette.START .. Palette.GREY .. " — Shortcut: /r2 show & /r2 hide" .. Palette.END
+  local showOnDetectionText = "Show on detection"
+  local showWaitingRoomShortcutText =
+    Reported2.Palette.START .. Reported2.Palette.GREY .. " — Shortcut: /r2 show & /r2 hide" .. Reported2.Palette.END
 
   showWaitingRoomCheckbox, showWaitingRoomLabel =
-    UI.Config.CreateCheckbox(showWaitingRoomText .. showWaitingRoomShortcutText, configFrame, generalOptionsLabel)
+    Reported2.UI.Config.CreateCheckbox(
+    showWaitingRoomText .. showWaitingRoomShortcutText,
+    configFrame,
+    generalOptionsLabel
+  )
 
   hideInCombatCheckbox, hideInCombatLabel =
-    UI.Config.CreateCheckbox(hideInCombatText, configFrame, showWaitingRoomCheckbox)
+    Reported2.UI.Config.CreateCheckbox(hideInCombatText, configFrame, showWaitingRoomCheckbox)
 
-  muteSoundsCheckbox, muteSoundsLabel = UI.Config.CreateCheckbox("Mute sounds", configFrame, hideInCombatCheckbox)
+  showOnDetectionCheckbox, showOnDetectionCheckboxLabel =
+    Reported2.UI.Config.CreateCheckbox(showOnDetectionText, configFrame, hideInCombatCheckbox)
+
+  muteSoundsCheckbox, muteSoundsLabel =
+    Reported2.UI.Config.CreateCheckbox("Mute sounds", configFrame, showOnDetectionCheckbox)
 
   -- Channel Options
   channelOptionsLabel =
-    UI.Config.CreateOptionsLabel("Channel Options", configFrame, muteSoundsCheckbox, UI.Sizes.Padding * 2)
+    Reported2.UI.Config.CreateOptionsLabel(
+    "Channel Options",
+    configFrame,
+    muteSoundsCheckbox,
+    Reported2.UI.Sizes.Padding * 3
+  )
   channelOptionsSubLabel =
-    UI.Config.CreateOptionsSubLabel("Select which channels to monitor:", configFrame, channelOptionsLabel)
+    Reported2.UI.Config.CreateOptionsSubLabel("Select which channels to monitor:", configFrame, channelOptionsLabel)
 
   -- Channels
-  UI.Config.CreateChannelCheckboxes(configFrame)
+  Reported2.UI.Config.CreateChannelCheckboxes(configFrame)
 
   CreateModulesPanel()
 
@@ -293,6 +361,7 @@ function CreatePanel()
   function configFrame.okay()
     REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] = showWaitingRoomCheckbox:GetChecked()
     REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT] = hideInCombatCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_PREFS_SHOW_ON_DETECTION] = showOnDetectionCheckbox:GetChecked()
     REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS] = muteSoundsCheckbox:GetChecked()
 
     REPORTED2_PREFS[CHAT_MSG_CHANNEL] = globalChannelsCheckbox:GetChecked()
@@ -311,10 +380,10 @@ function CreatePanel()
     REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES] = {}
     REPORTED2_PREFS[REPORTED2_PREFS_DISABLED_MODULES] = {}
 
-    local sortedModules = Utilities.GetSortedModuleNames(Modules)
+    local sortedModules = Reported2.Utilities.GetSortedModuleNames(Reported2.Modules)
 
     for index, moduleName in ipairs(sortedModules) do
-      local checkbox = _G["MODULE_CHECKBOX_" .. string.upper(moduleName)]
+      local checkbox = _G["REPORTED2_MODULE_CHECKBOX_" .. string.upper(moduleName)]
       local isChecked = checkbox:GetChecked()
 
       if isChecked then
@@ -336,7 +405,12 @@ function CreatePanel()
       table.insert(REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES], "Default")
     end
 
-    RenderOffenders()
+    if REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] then
+      Reported2.RenderOffenders()
+      Reported2.Panel.ShowPanel()
+    else
+      Reported2.Panel.HidePanel()
+    end
   end
 end
 
@@ -352,5 +426,5 @@ function OpenConfigMenu()
   InterfaceOptionsFrame_OpenToCategory(configFrame.name)
 end
 
-Config.CreatePanel = CreatePanel
-Config.OpenConfigMenu = OpenConfigMenu
+Reported2.Config.CreatePanel = CreatePanel
+Reported2.Config.OpenConfigMenu = OpenConfigMenu
