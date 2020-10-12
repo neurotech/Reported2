@@ -369,7 +369,15 @@ combatListener:SetScript(
 )
 
 function SlashCommandHandler(msg, editbox)
-  Reported2.Config.OpenConfigMenu()
+  if msg == "show" then
+    REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] = true
+    SetPanelVisibility(true)
+  elseif msg == "hide" then
+    REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] = false
+    SetPanelVisibility(false)
+  else
+    Reported2.Config.OpenConfigMenu()
+  end
 end
 
 SlashCmdList["REPORTEDTWO"] = SlashCommandHandler
