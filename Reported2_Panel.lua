@@ -2,7 +2,7 @@ Panel = {}
 
 local panelBase, playerNameText, channelText, reportButton, reportButtonTitle, skipButton, skipButtonTitle
 
-function CreatePanelBase()
+local function CreatePanelBase()
   panelBase = CreateFrame("Frame", "REPORTED2_PANEL_BASE", UIParent, BackdropTemplateMixin and "BackdropTemplate")
   panelBase:SetPoint("CENTER")
   panelBase:SetSize(Reported2.PANEL_WIDTH, Reported2.PANEL_HEIGHT)
@@ -24,7 +24,7 @@ function CreatePanelBase()
   panelBase:SetScript("OnDragStop", panelBase.StopMovingOrSizing)
 end
 
-function CreatePanelHeaderTextLeft()
+local function CreatePanelHeaderTextLeft()
   local headerTextLeft =
     Reported2.Palette.START ..
     Reported2.Palette.BLUE ..
@@ -35,7 +35,7 @@ function CreatePanelHeaderTextLeft()
   panelHeaderTextLeft:SetText(headerTextLeft)
 end
 
-function CreatePanelHeaderTextRight()
+local function CreatePanelHeaderTextRight()
   local headerTextRight =
     Reported2.Palette.START .. Reported2.Palette.RICH_YELLOW .. "Waiting Room" .. Reported2.Palette.END
   local panelHeaderTextRight =
@@ -44,7 +44,7 @@ function CreatePanelHeaderTextRight()
   panelHeaderTextRight:SetText(headerTextRight)
 end
 
-function CreatePanelSeparator()
+local function CreatePanelSeparator()
   panelSeparator =
     CreateFrame("Frame", "REPORTED2_PANEL_SEPARATOR", panelBase, BackdropTemplateMixin and "BackdropTemplate")
   panelSeparator:SetPoint("TOP", 0, -30)
@@ -58,15 +58,7 @@ function CreatePanelSeparator()
   panelSeparator:SetBackdropColor(0, 0, 0, 0.5)
 end
 
-function CreateSeats(numberOfSeats)
-  local offset = -10
-  for index = 1, numberOfSeats do
-    CreateSeat(index, offset)
-    offset = offset + -Reported2.SEAT_HEIGHT + -(Reported2.PADDING / 2)
-  end
-end
-
-function CreateSeat(index, offset)
+local function CreateSeat(index, offset)
   local seat =
     CreateFrame("Frame", "REPORTED2_SEAT_" .. index, panelSeparator, BackdropTemplateMixin and "BackdropTemplate")
 
@@ -158,7 +150,23 @@ function CreateSeat(index, offset)
   reportButton:Disable()
 end
 
-function AddOffender(playerName, playerNameWithRealm, classColour, swear, message, channelName, channelNumber, event)
+local function CreateSeats(numberOfSeats)
+  local offset = -10
+  for index = 1, numberOfSeats do
+    CreateSeat(index, offset)
+    offset = offset + -Reported2.SEAT_HEIGHT + -(Reported2.PADDING / 2)
+  end
+end
+
+function Reported2.Panel.AddOffender(
+  playerName,
+  playerNameWithRealm,
+  classColour,
+  swear,
+  message,
+  channelName,
+  channelNumber,
+  event)
   table.insert(
     Reported2.OFFENDERS,
     {
@@ -175,7 +183,7 @@ function AddOffender(playerName, playerNameWithRealm, classColour, swear, messag
   )
 end
 
-function CreatePanel()
+function Reported2.Panel.CreatePanel()
   CreatePanelBase()
   CreatePanelHeaderTextLeft()
   CreatePanelHeaderTextRight()
@@ -185,27 +193,32 @@ function CreatePanel()
   panelBase:Hide()
 end
 
-function ShowPanel()
-  panelBase:Show()
+function Reported2.Panel.ShowPanel()
+  if panelBase == nil then
+    CreatePanel()
+    panelBase:Show()
+  else
+    panelBase:Show()
+  end
 end
 
-function HidePanel()
+function Reported2.Panel.HidePanel()
   panelBase:Hide()
 end
 
-function SetWidgetText(widget, text)
+function Reported2.Panel.SetWidgetText(widget, text)
   widget:SetText(text)
 end
 
-function DisableButton(button)
+function Reported2.Panel.DisableButton(button)
   button:Disable()
 end
 
-function EnableButton(button)
+function Reported2.Panel.EnableButton(button)
   button:Enable()
 end
 
-function FlashHeaderTextRight()
+function Reported2.Panel.FlashHeaderTextRight()
   local flashTime = 0.150
   local headerTextRight = _G["REPORTED2_PANEL_HEADER_TEXT_RIGHT"]
   local normalText = Reported2.Palette.START .. Reported2.Palette.RICH_YELLOW .. "Waiting Room" .. Reported2.Palette.END
@@ -221,15 +234,3 @@ function FlashHeaderTextRight()
     end
   )
 end
-
-Reported2.Panel.CreatePanel = CreatePanel
-Reported2.Panel.AddOffender = AddOffender
-
-Reported2.Panel.ShowPanel = ShowPanel
-Reported2.Panel.HidePanel = HidePanel
-
-Reported2.Panel.SetWidgetText = SetWidgetText
-Reported2.Panel.DisableButton = DisableButton
-Reported2.Panel.EnableButton = EnableButton
-
-Reported2.Panel.FlashHeaderTextRight = FlashHeaderTextRight

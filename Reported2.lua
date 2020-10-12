@@ -4,7 +4,7 @@ for index, moduleName in ipairs(sortedModules) do
   table.insert(REPORTED2_DEFAULT_PREFS[REPORTED2_PREFS_ENABLED_MODULES], moduleName)
 end
 
-function ResetSeat(index)
+local function ResetSeat(index)
   local playerNameText = _G["REPORTED2_SEAT_" .. index .. "PLAYER_NAME"]
   local channelText = _G["REPORTED2_SEAT_" .. index .. "CHANNEL"]
   local reportButton = _G["REPORTED2_SEAT_" .. index .. "REPORT_BUTTON"]
@@ -34,7 +34,7 @@ function ResetSeat(index)
   )
 end
 
-function ResetAllSeats()
+local function ResetAllSeats()
   for index = 1, Reported2.SEAT_COUNT do
     ResetSeat(index)
   end
@@ -200,7 +200,7 @@ function RenderOffenders()
   end
 end
 
-function Initialise()
+local function InitialiseReported2()
   local chatListener = CreateFrame("Frame")
 
   for _, event in ipairs(Reported2.Events.Raw) do
@@ -224,7 +224,7 @@ function Initialise()
         local isSelf = playerName == currentPlayer
 
         -- DEBUG:
-        local isSelf = false
+        isSelf = false
 
         local class
         if not guid or guid == "" then
@@ -305,7 +305,7 @@ function Initialise()
   )
 end
 
-function SetPanelVisibility(visible)
+local function SetPanelVisibility(visible)
   if visible then
     Reported2.Panel.ShowPanel()
   else
@@ -335,7 +335,7 @@ addonLoaded:SetScript(
         end
       end
 
-      Initialise()
+      InitialiseReported2()
       Reported2.Panel.CreatePanel()
       Reported2.Config.CreatePanel()
       RenderOffenders()

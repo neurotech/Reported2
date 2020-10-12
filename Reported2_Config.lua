@@ -12,23 +12,23 @@ local configFrame,
   muteSoundsLabel,
   modulesFrame
 
-function UpdateConfigFrameValues()
+local function UpdateConfigFrameValues()
   showWaitingRoomCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL])
   hideInCombatCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT])
   showOnDetectionCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_SHOW_ON_DETECTION])
   muteSoundsCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS])
-  globalChannelsCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_CHANNEL])
-  guildChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_GUILD])
-  instanceChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_INSTANCE_CHAT])
-  instanceLeaderChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_INSTANCE_CHAT_LEADER])
-  officerChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_OFFICER])
-  partyLeaderChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_PARTY])
-  partyChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_PARTY_LEADER])
-  raidLeaderChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_RAID])
-  raidChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_RAID_LEADER])
-  sayChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_SAY])
-  whisperChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_WHISPER])
-  yellChannelCheckbox:SetChecked(REPORTED2_PREFS[CHAT_MSG_YELL])
+  globalChannelsCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_CHANNEL])
+  guildChannelCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_GUILD])
+  instanceChannelCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_INSTANCE_CHAT])
+  instanceLeaderChannelCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_INSTANCE_CHAT_LEADER])
+  officerChannelCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_OFFICER])
+  partyLeaderChannelCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_PARTY])
+  partyChannelCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_PARTY_LEADER])
+  raidLeaderChannelCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_RAID])
+  raidChannelCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_RAID_LEADER])
+  sayChannelCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_SAY])
+  whisperChannelCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_WHISPER])
+  yellChannelCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_YELL])
 
   for index, moduleName in ipairs(REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES]) do
     local checkbox = _G["REPORTED2_MODULE_CHECKBOX_" .. string.upper(moduleName)]
@@ -41,7 +41,7 @@ function UpdateConfigFrameValues()
   end
 end
 
-function CreateModulesPanel()
+local function CreateModulesPanel()
   modulesFrame = Reported2.UI.Config.CreateModulesFrame(configFrame)
   Reported2.UI.Config.CreateTitleLabel(modulesFrame)
   Reported2.UI.Config.CreateVersionLabel(modulesFrame, titleLabel)
@@ -307,7 +307,7 @@ function CreateModulesPanel()
   )
 end
 
-function CreatePanel()
+function Reported2.Config.CreatePanel()
   configFrame = Reported2.UI.Config.CreateConfigFrame()
   titleLabel = Reported2.UI.Config.CreateTitleLabel(configFrame)
   versionLabel = Reported2.UI.Config.CreateVersionLabel(configFrame, titleLabel)
@@ -364,18 +364,18 @@ function CreatePanel()
     REPORTED2_PREFS[REPORTED2_PREFS_SHOW_ON_DETECTION] = showOnDetectionCheckbox:GetChecked()
     REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS] = muteSoundsCheckbox:GetChecked()
 
-    REPORTED2_PREFS[CHAT_MSG_CHANNEL] = globalChannelsCheckbox:GetChecked()
-    REPORTED2_PREFS[CHAT_MSG_GUILD] = guildChannelCheckbox:GetChecked()
-    REPORTED2_PREFS[CHAT_MSG_INSTANCE_CHAT] = instanceChannelCheckbox:GetChecked()
-    REPORTED2_PREFS[CHAT_MSG_INSTANCE_CHAT_LEADER] = instanceLeaderChannelCheckbox:GetChecked()
-    REPORTED2_PREFS[CHAT_MSG_OFFICER] = officerChannelCheckbox:GetChecked()
-    REPORTED2_PREFS[CHAT_MSG_PARTY] = partyLeaderChannelCheckbox:GetChecked()
-    REPORTED2_PREFS[CHAT_MSG_PARTY_LEADER] = partyChannelCheckbox:GetChecked()
-    REPORTED2_PREFS[CHAT_MSG_RAID] = raidLeaderChannelCheckbox:GetChecked()
-    REPORTED2_PREFS[CHAT_MSG_RAID_LEADER] = raidChannelCheckbox:GetChecked()
-    REPORTED2_PREFS[CHAT_MSG_SAY] = sayChannelCheckbox:GetChecked()
-    REPORTED2_PREFS[CHAT_MSG_WHISPER] = whisperChannelCheckbox:GetChecked()
-    REPORTED2_PREFS[CHAT_MSG_YELL] = yellChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_CHAT_MSG_CHANNEL] = globalChannelsCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_CHAT_MSG_GUILD] = guildChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_CHAT_MSG_INSTANCE_CHAT] = instanceChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_CHAT_MSG_INSTANCE_CHAT_LEADER] = instanceLeaderChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_CHAT_MSG_OFFICER] = officerChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_CHAT_MSG_PARTY] = partyLeaderChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_CHAT_MSG_PARTY_LEADER] = partyChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_CHAT_MSG_RAID] = raidLeaderChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_CHAT_MSG_RAID_LEADER] = raidChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_CHAT_MSG_SAY] = sayChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_CHAT_MSG_WHISPER] = whisperChannelCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_CHAT_MSG_YELL] = yellChannelCheckbox:GetChecked()
 
     REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES] = {}
     REPORTED2_PREFS[REPORTED2_PREFS_DISABLED_MODULES] = {}
@@ -414,7 +414,7 @@ function CreatePanel()
   end
 end
 
-function OpenConfigMenu()
+function Reported2.Config.OpenConfigMenu()
   -- https://wowwiki.fandom.com/wiki/Using_the_Interface_Options_Addons_panel
   -- ------------------------------------------------------------------------
   -- Note: Call this function twice (in a row), there is a bug in Blizzard's code which makes the first call
@@ -425,6 +425,3 @@ function OpenConfigMenu()
   InterfaceOptionsFrame_OpenToCategory(configFrame.name)
   InterfaceOptionsFrame_OpenToCategory(configFrame.name)
 end
-
-Reported2.Config.CreatePanel = CreatePanel
-Reported2.Config.OpenConfigMenu = OpenConfigMenu

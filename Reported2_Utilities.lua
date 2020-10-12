@@ -1,6 +1,6 @@
 Reported2.Utilities = {}
 
-function CreateReportNotification(playerName, moduleName, classColour)
+function Reported2.Utilities.CreateReportNotification(playerName, moduleName, classColour)
   local leftBracket = Reported2.Palette.START .. Reported2.Palette.WHITE .. "["
   local reportedPrefix = Reported2.Palette.START .. Reported2.Palette.TEAL .. "Reported! 2"
   local rightBracket = Reported2.Palette.START .. Reported2.Palette.WHITE .. "]"
@@ -14,7 +14,7 @@ function CreateReportNotification(playerName, moduleName, classColour)
   return leftBracket .. reportedPrefix .. rightBracket .. reportedPlayer .. playerClassColoured .. usingTheModule
 end
 
-function GenerateContributorsString()
+function Reported2.Utilities.GenerateContributorsString()
   local contributors = {"weasel", "Sneep", "TrashEmoji", "Bronzong", "Krakyn", "neurotech"}
   local whiteColourString = Reported2.Palette.START .. Reported2.Palette.WHITE
   local pinkColourString = Reported2.Palette.START .. Reported2.Palette.PINK
@@ -34,7 +34,7 @@ function GenerateContributorsString()
   return contributorsString
 end
 
-function GetTableKeys(tab)
+function Reported2.Utilities.GetTableKeys(tab)
   local keyset = {}
 
   for k, v in pairs(tab) do
@@ -44,7 +44,7 @@ function GetTableKeys(tab)
   return keyset
 end
 
-function GetRandomReportedMessage(playerName)
+function Reported2.Utilities.GetRandomReportedMessage(playerName)
   local enabledModules = REPORTED2_PREFS[REPORTED2_PREFS_ENABLED_MODULES]
   local randomModule = enabledModules[Reported2.rand(1, #enabledModules)]
   local line = Reported2.rand(1, #Reported2.Modules[randomModule])
@@ -56,7 +56,7 @@ function GetRandomReportedMessage(playerName)
   return text, randomModule
 end
 
-function GetSortedModuleNames(modulesList)
+function Reported2.Utilities.GetSortedModuleNames(modulesList)
   local sortedModuleNames = {}
 
   for moduleName in pairs(modulesList) do
@@ -67,9 +67,3 @@ function GetSortedModuleNames(modulesList)
 
   return sortedModuleNames
 end
-
-Reported2.Utilities.CreateReportNotification = CreateReportNotification
-Reported2.Utilities.GenerateContributorsString = GenerateContributorsString
-Reported2.Utilities.GetTableKeys = GetTableKeys
-Reported2.Utilities.GetRandomReportedMessage = GetRandomReportedMessage
-Reported2.Utilities.GetSortedModuleNames = GetSortedModuleNames

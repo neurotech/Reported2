@@ -1,23 +1,19 @@
 Reported2.Sounds = {}
 
-function PlaySwearDetectedSound()
+local function PlaySoundFileForEvent(path)
   if not REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS] then
-    PlaySoundFile([[Interface\Addons\Reported2\swear-detected.mp3]])
+    PlaySoundFile(path)
   end
 end
 
-function PlayReportMadeSound()
-  if not REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS] then
-    PlaySoundFile([[Interface\Addons\Reported2\report-made.mp3]])
-  end
+function Reported2.Sounds.PlaySwearDetectedSound()
+  PlaySoundFileForEvent([[Interface\Addons\Reported2\swear-detected.mp3]])
 end
 
-function PlaySkipSound()
-  if not REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS] then
-    PlaySoundFile([[Interface\Addons\Reported2\skip.mp3]])
-  end
+function Reported2.Sounds.PlayReportMadeSound()
+  PlaySoundFileForEvent([[Interface\Addons\Reported2\report-made.mp3]])
 end
 
-Reported2.Sounds.PlaySwearDetectedSound = PlaySwearDetectedSound
-Reported2.Sounds.PlayReportMadeSound = PlayReportMadeSound
-Reported2.Sounds.PlaySkipSound = PlaySkipSound
+function Reported2.Sounds.PlaySkipSound()
+  PlaySoundFileForEvent([[Interface\Addons\Reported2\skip.mp3]])
+end
