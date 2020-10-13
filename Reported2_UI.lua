@@ -38,7 +38,7 @@ local function ApplyNormalTexture(checkbox)
 end
 
 function Reported2.UI.Config.CreateCheckbox(labelText, parent, anchorPoint, relativePoint)
-  local checkbox = CreateFrame("CheckButton", nil, parent, "InterfaceOptionsCheckButtonTemplate")
+  local checkbox = CreateFrame("CheckButton", nil, parent, BackdropTemplateMixin and "BackdropTemplate")
   local label = parent:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
 
   if relativePoint == nil then
@@ -96,7 +96,7 @@ function Reported2.UI.Config.CreateModuleCheckboxAndLabel(
     "CheckButton",
     "REPORTED2_MODULE_CHECKBOX_" .. string.upper(moduleName),
     moduleCheckboxAndLabelFrame,
-    "InterfaceOptionsCheckButtonTemplate"
+    BackdropTemplateMixin and "BackdropTemplate"
   )
   local nameAndCreditLabel = moduleCheckboxAndLabelFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
   local descriptionLabel = moduleCheckboxAndLabelFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")

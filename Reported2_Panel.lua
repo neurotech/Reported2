@@ -82,7 +82,13 @@ local function CreateSeat(index, offset)
   channelText:SetPoint("TOPLEFT", Reported2.CHANNEL_X_OFFSET, -Reported2.PADDING * 0.75)
   channelText:SetText(Reported2.Palette.START .. Reported2.Palette.GREY .. "Channel" .. Reported2.Palette.END)
 
-  reportButton = CreateFrame("Button", "REPORTED2_SEAT_" .. index .. "REPORT_BUTTON", seat)
+  reportButton =
+    CreateFrame(
+    "Button",
+    "REPORTED2_SEAT_" .. index .. "REPORT_BUTTON",
+    seat,
+    BackdropTemplateMixin and "BackdropTemplate"
+  )
   reportButton:SetBackdrop(
     {
       bgFile = Reported2.BUTTON_BG_TEXTURE,
@@ -111,7 +117,13 @@ local function CreateSeat(index, offset)
   reportButtonTitle:SetPoint("CENTER", reportButton, "CENTER")
   reportButtonTitle:SetText(Reported2.Palette.START .. Reported2.Palette.DARK_GREY .. "Report" .. Reported2.Palette.END)
 
-  skipButton = CreateFrame("Button", "REPORTED2_SEAT_" .. index .. "SKIP_BUTTON", seat)
+  skipButton =
+    CreateFrame(
+    "Button",
+    "REPORTED2_SEAT_" .. index .. "SKIP_BUTTON",
+    seat,
+    BackdropTemplateMixin and "BackdropTemplate"
+  )
   skipButton:SetBackdrop(
     {
       bgFile = Reported2.BUTTON_BG_TEXTURE,

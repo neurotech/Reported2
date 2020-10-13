@@ -164,7 +164,7 @@ local function CreateModulesPanel()
     offset = offset + moduleCheckboxAndLabelFrame:GetHeight() + Reported2.UI.Sizes.Padding * 1.5
   end
 
-  local enableAllButton = CreateFrame("BUTTON", nil, scrollFrame)
+  local enableAllButton = CreateFrame("BUTTON", nil, scrollFrame, BackdropTemplateMixin and "BackdropTemplate")
   enableAllButton:SetBackdrop(
     {
       bgFile = Reported2.BUTTON_BG_TEXTURE,
@@ -198,7 +198,7 @@ local function CreateModulesPanel()
     Reported2.Palette.START .. Reported2.Palette.TEAL .. "Enable all" .. Reported2.Palette.END
   )
 
-  local disableAllButton = CreateFrame("BUTTON", nil, scrollFrame)
+  local disableAllButton = CreateFrame("BUTTON", nil, scrollFrame, BackdropTemplateMixin and "BackdropTemplate")
   disableAllButton:SetBackdrop(
     {
       bgFile = Reported2.BUTTON_BG_TEXTURE,
