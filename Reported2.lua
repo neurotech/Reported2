@@ -258,15 +258,16 @@ local function InitialiseReported2()
           C_Timer.After(
             delay,
             function()
-              Reported2.Sounds.PlaySwearDetectedSound()
-              Reported2.Panel.FlashHeaderTextRight()
-
               if #Reported2.OFFENDERS >= Reported2.SEAT_COUNT then
-                local leftBracket = Reported2.Palette.START .. Reported2.Palette.WHITE .. "["
+                local bracketPrefix = Reported2.Palette.START .. Reported2.Palette.WHITE
+                local leftBracket = bracketPrefix .. "["
                 local reportedPrefix = Reported2.Palette.START .. Reported2.Palette.TEAL .. "Reported! 2"
-                local rightBracket = Reported2.Palette.START .. Reported2.Palette.WHITE .. "]"
+                local rightBracket = bracketPrefix .. "]"
                 print(leftBracket .. reportedPrefix .. rightBracket .. " The waiting room is full!")
               else
+                Reported2.Sounds.PlaySwearDetectedSound()
+                Reported2.Panel.FlashHeaderTextRight()
+
                 Reported2.Panel.AddOffender(
                   playerName,
                   sender,

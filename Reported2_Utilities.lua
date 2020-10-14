@@ -15,7 +15,7 @@ function Reported2.Utilities.CreateReportNotification(playerName, moduleName, cl
 end
 
 function Reported2.Utilities.GenerateContributorsString()
-  local contributors = {"weasel", "Sneep", "TrashEmoji", "Bronzong", "Krakyn", "neurotech"}
+  local contributors = {"weasel", "Sneep", "Xenoletum", "Krakyn", "neurotech"}
   local whiteColourString = Reported2.Palette.START .. Reported2.Palette.WHITE
   local pinkColourString = Reported2.Palette.START .. Reported2.Palette.PINK
   local contributorsPrefix = whiteColourString .. "Contributors: "
