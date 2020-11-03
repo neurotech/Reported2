@@ -318,8 +318,8 @@ function Reported2.Config.CreatePanel()
   generalOptionsLabel = Reported2.UI.Config.CreateOptionsLabel("General Options", configFrame, separator)
 
   local showWaitingRoomText = "Show Waiting Room"
-  local hideInCombatText = "Hide in combat"
-  local showOnDetectionText = "Show on detection"
+  local hideInCombatText = "Hide Waiting Room in combat"
+  local showOnDetectionText = "Show Waiting Room on detection"
   local showWaitingRoomShortcutText =
     Reported2.Palette.START .. Reported2.Palette.GREY .. " — Shortcut: /r2 show & /r2 hide" .. Reported2.Palette.END
 
