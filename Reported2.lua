@@ -224,7 +224,7 @@ local function InitialiseReported2()
         local isSelf = playerName == currentPlayer
 
         -- DEBUG:
-        isSelf = false
+        -- isSelf = false
 
         local class
         if not guid or guid == "" then
@@ -279,20 +279,19 @@ local function InitialiseReported2()
                   event
                 )
 
+                RenderOffenders()
+
                 if REPORTED2_PREFS[REPORTED2_PREFS_SHOW_ON_DETECTION] then
                   if InCombatLockdown() then
                     if not REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT] then
-                      RenderOffenders()
                       Reported2.Panel.ShowPanel()
                     end
                   else
-                    RenderOffenders()
                     Reported2.Panel.ShowPanel()
                   end
                 else
                   if InCombatLockdown() then
                     if not REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT] then
-                      RenderOffenders()
                       Reported2.Panel.ShowPanel()
                     end
                   end
