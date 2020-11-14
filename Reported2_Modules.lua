@@ -13,7 +13,7 @@ Reported2.Modules["Default"] = {
   "Reported!!",
   "Reported!!!",
   "Reported player: %Pl. Enjoy you're ban.",
-  "Player %Pl has been reported for their distasteful and vulgar Reported2.Language."
+  "Player %Pl has been reported for their distasteful and vulgar language."
 }
 
 Reported2.Modules["Harry_Potter"] = {
@@ -74,7 +74,7 @@ Reported2.Modules["Pro_Gamer"] = {
   "hey %pl maybe if you were more confident in your gaming abilities you wouldn't have to swear so much",
   "i hope you know that blizzard didn't have swearing in mind when they designed molten core %pl, and neither should you if you want to conquer it",
   "do you think the french player Nymh got the world first level 80 by swearing, %pl?  no, he got it through hard work and good skill.",
-  "%pl chooses to substitute gaming skill with bad Reported2.Language. don't follow his example if you want to succeed."
+  "%pl chooses to substitute gaming skill with bad language. don't follow his example if you want to succeed."
 }
 
 Reported2.Modules["Gandalf"] = {
@@ -172,7 +172,7 @@ Reported2.Modules["Shakespeare"] = {
 Reported2.Modules["Dictionary"] = {
   ["Description"] = "That's not how you spell 'oculus'.",
   ["Credit"] = "Technogeek and Funso Banjo, with addition from Has no meaning",
-  "Irony - made of, or having the properties of, iron. - Oxford English Dictionary 2009. %Pl may have an irony sword, but he'll be locked in an irony cage if the guards hear that Reported2.Language.",
+  "Irony - made of, or having the properties of, iron. - Oxford English Dictionary 2009. %Pl may have an irony sword, but he'll be locked in an irony cage if the guards hear that language.",
   "Except - to receive or agree to something - Oxford English Dictionary 2009. I do not except %Pl's bad language! And niether should you!",
   "Angle - a celestial attendant of God - Oxford English Dictionary 2009. %Pl, do you truly think the Angles can't hear your swears?",
   "Anecdote - a cure for a disease, or something which neutralizes poison - Oxford English Dictionary 2008. Reporting swearers is the anecdote to the poison which is %Pl.",
