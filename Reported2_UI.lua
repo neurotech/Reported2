@@ -271,7 +271,7 @@ function Reported2.UI.Config.CreateChannelCheckboxes(configFrame)
     configFrame,
     BackdropTemplateMixin and "BackdropTemplate"
   )
-  leftChannelColumn:SetPoint("TOPLEFT", Reported2.UI.Sizes.Padding, -240)
+  leftChannelColumn:SetPoint("TOPLEFT", Reported2.UI.Sizes.Padding, -270)
   leftChannelColumn:SetSize(200, 200)
 
   local globalChannelsText =
@@ -317,7 +317,7 @@ function Reported2.UI.Config.CreateChannelCheckboxes(configFrame)
     configFrame,
     BackdropTemplateMixin and "BackdropTemplate"
   )
-  rightChannelColumn:SetPoint("TOPLEFT", Reported2.UI.Sizes.Padding + leftChannelColumn:GetWidth(), -240)
+  rightChannelColumn:SetPoint("TOPLEFT", Reported2.UI.Sizes.Padding + leftChannelColumn:GetWidth(), -270)
   rightChannelColumn:SetSize(200, 200)
 
   local raidLeaderChannelText =

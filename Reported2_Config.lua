@@ -15,6 +15,7 @@ local configFrame,
 local function UpdateConfigFrameValues()
   showWaitingRoomCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL])
   hideInCombatCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT])
+  hideWhenEmptyCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_HIDE_WHEN_EMPTY])
   showOnDetectionCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_SHOW_ON_DETECTION])
   muteSoundsCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS])
   globalChannelsCheckbox:SetChecked(REPORTED2_PREFS[REPORTED2_CHAT_MSG_CHANNEL])
@@ -319,6 +320,7 @@ function Reported2.Config.CreatePanel()
 
   local showWaitingRoomText = "Show Waiting Room"
   local hideInCombatText = "Hide Waiting Room in combat"
+  local hideWhenEmptyText = "Hide Waiting Room when it is empty"
   local showOnDetectionText = "Show Waiting Room on detection"
   local showWaitingRoomShortcutText =
     Reported2.Palette.START .. Reported2.Palette.GREY .. " — Shortcut: /r2 show & /r2 hide" .. Reported2.Palette.END
@@ -333,8 +335,11 @@ function Reported2.Config.CreatePanel()
   hideInCombatCheckbox, hideInCombatLabel =
     Reported2.UI.Config.CreateCheckbox(hideInCombatText, configFrame, showWaitingRoomCheckbox)
 
+  hideWhenEmptyCheckbox, hideWhenEmptyLabel =
+    Reported2.UI.Config.CreateCheckbox(hideWhenEmptyText, configFrame, hideInCombatCheckbox)
+
   showOnDetectionCheckbox, showOnDetectionCheckboxLabel =
-    Reported2.UI.Config.CreateCheckbox(showOnDetectionText, configFrame, hideInCombatCheckbox)
+    Reported2.UI.Config.CreateCheckbox(showOnDetectionText, configFrame, hideWhenEmptyCheckbox)
 
   muteSoundsCheckbox, muteSoundsLabel =
     Reported2.UI.Config.CreateCheckbox("Mute sounds", configFrame, showOnDetectionCheckbox)
@@ -361,6 +366,7 @@ function Reported2.Config.CreatePanel()
   function configFrame.okay()
     REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] = showWaitingRoomCheckbox:GetChecked()
     REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT] = hideInCombatCheckbox:GetChecked()
+    REPORTED2_PREFS[REPORTED2_PREFS_HIDE_WHEN_EMPTY] = hideWhenEmptyCheckbox:GetChecked()
     REPORTED2_PREFS[REPORTED2_PREFS_SHOW_ON_DETECTION] = showOnDetectionCheckbox:GetChecked()
     REPORTED2_PREFS[REPORTED2_PREFS_MUTE_SOUNDS] = muteSoundsCheckbox:GetChecked()
 

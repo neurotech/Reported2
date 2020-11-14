@@ -198,6 +198,12 @@ function RenderOffenders()
       Reported2.Panel.EnableButton(skipButton)
     end
   end
+
+  if REPORTED2_PREFS[REPORTED2_PREFS_HIDE_WHEN_EMPTY] then
+    if #Reported2.OFFENDERS == 0 then
+      Reported2.Panel.HidePanel()
+    end
+  end
 end
 
 local function InitialiseReported2()
