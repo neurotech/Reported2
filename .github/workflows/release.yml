@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code and generate TOC files
         uses: actions/checkout@v2
 
-      - run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
+      - run: echo "{RELEASE_VERSION}={${GITHUB_REF#refs/*/}}" >> $GITHUB_ENV
       - run: mkdir -p Reported2
       - run: touch Reported2-Retail.toc Reported2-Classic.toc
       - run: sed -i "s/ADDON_VERSION/${{ env.RELEASE_VERSION }}/g" Reported2.toctemplate
