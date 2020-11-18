@@ -16,7 +16,7 @@ jobs:
       - run: echo "{RELEASE_VERSION}={${GITHUB_REF#refs/*/}}" >> $GITHUB_ENV
       - run: mkdir -p Reported2
       - run: touch Reported2-Retail.toc Reported2-Classic.toc
-      - run: sed -i "s/ADDON_VERSION/$RELEASE_VERSION/g" Reported2.toctemplate
+      - run: sed -i "s/ADDON_VERSION/${RELEASE_VERSION}/g" Reported2.toctemplate
       - run: cat Reported2.toctemplate > Reported2-Retail.toc
       - run: cat Reported2.toctemplate > Reported2-Classic.toc
       - run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/retail)/g" Reported2-Retail.toc
@@ -27,14 +27,14 @@ jobs:
       - name: Build Retail zip
         uses: edgarrc/action-7z@v1.0.4
         with:
-          args: 7z a Reported2-$RELEASE_VERSION.zip ./Reported2/
+          args: 7z a Reported2-${RELEASE_VERSION}.zip ./Reported2/
 
       - run: cp Reported2-Classic.toc ./Reported2/Reported2.toc
 
       - name: Build Classic zip
         uses: edgarrc/action-7z@v1.0.4
         with:
-          args: 7z a Reported2-$RELEASE_VERSION-classic.zip ./Reported2/
+          args: 7z a Reported2-${RELEASE_VERSION}-classic.zip ./Reported2/
 
       - name: Publish Release
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -42,5 +42,5 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
-            Reported2-$RELEASE_VERSION.zip
-            Reported2-$RELEASE_VERSION-classic.zip
+            Reported2-${RELEASE_VERSION}.zip
+            Reported2-${RELEASE_VERSION}-classic.zip
