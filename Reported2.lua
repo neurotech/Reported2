@@ -109,7 +109,7 @@ function RenderOffenders()
             channelNumber = record.channelNumber
           end
 
-          SendChatMessage(reportedMessage, Reported2.Events.Readable[record.event], nil, channelNumber)
+          SendChatMessage(reportedMessage, Reported2.Events.ChatTypes[record.event], nil, channelNumber)
           table.remove(Reported2.OFFENDERS, index)
           Reported2.Sounds.PlayReportMadeSound()
 
