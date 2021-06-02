@@ -24,7 +24,7 @@ jobs:
       - run: cat Reported2.toctemplate > Reported2-Classic.toc
       - run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/retail)/g" Reported2-Retail.toc
       - run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/classic)/g" Reported2-Classic.toc
-      - run: cp *.lua *.mp3 *.tga ./Reported2/
+      - run: cp *.lua *.mp3 *.tga *.ttf ./Reported2/
       - run: cp Reported2-Retail.toc ./Reported2/Reported2.toc
 
       - name: Build Retail zip
