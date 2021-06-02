@@ -371,3 +371,76 @@ function Reported2.UI.Config.CreateModulesFrame(configFrame)
 
   return modulesFrame
 end
+
+function Reported2.UI.CreatePixelText(name, frame, text, textColour, shadowColour, point, offsetx, offsety)
+  point = point or "TOPLEFT"
+  offsetx = offsetx or 4
+  offsety = offsety or -3
+  shadowColour = shadowColour or {0, 0, 0}
+
+  local pixelText = frame:CreateFontString(name, "OVERLAY", nil)
+  pixelText:SetIgnoreParentScale(true)
+  pixelText:SetPoint(point, offsetx, offsety)
+  pixelText:SetFont("Interface\\AddOns\\Reported2\\semplice.ttf", 6, "MONOCHROME")
+
+  if (textColour) then
+    pixelText:SetTextColor(unpack(textColour))
+  end
+
+  pixelText:SetShadowColor(unpack(shadowColour))
+  pixelText:SetShadowOffset(1, -1)
+  pixelText:SetText(text)
+end
+
+function Reported2.UI.CreatePixelButton(
+  frame,
+  name,
+  text,
+  width,
+  height,
+  textColour,
+  textOffsetx,
+  textOffsety,
+  borderColour,
+  backgroundColour,
+  point,
+  offsetx,
+  offsety)
+  width = width or 60
+  height = height or 20
+  point = point or "TOPLEFT"
+  textColour = textColour or {1, 1, 1}
+  textOffsetx = textOffsetx or 0
+  textOffsety = textOffsety or 0
+  borderColour = borderColour or {1, 1, 1}
+  backgroundColour = backgroundColour or {0, 0, 0}
+  offsetx = offsetx or 0
+  offsety = offsety or 0
+
+  local pixelButton = CreateFrame("Button", name, frame, BackdropTemplateMixin and "BackdropTemplate")
+  pixelButton:SetBackdrop(
+    {
+      bgFile = Reported2.BUTTON_BG_TEXTURE,
+      edgeFile = Reported2.EDGE_TEXTURE,
+      edgeSize = 1
+    }
+  )
+
+  pixelButton:SetSize(width, height)
+  pixelButton:SetPoint(point, offsetx, offsety)
+  pixelButton:SetBackdropColor(unpack(backgroundColour))
+  pixelButton:SetBackdropBorderColor(unpack(borderColour))
+
+  Reported2.UI.CreatePixelText(
+    name .. "_TEXT",
+    pixelButton,
+    text,
+    textColour,
+    backgroundColour,
+    "CENTER",
+    textOffsetx,
+    textOffsety
+  )
+
+  return pixelButton
+end

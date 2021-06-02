@@ -412,7 +412,7 @@ function Reported2.Config.CreatePanel()
     end
 
     if REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] then
-      Reported2.RenderOffenders()
+      Reported2.Panel.RenderOffenders()
       Reported2.Panel.ShowPanel()
     else
       Reported2.Panel.HidePanel()

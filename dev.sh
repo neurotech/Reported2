@@ -10,10 +10,10 @@ cat Reported2.toctemplate.tmp > Reported2-Classic.toc
 sed -i "s/INTERFACE_VERSION/$(cat ./versions/retail)/g" Reported2-Retail.toc
 sed -i "s/INTERFACE_VERSION/$(cat ./versions/classic)/g" Reported2-Classic.toc
 
-cp *.lua *.mp3 *.tga /d/games/World\ of\ Warcraft/_retail_/Interface/AddOns/Reported2/
+cp *.lua *.mp3 *.tga *.ttf /d/games/World\ of\ Warcraft/_retail_/Interface/AddOns/Reported2/
 cp Reported2-Retail.toc /d/games/World\ of\ Warcraft/_retail_/Interface/AddOns/Reported2/Reported2.toc
 
-cp *.lua *.mp3 *.tga /d/games/World\ of\ Warcraft/_classic_/Interface/AddOns/Reported2/
+cp *.lua *.mp3 *.tga *.ttf /d/games/World\ of\ Warcraft/_classic_/Interface/AddOns/Reported2/
 cp Reported2-Classic.toc /d/games/World\ of\ Warcraft/_classic_/Interface/AddOns/Reported2/Reported2.toc
 
 rm Reported2.toctemplate.tmp
