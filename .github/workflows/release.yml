@@ -25,14 +25,16 @@ jobs:
       - run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/retail)/g" Reported2-Retail.toc
       - run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/classic)/g" Reported2-Classic.toc
       - run: cp *.lua *.mp3 *.tga *.ttf ./Reported2/
-      - run: cp Reported2-Retail.toc ./Reported2/Reported2.toc
+      - run: cp Reported2-Retail.toc ./Reported2/Reported2-Retail.toc
 
       - name: Build Retail zip
         uses: edgarrc/action-7z@v1.0.4
         with:
           args: 7z a Reported2-${{ env.RELEASE_VERSION }}.zip ./Reported2/
 
-      - run: cp Reported2-Classic.toc ./Reported2/Reported2.toc
+      - run: cp Reported2-Classic.toc ./Reported2/Reported2-Classic.toc
+      - run: cp Reported2-Classic.toc ./Reported2/Reported2-BCC.toc
+      - run: cp Reported2-Classic.toc ./Reported2/Reported2-WOTLKC.toc
 
       - name: Build Classic zip
         uses: edgarrc/action-7z@v1.0.4
