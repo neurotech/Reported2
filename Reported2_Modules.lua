@@ -197,7 +197,7 @@ Reported2.Modules["Terms_of_Use"] = {
   "I'm pretty sure that the Game Master team is going to have a problem with you saying that %Pl, and that's why I'm reporting you.",
   "%Pl, that kind of language is offensive and not suitable for a game that has been rated PG.",
   "Section 9, subsection B, line (i) of the World of Warcraft terms of use, which %Pl" ..
-    " agreed to when installing World of Warcraft, prohibits saying the sort of thing that %Pl just said. Reported.",
+      " agreed to when installing World of Warcraft, prohibits saying the sort of thing that %Pl just said. Reported.",
   "I am personally offended at the use of language like %Pl's and am reporting him to Blizzard.",
   "The existence of a profanity filter is no excuse for %Pl to violate the terms of use."
 }
@@ -321,4 +321,13 @@ Reported2.Modules["Quran"] = {
   "The Prophet said: 'Do not swear by your fathers; and whoever wants to swear should swear by Allah.' %Pl has been reported accordingly.",
   "Reported %Pl. 'Obscene words and deeds are not part of Islam; the best of the people in Islam are the best of them in attitude.'",
   "Reported %Pl. As The Prophet said, 'The believer does not slander, curse, or speak in an obscene or foul manner.'"
+}
+
+Reported2.Modules["Pelosi"] = {
+  ["Description"] = "Mostly left/right ragebait for both sides",
+  ["Credit"] = "Slowjack",
+  "wow reported %pl i cant belief this. i'm sick of the swears. first jan 6 in congress and now this. donal trump is causing ruin in my wow community",
+  "oh wow you think you're a cool guy saying cuses like AOC? %PL i'm sick of ur language and its been reported.",
+  "i'm reporting these cusses %Pl i'm sorry but i cant take it. first jan6, and then they threaten nancy pelosi, and now this. blizard please do something",
+  "you need to find the lord your god %pl, the cusses and profanity must stop. this is a christian game. don't succomb to demoncrat words. when u get banned do ur research. i'm sorry but u've been reported."
 }
