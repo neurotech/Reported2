@@ -9,17 +9,17 @@ function Reported2.Utilities.CreateReportNotification(playerName, moduleName, cl
   local forSayingTheWord = "' for saying the word '"
   local swearWordColoured = Reported2.Palette.START .. Reported2.Palette.RED .. swearWord .. Reported2.Palette.END
   local usingTheModule =
-    "' - using the " ..
-    Reported2.Palette.START ..
+  "' - using the " ..
+      Reported2.Palette.START ..
       Reported2.Palette.TEAL .. moduleName .. Reported2.Palette.END .. " module." .. Reported2.Palette.END
 
   return leftBracket ..
-    reportedPrefix ..
+      reportedPrefix ..
       rightBracket .. reportedPlayer .. playerClassColoured .. forSayingTheWord .. swearWordColoured .. usingTheModule
 end
 
 function Reported2.Utilities.GenerateContributorsString()
-  local contributors = {"weasel", "Sneep", "Xenoletum", "Krakyn", "neurotech"}
+  local contributors = { "weasel", "Sneep", "Xenoletum", "Krakyn", "neurotech", "slowjack" }
   local whiteColourString = Reported2.Palette.START .. Reported2.Palette.WHITE
   local pinkColourString = Reported2.Palette.START .. Reported2.Palette.PINK
   local contributorsPrefix = whiteColourString .. "Contributors: "
