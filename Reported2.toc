@@ -1,8 +1,13 @@
-## Interface: INTERFACE_VERSION
-## Title : Reported! |cff6b8bf52|r
+## Interface: 90205
+## Interface-Classic: 11403
+## Interface-BCC: 20504
+## Interface-Wrath: 30400
+## Title: Reported! |cff6b8bf52|r
 ## Notes: Rewritten to work with Retail & Classic by neurotech#0659. All credit to |cff0070DESneep|r for the original.
-## Author: Tim Douglas (neurotech#0659)
-## Version: ADDON_VERSION
+## Author: neurotech
+## Version: @project-version@
+## DefaultState: Enabled
+## LoadOnDemand: 0
 ## SavedVariablesPerCharacter: REPORTED2_PREFS
 
 Reported2_Globals.lua

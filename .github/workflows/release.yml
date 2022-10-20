@@ -3,7 +3,7 @@ name: "Tagged Release"
 on:
   push:
     tags:
-      - "*"
+      - "**"
 
 jobs:
   tagged-release:
@@ -14,32 +14,23 @@ jobs:
 
     steps:
       - name: Checkout code and generate TOC files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - run: mkdir -p Reported2
-      - run: touch Reported2-Retail.toc Reported2-Classic.toc
-      - run: sed -i "s/ADDON_VERSION/${{ env.RELEASE_VERSION }}/g" Reported2.toctemplate
-      - run: cat Reported2.toctemplate > Reported2-Retail.toc
-      - run: cat Reported2.toctemplate > Reported2-Classic.toc
-      - run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/retail)/g" Reported2-Retail.toc
-      - run: sed -i "s/INTERFACE_VERSION/$(cat ./versions/classic)/g" Reported2-Classic.toc
-      - run: cp *.lua *.mp3 *.tga *.ttf ./Reported2/
-      - run: cp Reported2-Retail.toc ./Reported2/Reported2-Retail.toc
+      - run: touch Reported2.toc.tmp
+      - run: cat Reported2.toc > Reported2.toc.tmp
+      - run: sed -i "s/@project-version@/${{ env.RELEASE_VERSION }}/g" Reported2.toc.tmp
+      - run: cp *.lua ./Reported2/
+      - run: cp -r Fonts/ ./Reported2/
+      - run: cp -r Sounds/ ./Reported2/
+      - run: cp -r Textures/ ./Reported2/
+      - run: cp Reported2.toc.tmp ./Reported2/Reported2.toc
 
-      - name: Build Retail zip
+      - name: Build zip
         uses: edgarrc/action-7z@v1.0.4
         with:
           args: 7z a Reported2-${{ env.RELEASE_VERSION }}.zip ./Reported2/
-
-      - run: cp Reported2-Classic.toc ./Reported2/Reported2-Classic.toc
-      - run: cp Reported2-Classic.toc ./Reported2/Reported2-BCC.toc
-      - run: cp Reported2-Classic.toc ./Reported2/Reported2-WOTLKC.toc
-
-      - name: Build Classic zip
-        uses: edgarrc/action-7z@v1.0.4
-        with:
-          args: 7z a Reported2-${{ env.RELEASE_VERSION }}-classic.zip ./Reported2/
 
       - name: Publish Release
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -48,4 +39,3 @@ jobs:
           prerelease: false
           files: |
             Reported2-${{ env.RELEASE_VERSION }}.zip
-            Reported2-${{ env.RELEASE_VERSION }}-classic.zip

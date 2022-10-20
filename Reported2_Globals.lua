@@ -80,18 +80,18 @@ Reported2.Events.Colours = {
 }
 
 Reported2.Events.Colours.RGB = {
-  [REPORTED2_CHAT_MSG_CHANNEL] = {232 / 255, 224 / 255, 121 / 255},
-  [REPORTED2_CHAT_MSG_GUILD] = {64 / 255, 251 / 255, 64 / 255},
-  [REPORTED2_CHAT_MSG_INSTANCE_CHAT] = {255 / 255, 127 / 255, 0 / 255},
-  [REPORTED2_CHAT_MSG_INSTANCE_CHAT_LEADER] = {255 / 255, 72 / 255, 9 / 255},
-  [REPORTED2_CHAT_MSG_OFFICER] = {64 / 255, 189 / 255, 64 / 255},
-  [REPORTED2_CHAT_MSG_PARTY_LEADER] = {118 / 255, 197 / 255, 255 / 255},
-  [REPORTED2_CHAT_MSG_PARTY] = {170 / 255, 167 / 255, 255 / 255},
-  [REPORTED2_CHAT_MSG_RAID_LEADER] = {255 / 255, 71 / 255, 9 / 255},
-  [REPORTED2_CHAT_MSG_RAID] = {255 / 255, 125 / 255, 0 / 255},
-  [REPORTED2_CHAT_MSG_SAY] = {255 / 255, 255 / 255, 255 / 255},
-  [REPORTED2_CHAT_MSG_WHISPER] = {255 / 255, 126 / 255, 255 / 255},
-  [REPORTED2_CHAT_MSG_YELL] = {255 / 255, 63 / 255, 64 / 255}
+  [REPORTED2_CHAT_MSG_CHANNEL] = { 232 / 255, 224 / 255, 121 / 255 },
+  [REPORTED2_CHAT_MSG_GUILD] = { 64 / 255, 251 / 255, 64 / 255 },
+  [REPORTED2_CHAT_MSG_INSTANCE_CHAT] = { 255 / 255, 127 / 255, 0 / 255 },
+  [REPORTED2_CHAT_MSG_INSTANCE_CHAT_LEADER] = { 255 / 255, 72 / 255, 9 / 255 },
+  [REPORTED2_CHAT_MSG_OFFICER] = { 64 / 255, 189 / 255, 64 / 255 },
+  [REPORTED2_CHAT_MSG_PARTY_LEADER] = { 118 / 255, 197 / 255, 255 / 255 },
+  [REPORTED2_CHAT_MSG_PARTY] = { 170 / 255, 167 / 255, 255 / 255 },
+  [REPORTED2_CHAT_MSG_RAID_LEADER] = { 255 / 255, 71 / 255, 9 / 255 },
+  [REPORTED2_CHAT_MSG_RAID] = { 255 / 255, 125 / 255, 0 / 255 },
+  [REPORTED2_CHAT_MSG_SAY] = { 255 / 255, 255 / 255, 255 / 255 },
+  [REPORTED2_CHAT_MSG_WHISPER] = { 255 / 255, 126 / 255, 255 / 255 },
+  [REPORTED2_CHAT_MSG_YELL] = { 255 / 255, 63 / 255, 64 / 255 }
 }
 
 Reported2.Events.DarkColours = {
@@ -110,33 +110,34 @@ Reported2.Events.DarkColours = {
 }
 
 Reported2.Events.DarkColours.RGB = {
-  [REPORTED2_CHAT_MSG_CHANNEL] = {70 / 255, 67 / 255, 36 / 255},
-  [REPORTED2_CHAT_MSG_GUILD] = {19 / 255, 75 / 255, 19 / 255},
-  [REPORTED2_CHAT_MSG_INSTANCE_CHAT] = {77 / 255, 38 / 255, 0 / 255},
-  [REPORTED2_CHAT_MSG_INSTANCE_CHAT_LEADER] = {77 / 255, 22 / 255, 3 / 255},
-  [REPORTED2_CHAT_MSG_OFFICER] = {19 / 255, 57 / 255, 19 / 255},
-  [REPORTED2_CHAT_MSG_PARTY_LEADER] = {35 / 255, 59 / 255, 77 / 255},
-  [REPORTED2_CHAT_MSG_PARTY] = {51 / 255, 50 / 255, 77 / 255},
-  [REPORTED2_CHAT_MSG_RAID_LEADER] = {77 / 255, 21 / 255, 3 / 255},
-  [REPORTED2_CHAT_MSG_RAID] = {77 / 255, 38 / 255, 0 / 255},
-  [REPORTED2_CHAT_MSG_SAY] = {77 / 255, 77 / 255, 77 / 255},
-  [REPORTED2_CHAT_MSG_WHISPER] = {77 / 255, 38 / 255, 77 / 255},
-  [REPORTED2_CHAT_MSG_YELL] = {77 / 255, 19 / 255, 19 / 255}
+  [REPORTED2_CHAT_MSG_CHANNEL] = { 70 / 255, 67 / 255, 36 / 255 },
+  [REPORTED2_CHAT_MSG_GUILD] = { 19 / 255, 75 / 255, 19 / 255 },
+  [REPORTED2_CHAT_MSG_INSTANCE_CHAT] = { 77 / 255, 38 / 255, 0 / 255 },
+  [REPORTED2_CHAT_MSG_INSTANCE_CHAT_LEADER] = { 77 / 255, 22 / 255, 3 / 255 },
+  [REPORTED2_CHAT_MSG_OFFICER] = { 19 / 255, 57 / 255, 19 / 255 },
+  [REPORTED2_CHAT_MSG_PARTY_LEADER] = { 35 / 255, 59 / 255, 77 / 255 },
+  [REPORTED2_CHAT_MSG_PARTY] = { 51 / 255, 50 / 255, 77 / 255 },
+  [REPORTED2_CHAT_MSG_RAID_LEADER] = { 77 / 255, 21 / 255, 3 / 255 },
+  [REPORTED2_CHAT_MSG_RAID] = { 77 / 255, 38 / 255, 0 / 255 },
+  [REPORTED2_CHAT_MSG_SAY] = { 77 / 255, 77 / 255, 77 / 255 },
+  [REPORTED2_CHAT_MSG_WHISPER] = { 77 / 255, 38 / 255, 77 / 255 },
+  [REPORTED2_CHAT_MSG_YELL] = { 77 / 255, 19 / 255, 19 / 255 }
 }
 
 Reported2.Palette = {}
 Reported2.Palette.RGB = {}
 
 Reported2.Language.Report = ">"
-Reported2.Language.Skip = "x"
+Reported2.Language.Skip = "×"
 
 Reported2.SEAT_COUNT = 5
-Reported2.PADDING = 4
-Reported2.PANEL_WIDTH = 200
-Reported2.PANEL_HEIGHT = 37
-Reported2.TITLE_BAR_HEIGHT = 18
-Reported2.SEAT_WIDTH = 198
-Reported2.SEAT_HEIGHT = 18
+Reported2.PADDING = 3
+Reported2.PANEL_WIDTH = 351
+Reported2.PANEL_HEIGHT = 53
+Reported2.TITLE_BAR_HEIGHT = 26
+Reported2.SEAT_WIDTH = Reported2.PANEL_WIDTH - 2
+Reported2.SEAT_HEIGHT = 26
+Reported2.SQUARE_BUTTON_SIZE = 20
 Reported2.DELAY_MIN = 1
 Reported2.DELAY_MAX = 3
 
@@ -161,14 +162,14 @@ Reported2.Palette.BLUE = "6B8BF5"
 -- ↓ #FFF569 ↓ --
 Reported2.Palette.BRIGHT_YELLOW = "FFF569"
 
--- ↓ #32333e ↓ --
-Reported2.Palette.DARK_GREY = "32333e"
+-- ↓ #17181C ↓ --
+Reported2.Palette.DARK_GREY = "17181C"
 
--- ↓ #4D4E5F ↓ --
-Reported2.Palette.GREY = "4D4E5F"
+-- ↓ #2C2E33 ↓ --
+Reported2.Palette.GREY = "2C2E33"
 
--- ↓ #8A8CA8 ↓ --
-Reported2.Palette.LIGHT_GREY = "8A8CA8"
+-- ↓ #55585F ↓ --
+Reported2.Palette.LIGHT_GREY = "55585F"
 
 -- ↓ #B8C8F9 ↓ --
 Reported2.Palette.PALE_BLUE = "B8C8F9"
@@ -191,40 +192,27 @@ Reported2.Palette.TEAL = "00FF96"
 -- ↓ #ffffff ↓ --
 Reported2.Palette.WHITE = "ffffff"
 
-Reported2.Palette.RGB.BLACK = {r = 0, g = 0, b = 0}
-Reported2.Palette.RGB.RED = {r = 250 / 255, g = 20 / 255, b = 89 / 255}
-Reported2.Palette.RGB.TEAL = {r = 0 / 255, g = 1, b = 150 / 255}
-Reported2.Palette.RGB.WHITE = {r = 1, g = 1, b = 1}
+Reported2.Palette.RGB.BLACK = { 0, 0, 0 }
+Reported2.Palette.RGB.RED = { 250 / 255, 20 / 255, 89 / 255 }
+Reported2.Palette.RGB.TEAL = { 0 / 255, 1, 150 / 255 }
+Reported2.Palette.RGB.WHITE = { 1, 1, 1 }
 
-Reported2.Palette.RGB.DARK_GREY = {r = 7 / 255, g = 7 / 255, b = 7 / 255}
-Reported2.Palette.RGB.GREY = {r = 18 / 255, g = 18 / 255, b = 18 / 255}
-Reported2.Palette.RGB.LIGHT_GREY = {r = 51 / 255, g = 51 / 255, b = 51 / 255}
+Reported2.Palette.RGB.DARK_GREY = { 23 / 255, 24 / 255, 28 / 255 }
+Reported2.Palette.RGB.GREY = { 44 / 255, 46 / 255, 51 / 255 }
+Reported2.Palette.RGB.LIGHT_GREY = { 85 / 255, 88 / 255, 95 / 255 }
 
-Reported2.Palette.RGB.TITLEBAR_BG = {20 / 255, 21 / 255, 26 / 255}
-Reported2.Palette.RGB.TITLEBAR_BORDER = {11 / 255, 11 / 255, 14 / 255}
-Reported2.Palette.RGB.TITLEBAR_BUTTON_BG = {60 / 255, 63 / 255, 78 / 255}
-Reported2.Palette.RGB.TITLEBAR_BUTTON_BORDER = {124 / 255, 130 / 255, 161 / 255}
+Reported2.Palette.RGB.REPORT_BG = { 15 / 255, 91 / 255, 65 / 255 }
+Reported2.Palette.RGB.REPORT_BORDER = { 28 / 255, 173 / 255, 123 / 255 }
+Reported2.Palette.RGB.REPORT_TEXT = { 42 / 255, 255 / 255, 182 / 255 }
 
-Reported2.Palette.RGB.PANEL_BG = {14 / 255, 15 / 255, 18 / 255}
-Reported2.Palette.RGB.PANEL_BORDER = {14 / 255, 15 / 255, 18 / 255}
-
-Reported2.Palette.RGB.SEAT_BG = {35 / 255, 36 / 255, 46 / 255}
-Reported2.Palette.RGB.SEAT_BORDER = {57 / 255, 58 / 255, 73 / 255}
-Reported2.Palette.RGB.SEAT_TEXT = {87 / 255, 88 / 255, 111 / 255}
-Reported2.Palette.RGB.SEAT_TEXT_SHADOW = {20 / 255, 21 / 255, 26 / 255}
-
-Reported2.Palette.RGB.REPORT_BG = {15 / 255, 91 / 255, 65 / 255}
-Reported2.Palette.RGB.REPORT_BORDER = {28 / 255, 173 / 255, 123 / 255}
-Reported2.Palette.RGB.REPORT_TEXT = {42 / 255, 255 / 255, 182 / 255}
-
-Reported2.Palette.RGB.SKIP_BG = {62 / 255, 6 / 255, 22 / 255}
-Reported2.Palette.RGB.SKIP_BORDER = {127 / 255, 11 / 255, 44 / 255}
-Reported2.Palette.RGB.SKIP_TEXT = {255 / 255, 0 / 255, 96 / 255}
+Reported2.Palette.RGB.SKIP_BG = { 62 / 255, 6 / 255, 22 / 255 }
+Reported2.Palette.RGB.SKIP_BORDER = { 127 / 255, 11 / 255, 44 / 255 }
+Reported2.Palette.RGB.SKIP_TEXT = { 255 / 255, 0 / 255, 96 / 255 }
 
 SLASH_REPORTEDTWO1 = "/r2"
 SLASH_REPORTEDTWO2 = "/reported2"
 
-Reported2.BUTTON_BG_TEXTURE = [[Interface\Addons\Reported2\KMT56]]
+Reported2.BUTTON_BG_TEXTURE = [[Interface\Addons\Reported2\Textures\KMT56]]
 Reported2.FLAT_BG_TEXTURE = [[Interface\Buttons\WHITE8X8]]
 Reported2.EDGE_TEXTURE = [[Interface\Buttons\WHITE8X8]]
 

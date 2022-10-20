@@ -28,7 +28,7 @@ local function InitialiseReported2()
         local isSelf = playerName == currentPlayer
 
         -- DEBUG:
-        -- isSelf = false
+        isSelf = false
 
         local class
         if not guid or guid == "" then
@@ -62,44 +62,45 @@ local function InitialiseReported2()
           C_Timer.After(
             delay,
             function()
+              Reported2.Sounds.PlaySwearDetectedSound()
+
               if #Reported2.OFFENDERS >= Reported2.SEAT_COUNT then
-                local bracketPrefix = Reported2.Palette.START .. Reported2.Palette.WHITE
-                local leftBracket = bracketPrefix .. "["
-                local reportedPrefix = Reported2.Palette.START .. Reported2.Palette.TEAL .. "Reported! 2"
-                local rightBracket = bracketPrefix .. "]"
-                print(leftBracket .. reportedPrefix .. rightBracket .. " The waiting room is full!")
-              else
-                Reported2.Sounds.PlaySwearDetectedSound()
+                -- Remove seat one
+                local seatToHide = _G["REPORTED2_SEAT_" .. 1]
+                seatToHide:Hide()
+                table.remove(Reported2.OFFENDERS, 1)
+              end
 
-                Reported2.Panel.AddOffender(
-                  playerName,
-                  sender,
-                  classColour,
-                  detectedWord,
-                  message,
-                  channelName,
-                  channelIndex,
-                  event
-                )
+              Reported2.Panel.AddOffender(
+                playerName,
+                sender,
+                classColour,
+                detectedWord,
+                message,
+                channelName,
+                channelIndex,
+                event,
+                #Reported2.OFFENDERS + 1
+              )
 
-                Reported2.Panel.RenderOffenders()
+              Reported2.Panel.RenderOffenders()
 
-                if REPORTED2_PREFS[REPORTED2_PREFS_SHOW_ON_DETECTION] then
-                  if InCombatLockdown() then
-                    if not REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT] then
-                      Reported2.Panel.ShowPanel()
-                    end
-                  else
+              if REPORTED2_PREFS[REPORTED2_PREFS_SHOW_ON_DETECTION] then
+                if InCombatLockdown() then
+                  if not REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT] then
                     Reported2.Panel.ShowPanel()
                   end
                 else
-                  if InCombatLockdown() then
-                    if not REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT] then
-                      Reported2.Panel.ShowPanel()
-                    end
+                  Reported2.Panel.ShowPanel()
+                end
+              else
+                if InCombatLockdown() then
+                  if not REPORTED2_PREFS[REPORTED2_PREFS_HIDE_IN_COMBAT] then
+                    Reported2.Panel.ShowPanel()
                   end
                 end
               end
+
             end
           )
         end
@@ -146,7 +147,7 @@ addonLoaded:SetScript(
 
       addonLoaded:UnregisterEvent("ADDON_LOADED")
     elseif event == "PLAYER_LOGOUT" then
-    -- --
+      -- --
     end
   end
 )
