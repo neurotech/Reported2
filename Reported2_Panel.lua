@@ -97,7 +97,7 @@ local function CreatePanelTitleBar()
     Reported2.Palette.RGB.LIGHT_GREY,
     Reported2.Palette.RGB.GREY,
     "RIGHT",
-    -(closeButton:GetWidth() + Reported2.PADDING + 1),
+    -(closeButton:GetWidth() + Reported2.PADDING),
     0
   )
 
