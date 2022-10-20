@@ -38,9 +38,3 @@ luac.out
 *.i*86
 *.x86_64
 *.hex
-
-# Repo-specific
-*-Retail.toc
-*-Classic.toc
-Reported2.toc
-Reported2.toctemplate.tmp

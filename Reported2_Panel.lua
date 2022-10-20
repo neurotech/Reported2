@@ -1,18 +1,29 @@
 Panel = {}
 
 local panelBase,
-  panelTitleBar,
-  listeningFontString,
-  placeHolderSeat,
-  channelFontString,
-  reportButton,
-  reportButtonTitle,
-  skipButton,
-  skipButtonTitle
+panelTitleBar,
+listeningFontString,
+placeHolderSeat,
+channelFontString,
+reportButton,
+reportButtonTitle,
+skipButton,
+skipButtonTitle
 
 local function CreatePanelBase()
-  panelBase = CreateFrame("Frame", "REPORTED2_PANEL_BASE", UIParent, BackdropTemplateMixin and "BackdropTemplate")
-  panelBase:SetPoint("CENTER")
+  local alignmentFrame = CreateFrame("Frame", "REPORTED2_PANEL_ALIGNMENT", UIParent,
+    BackdropTemplateMixin and "BackdropTemplate")
+  Reported2.Utilities.SetPixelScaling(alignmentFrame)
+  alignmentFrame:SetPoint("TOP")
+  alignmentFrame:SetSize(
+    Reported2.PANEL_WIDTH,
+    (Reported2.TITLE_BAR_HEIGHT + (Reported2.SEAT_HEIGHT * Reported2.SEAT_COUNT) + (Reported2.SEAT_COUNT))
+  )
+
+  panelBase = CreateFrame("Frame", "REPORTED2_PANEL_BASE", alignmentFrame, BackdropTemplateMixin and "BackdropTemplate")
+
+  Reported2.Utilities.SetPixelScaling(panelBase)
+  panelBase:SetPoint("TOP")
   panelBase:SetSize(Reported2.PANEL_WIDTH, Reported2.PANEL_HEIGHT)
   panelBase:SetBackdrop(
     {
@@ -21,19 +32,20 @@ local function CreatePanelBase()
       edgeSize = 1
     }
   )
-  panelBase:SetBackdropColor(Reported2.Palette.RGB.PANEL_BG)
-  panelBase:SetBackdropBorderColor(Reported2.Palette.RGB.PANEL_BORDER)
+  panelBase:SetBackdropColor(unpack(Reported2.Palette.RGB.GREY))
+  panelBase:SetBackdropBorderColor(unpack(Reported2.Palette.RGB.DARK_GREY))
 
-  panelBase:SetClampedToScreen(true)
-  panelBase:SetMovable(true)
-  panelBase:EnableMouse(true)
-  panelBase:RegisterForDrag("LeftButton")
-  panelBase:SetScript("OnDragStart", panelBase.StartMoving)
-  panelBase:SetScript("OnDragStop", panelBase.StopMovingOrSizing)
+  alignmentFrame:SetClampedToScreen(true)
+  alignmentFrame:SetMovable(true)
+  alignmentFrame:EnableMouse(true)
+  alignmentFrame:RegisterForDrag("LeftButton")
+  alignmentFrame:SetScript("OnDragStart", alignmentFrame.StartMoving)
+  alignmentFrame:SetScript("OnDragStop", alignmentFrame.StopMovingOrSizing)
 end
 
 local function CreatePanelTitleBar()
   panelTitleBar = CreateFrame("Frame", "REPORTED2_PANEL_BASE", panelBase, BackdropTemplateMixin and "BackdropTemplate")
+  Reported2.Utilities.SetPixelScaling(panelTitleBar)
   panelTitleBar:SetPoint("TOP")
   panelTitleBar:SetSize(Reported2.PANEL_WIDTH, Reported2.TITLE_BAR_HEIGHT)
   panelTitleBar:SetBackdrop(
@@ -43,47 +55,49 @@ local function CreatePanelTitleBar()
       edgeSize = 1
     }
   )
-  panelTitleBar:SetBackdropColor(unpack(Reported2.Palette.RGB.TITLEBAR_BG))
-  panelTitleBar:SetBackdropBorderColor(unpack(Reported2.Palette.RGB.TITLEBAR_BORDER))
+  panelTitleBar:SetBackdropColor(unpack(Reported2.Palette.RGB.DARK_GREY))
+  panelTitleBar:SetBackdropBorderColor(unpack(Reported2.Palette.RGB.BLACK))
 
-  local headerText =
-    Reported2.Palette.START ..
-    Reported2.Palette.BLUE ..
+  local headerText = Reported2.Palette.START ..
+      Reported2.Palette.RICH_YELLOW ..
       "Reported" ..
-        Reported2.Palette.END .. Reported2.Palette.START .. Reported2.Palette.PALE_BLUE .. "!" .. Reported2.Palette.END
-  Reported2.UI.CreatePixelText("HEADER_TEXT", panelTitleBar, headerText)
+      Reported2.Palette.END ..
+      Reported2.Palette.START .. Reported2.Palette.BRIGHT_YELLOW .. "!" .. Reported2.Palette.END
+  Reported2.UI.CreatePixelText("HEADER_TEXT", panelTitleBar, headerText, nil, nil, "LEFT", nil
+    , 0)
 
   local closeButton =
-    Reported2.UI.CreatePixelButton(
+  Reported2.UI.CreatePixelButton(
     panelTitleBar,
     "CLOSE_BUTTON",
     Reported2.Language.Skip,
-    12,
-    12,
-    {1, 1, 1},
+    Reported2.SQUARE_BUTTON_SIZE,
+    Reported2.SQUARE_BUTTON_SIZE,
+    Reported2.Palette.RGB.WHITE,
+    0,
     1,
-    1,
-    Reported2.Palette.RGB.TITLEBAR_BUTTON_BORDER,
-    Reported2.Palette.RGB.TITLEBAR_BUTTON_BG,
+    Reported2.Palette.RGB.LIGHT_GREY,
+    Reported2.Palette.RGB.GREY,
     "RIGHT",
-    -3,
-    0
+    -(Reported2.PADDING),
+    0,
+    24
   )
 
   local clearButton =
-    Reported2.UI.CreatePixelButton(
+  Reported2.UI.CreatePixelButton(
     closeButton,
     "CLEAR_BUTTON",
     "!",
-    12,
-    12,
-    {1, 1, 1},
+    Reported2.SQUARE_BUTTON_SIZE,
+    Reported2.SQUARE_BUTTON_SIZE,
+    Reported2.Palette.RGB.WHITE,
     0,
     0,
-    Reported2.Palette.RGB.TITLEBAR_BUTTON_BORDER,
-    Reported2.Palette.RGB.TITLEBAR_BUTTON_BG,
-    "LEFT",
-    -14,
+    Reported2.Palette.RGB.LIGHT_GREY,
+    Reported2.Palette.RGB.GREY,
+    "RIGHT",
+    -(closeButton:GetWidth() + Reported2.PADDING + 1),
     0
   )
 
@@ -92,6 +106,7 @@ local function CreatePanelTitleBar()
     function()
       REPORTED2_PREFS[REPORTED2_PREFS_SHOW_PANEL] = false
       Reported2.Panel.HidePanel()
+      closeButton:SetBackdropColor(unpack(Reported2.Palette.RGB.GREY))
     end
   )
 
@@ -105,14 +120,18 @@ local function CreatePanelTitleBar()
       Reported2.OFFENDERS = {}
       placeHolderSeat:Show()
       panelBase:SetSize(Reported2.PANEL_WIDTH, Reported2.PANEL_HEIGHT)
+      clearButton:SetBackdropColor(unpack(Reported2.Palette.RGB.GREY))
+      Reported2.Sounds.PlaySkipSound()
     end
   )
 end
 
-local function AddPlaceHolderSeat(chatType)
+local function AddPlaceHolderSeat()
   placeHolderSeat =
-    CreateFrame("Frame", "REPORTED2_SEAT_PLACEHOLDER", panelTitleBar, BackdropTemplateMixin and "BackdropTemplate")
-  placeHolderSeat:SetPoint("TOP", panelTitleBar, 0, -Reported2.SEAT_HEIGHT)
+  CreateFrame("Frame", "REPORTED2_SEAT_PLACEHOLDER", panelTitleBar, BackdropTemplateMixin and "BackdropTemplate")
+  Reported2.Utilities.SetPixelScaling(placeHolderSeat)
+
+  placeHolderSeat:SetPoint("TOPLEFT", panelTitleBar, 1, -Reported2.TITLE_BAR_HEIGHT)
   placeHolderSeat:SetSize(Reported2.SEAT_WIDTH, Reported2.SEAT_HEIGHT)
   placeHolderSeat:SetBackdrop(
     {
@@ -121,20 +140,18 @@ local function AddPlaceHolderSeat(chatType)
       edgeSize = 1
     }
   )
-  placeHolderSeat:SetBackdropColor(unpack(Reported2.Palette.RGB.SEAT_BG))
-  placeHolderSeat:SetBackdropBorderColor(unpack(Reported2.Palette.RGB.SEAT_BORDER))
+  placeHolderSeat:SetBackdropColor(unpack(Reported2.Palette.RGB.GREY))
+  placeHolderSeat:SetBackdropBorderColor(unpack(Reported2.Palette.RGB.LIGHT_GREY))
 
   local listeningText = "Listening..."
-  listeningFontString =
-    Reported2.UI.CreatePixelText(
+  Reported2.UI.CreatePixelText(
     "LISTENING_TEXT",
     placeHolderSeat,
     listeningText,
-    Reported2.Palette.RGB.SEAT_TEXT,
-    Reported2.Palette.RGB.SEAT_TEXT_SHADOW,
+    Reported2.Palette.RGB.LIGHT_GREY,
+    Reported2.Palette.RGB.DARK_GREY,
     "LEFT",
-    Reported2.SeatOffsets.LISTENING,
-    1
+    Reported2.SeatOffsets.LISTENING
   )
 
   placeHolderSeat:Hide()
@@ -146,16 +163,17 @@ end
 
 function Reported2.Panel.UpsertSeat(index, offender)
   local seat,
-    anchor,
-    offset,
-    channel,
-    channelColour,
-    shouldUpdate,
-    playerNameFontString,
-    channelFontString,
-    swearFontString,
-    skipButton,
-    reportButton
+  anchor,
+  offset,
+  channel,
+  channelColour,
+  shouldUpdate,
+  offenderFontString,
+  playerNameFontString,
+  channelFontString,
+  swearFontString,
+  skipButton,
+  reportButton
 
   placeHolderSeat:Hide()
   panelBase:SetSize(Reported2.PANEL_WIDTH, Reported2.TITLE_BAR_HEIGHT + (Reported2.SEAT_HEIGHT * index) + index)
@@ -180,9 +198,10 @@ function Reported2.Panel.UpsertSeat(index, offender)
     seat = CreateFrame("Frame", "REPORTED2_SEAT_" .. index, anchor, BackdropTemplateMixin and "BackdropTemplate")
   end
 
-  seat:Show()
+  Reported2.Utilities.SetPixelScaling(seat)
   seat:SetPoint("BOTTOM", anchor, 0, -offset)
   seat:SetSize(Reported2.SEAT_WIDTH, Reported2.SEAT_HEIGHT)
+  seat:Show()
   seat:SetBackdrop(
     {
       bgFile = Reported2.FLAT_BG_TEXTURE,
@@ -194,71 +213,23 @@ function Reported2.Panel.UpsertSeat(index, offender)
   seat:SetBackdropColor(unpack(Reported2.Events.DarkColours.RGB[offender.event]))
   seat:SetBackdropBorderColor(unpack(Reported2.Events.Colours.RGB[offender.event]))
 
-  local playerNameText =
-    Reported2.Palette.START_NO_ALPHA .. offender.classColour.colorStr .. offender.playerName .. Reported2.Palette.END
+  local offenderText = Reported2.Utilities.GenerateOffenderText(offender)
 
   if shouldUpdate then
-    playerNameFontString = _G["REPORTED2_PLAYER_NAME_TEXT_" .. index]
-    playerNameFontString:SetText(playerNameText)
+    offenderFontString = _G["REPORTED2_OFFENDER_TEXT_" .. index]
+    offenderFontString:SetText(offenderText)
   else
-    playerNameFontString =
-      Reported2.UI.CreatePixelText(
-      "REPORTED2_PLAYER_NAME_TEXT_" .. index,
+    offenderFontString =
+    Reported2.UI.CreatePixelText(
+      "REPORTED2_OFFENDER_TEXT_" .. index,
       seat,
-      playerNameText,
+      offenderText,
       nil,
       Reported2.Palette.RGB.BLACK,
       "LEFT",
-      Reported2.SeatOffsets.PLAYER,
-      1
-    )
-  end
-
-  if offender.channelName == "" then
-    channel = Reported2.Events.Readable[offender.event]
-  else
-    channel = offender.channelName:gsub(" .*", "")
-    channel = "CH: " .. channel:gsub("[^A-Z]", "")
-  end
-
-  channelColour = Reported2.Events.Colours[offender.event]
-
-  local channelText = Reported2.Palette.START .. channelColour .. channel .. Reported2.Palette.END
-
-  if shouldUpdate then
-    channelFontString = _G["REPORTED2_CHANNEL_TEXT_" .. index]
-    channelFontString:SetText(channelText)
-  else
-    channelFontString =
-      Reported2.UI.CreatePixelText(
-      "REPORTED2_CHANNEL_TEXT_" .. index,
-      seat,
-      channelText,
+      Reported2.PADDING * 2,
       nil,
-      Reported2.Palette.RGB.BLACK,
-      "LEFT",
-      Reported2.SeatOffsets.CHANNEL,
-      1
-    )
-  end
-
-  local swearText =
-    Reported2.Palette.START .. Reported2.Palette.WHITE .. "'" .. offender.swear .. "'" .. Reported2.Palette.END
-
-  if shouldUpdate then
-    swearFontString = _G["REPORTED2_SWEAR_TEXT_" .. index]
-    swearFontString:SetText(swearText)
-  else
-    swearFontString =
-      Reported2.UI.CreatePixelText(
-      "REPORTED2_SWEAR_TEXT_" .. index,
-      seat,
-      swearText,
-      nil,
-      Reported2.Palette.RGB.BLACK,
-      "LEFT",
-      Reported2.SeatOffsets.SWEAR,
-      1
+      9
     )
   end
 
@@ -266,20 +237,21 @@ function Reported2.Panel.UpsertSeat(index, offender)
     skipButton = _G["REPORTED2_SKIP_BUTTON" .. index]
   else
     skipButton =
-      Reported2.UI.CreatePixelButton(
+    Reported2.UI.CreatePixelButton(
       seat,
       "REPORTED2_SKIP_BUTTON" .. index,
-      "x",
-      12,
-      12,
+      "×",
+      Reported2.SQUARE_BUTTON_SIZE,
+      Reported2.SQUARE_BUTTON_SIZE,
       Reported2.Palette.RGB.SKIP_TEXT,
-      1,
+      0,
       1,
       Reported2.Palette.RGB.SKIP_BORDER,
       Reported2.Palette.RGB.SKIP_BG,
       "RIGHT",
-      -2,
-      0
+      -Reported2.PADDING,
+      0,
+      24
     )
   end
 
@@ -291,6 +263,8 @@ function Reported2.Panel.UpsertSeat(index, offender)
       table.remove(Reported2.OFFENDERS, index)
       Reported2.Sounds.PlaySkipSound()
       Reported2.Panel.RenderOffenders()
+
+      skipButton:SetBackdropColor(unpack(Reported2.Palette.RGB.SKIP_BG))
     end
   )
 
@@ -298,22 +272,24 @@ function Reported2.Panel.UpsertSeat(index, offender)
     reportButton = _G["REPORTED2_REPORT_BUTTON" .. index]
   else
     reportButton =
-      Reported2.UI.CreatePixelButton(
+    Reported2.UI.CreatePixelButton(
       skipButton,
       "REPORTED2_REPORT_BUTTON" .. index,
       Reported2.Language.Report,
-      12,
-      12,
+      Reported2.SQUARE_BUTTON_SIZE,
+      Reported2.SQUARE_BUTTON_SIZE,
       Reported2.Palette.RGB.REPORT_TEXT,
       0,
-      0,
+      1,
       Reported2.Palette.RGB.REPORT_BORDER,
       Reported2.Palette.RGB.REPORT_BG,
-      "LEFT",
-      -14,
-      0
+      "RIGHT",
+      -(skipButton:GetWidth() + Reported2.PADDING + 1),
+      0,
+      18
     )
   end
+
 
   reportButton:SetScript(
     "OnClick",
@@ -345,6 +321,8 @@ function Reported2.Panel.UpsertSeat(index, offender)
       table.remove(Reported2.OFFENDERS, index)
 
       Reported2.Panel.RenderOffenders()
+
+      reportButton:SetBackdropColor(unpack(Reported2.Palette.RGB.REPORT_BG))
     end
   )
 end
@@ -382,7 +360,8 @@ function Reported2.Panel.AddOffender(
   message,
   channelName,
   channelNumber,
-  event)
+  event,
+  seatIndex)
   table.insert(
     Reported2.OFFENDERS,
     {
@@ -394,7 +373,9 @@ function Reported2.Panel.AddOffender(
       channelName = channelName,
       channelNumber = channelNumber,
       event = event,
-      messageTime = date("%I:%M %p")
+      messageTime = date("%I:%M %p"),
+      rawTime = time(),
+      seatIndex = seatIndex
     }
   )
 end
@@ -402,7 +383,7 @@ end
 function Reported2.Panel.CreatePanel()
   CreatePanelBase()
   CreatePanelTitleBar()
-  AddPlaceHolderSeat("PLACEHOLDER", 1, nil)
+  AddPlaceHolderSeat()
 
   panelBase:Hide()
 end

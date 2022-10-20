@@ -7,13 +7,13 @@ local function PlaySoundFileForEvent(path)
 end
 
 function Reported2.Sounds.PlaySwearDetectedSound()
-  PlaySoundFileForEvent([[Interface\Addons\Reported2\swear-detected.mp3]])
+  PlaySoundFileForEvent([[Interface\Addons\Reported2\Sounds\swear-detected.mp3]])
 end
 
 function Reported2.Sounds.PlayReportMadeSound()
-  PlaySoundFileForEvent([[Interface\Addons\Reported2\report-made.mp3]])
+  PlaySoundFileForEvent([[Interface\Addons\Reported2\Sounds\report-made.mp3]])
 end
 
 function Reported2.Sounds.PlaySkipSound()
-  PlaySoundFileForEvent([[Interface\Addons\Reported2\skip.mp3]])
+  PlaySoundFileForEvent([[Interface\Addons\Reported2\Sounds\skip.mp3]])
 end

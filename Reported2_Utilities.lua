@@ -71,3 +71,52 @@ function Reported2.Utilities.GetSortedModuleNames(modulesList)
 
   return sortedModuleNames
 end
+
+function Reported2.Utilities.GenerateOffenderText(offender)
+  local messageTemplate = "%PlayerName at %Time for %SwearWord"
+
+  local offenderText = messageTemplate
+
+  local playerNameText =
+  Reported2.Palette.START_NO_ALPHA .. offender.classColour.colorStr .. offender.playerName .. Reported2.Palette.END
+
+  local timeText = Reported2.Palette.START ..
+      Reported2.Palette.BRIGHT_YELLOW .. offender.messageTime .. Reported2.Palette.END
+
+  local swearText =
+  Reported2.Palette.START ..
+      Reported2.Palette.WHITE ..
+      "'" ..
+      Reported2.Palette.START ..
+      Reported2.Palette.RED ..
+      offender.swear .. Reported2.Palette.START .. Reported2.Palette.WHITE .. "'" .. Reported2.Palette.END
+
+  offenderText = offenderText:gsub("%%PlayerName", playerNameText)
+  offenderText = offenderText:gsub("%%Time", timeText)
+  offenderText = offenderText:gsub("%%SwearWord", swearText)
+
+  return offenderText
+end
+
+function Reported2.Utilities.LightenColour(colour, percent)
+  percent = percent or 0.25
+
+  local lighter = {}
+
+  for _, value in ipairs(colour) do
+    local lightened = (percent * 1) + value
+
+    if lightened > 1 then
+      lightened = 1
+    end
+
+    table.insert(lighter, lightened)
+  end
+
+  return lighter
+end
+
+function Reported2.Utilities.SetPixelScaling(frame)
+  frame:SetIgnoreParentScale(true)
+  frame:SetScale(768 / (select(2, GetPhysicalScreenSize())))
+end
