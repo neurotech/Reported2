@@ -28,7 +28,7 @@ local function InitialiseReported2()
         local isSelf = playerName == currentPlayer
 
         -- DEBUG:
-        isSelf = false
+        -- isSelf = false
 
         local class
         if not guid or guid == "" then
