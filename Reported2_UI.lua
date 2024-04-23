@@ -51,9 +51,9 @@ function Reported2.UI.Config.CreateCheckbox(labelText, parent, anchorPoint, rela
   checkbox:SetBackdropBorderColor(unpack(Reported2.Palette.RGB.BLACK))
   checkbox:SetCheckedTexture(Reported2.BUTTON_BG_TEXTURE)
   checkbox:SetNormalTexture(Reported2.BUTTON_BG_TEXTURE)
-  checkbox:SetHighlightTexture(nil)
-  checkbox:SetPushedTexture(nil)
-  checkbox:SetDisabledTexture(nil)
+  checkbox:SetHighlightTexture("")
+  checkbox:SetPushedTexture("")
+  checkbox:SetDisabledTexture("")
 
   ApplyNormalTexture(checkbox)
   ApplyCheckedTexture(checkbox)
@@ -72,22 +72,22 @@ function Reported2.UI.Config.CreateModuleCheckboxAndLabel(
   vOffset,
   isLastModule)
   local moduleCheckboxAndLabelFrame =
-  CreateFrame(
-    "Frame",
-    "REPORTED2_MODULE_FRAME_" .. string.upper(moduleName),
-    parent,
-    BackdropTemplateMixin and "BackdropTemplate"
-  )
+      CreateFrame(
+        "Frame",
+        "REPORTED2_MODULE_FRAME_" .. string.upper(moduleName),
+        parent,
+        BackdropTemplateMixin and "BackdropTemplate"
+      )
   Reported2.Utilities.SetPixelScaling(moduleCheckboxAndLabelFrame)
   moduleCheckboxAndLabelFrame:SetPoint("TOPLEFT", 0, -vOffset)
 
   local checkbox =
-  CreateFrame(
-    "CheckButton",
-    "REPORTED2_MODULE_CHECKBOX_" .. string.upper(moduleName),
-    moduleCheckboxAndLabelFrame,
-    BackdropTemplateMixin and "BackdropTemplate"
-  )
+      CreateFrame(
+        "CheckButton",
+        "REPORTED2_MODULE_CHECKBOX_" .. string.upper(moduleName),
+        moduleCheckboxAndLabelFrame,
+        BackdropTemplateMixin and "BackdropTemplate"
+      )
   Reported2.Utilities.SetPixelScaling(checkbox)
   local nameAndCreditLabel = moduleCheckboxAndLabelFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
   local descriptionLabel = moduleCheckboxAndLabelFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
@@ -96,14 +96,14 @@ function Reported2.UI.Config.CreateModuleCheckboxAndLabel(
 
   if (moduleCredit) then
     nameAndCreditText =
-    nameAndCreditText ..
+        nameAndCreditText ..
         Reported2.Palette.START ..
         Reported2.Palette.LIGHT_GREY ..
         " by " .. Reported2.Palette.START .. Reported2.Palette.BRIGHT_YELLOW .. moduleCredit .. Reported2.Palette.END
   end
 
   local descriptionText =
-  Reported2.Palette.START .. Reported2.Palette.WHITE .. moduleDescription .. Reported2.Palette.END
+      Reported2.Palette.START .. Reported2.Palette.WHITE .. moduleDescription .. Reported2.Palette.END
 
   checkbox:SetSize(Reported2.UI.Sizes.CheckboxWidth, Reported2.UI.Sizes.CheckboxHeight)
   checkbox:SetPoint("TOPLEFT", Reported2.UI.Sizes.Padding, 0)
@@ -117,9 +117,9 @@ function Reported2.UI.Config.CreateModuleCheckboxAndLabel(
 
   checkbox:SetCheckedTexture(Reported2.BUTTON_BG_TEXTURE)
   checkbox:SetNormalTexture(Reported2.BUTTON_BG_TEXTURE)
-  checkbox:SetHighlightTexture(nil)
-  checkbox:SetPushedTexture(nil)
-  checkbox:SetDisabledTexture(nil)
+  checkbox:SetHighlightTexture("")
+  checkbox:SetPushedTexture("")
+  checkbox:SetDisabledTexture("")
 
   ApplyNormalTexture(checkbox)
   ApplyCheckedTexture(checkbox)
@@ -147,12 +147,12 @@ end
 
 function Reported2.UI.Config.CreateConfigFrame()
   local configFrame =
-  CreateFrame(
-    "Frame",
-    "Reported2ConfigFrame",
-    InterfaceOptionsFramePanelContainer,
-    BackdropTemplateMixin and "BackdropTemplate"
-  )
+      CreateFrame(
+        "Frame",
+        "Reported2ConfigFrame",
+        SettingsPanel.Container,
+        BackdropTemplateMixin and "BackdropTemplate"
+      )
   Reported2.Utilities.SetPixelScaling(configFrame)
 
   configFrame:Hide()
@@ -206,11 +206,11 @@ end
 
 function Reported2.UI.Config.CreateSeparator(configFrame)
   local separator =
-  CreateFrame("Frame", "Reported2ConfigFrameSeparator", configFrame, BackdropTemplateMixin and "BackdropTemplate")
+      CreateFrame("Frame", "Reported2ConfigFrameSeparator", configFrame, BackdropTemplateMixin and "BackdropTemplate")
   Reported2.Utilities.SetPixelScaling(separator)
 
   separator:SetPoint("TOP", 0, -Reported2.UI.Sizes.Padding * 3.5)
-  separator:SetSize(InterfaceOptionsFramePanelContainer:GetWidth() - (Reported2.UI.Sizes.Padding * 2), 1)
+  separator:SetSize(SettingsPanel.Container:GetWidth() - (Reported2.UI.Sizes.Padding * 2), 1)
   separator:SetBackdrop(
     {
       bgFile = Reported2.FLAT_BG_TEXTURE
@@ -253,96 +253,97 @@ function Reported2.UI.Config.CreateChannelCheckboxes(configFrame)
 
   -- Left Column
   local leftChannelColumn =
-  CreateFrame(
-    "Frame",
-    "Reported2ConfigFrameChannelsColumnLeft",
-    configFrame,
-    BackdropTemplateMixin and "BackdropTemplate"
-  )
+      CreateFrame(
+        "Frame",
+        "Reported2ConfigFrameChannelsColumnLeft",
+        configFrame,
+        BackdropTemplateMixin and "BackdropTemplate"
+      )
   Reported2.Utilities.SetPixelScaling(leftChannelColumn)
   leftChannelColumn:SetPoint("TOPLEFT", Reported2.UI.Sizes.Padding, -270)
   leftChannelColumn:SetSize(200, 200)
 
   local globalChannelsText =
-  Reported2.Palette.START ..
+      Reported2.Palette.START ..
       Reported2.Events.Colours[REPORTED2_CHAT_MSG_CHANNEL] .. "Global channels" .. Reported2.Palette.END
   globalChannelsCheckbox, globalChannelsLabel =
-  Reported2.UI.Config.CreateCheckbox(globalChannelsText, configFrame, leftChannelColumn, relativePoint)
+      Reported2.UI.Config.CreateCheckbox(globalChannelsText, configFrame, leftChannelColumn, relativePoint)
 
   local guildChannelText =
-  Reported2.Palette.START ..
+      Reported2.Palette.START ..
       Reported2.Events.Colours[REPORTED2_CHAT_MSG_GUILD] .. "Guild chat" .. Reported2.Palette.END
   guildChannelCheckbox, guildChannelLabel =
-  Reported2.UI.Config.CreateCheckbox(guildChannelText, configFrame, globalChannelsCheckbox)
+      Reported2.UI.Config.CreateCheckbox(guildChannelText, configFrame, globalChannelsCheckbox)
 
   local officerChannelText =
-  Reported2.Palette.START ..
+      Reported2.Palette.START ..
       Reported2.Events.Colours[REPORTED2_CHAT_MSG_OFFICER] .. "Officer chat" .. Reported2.Palette.END
   officerChannelCheckbox, officerChannelLabel =
-  Reported2.UI.Config.CreateCheckbox(officerChannelText, configFrame, guildChannelCheckbox)
+      Reported2.UI.Config.CreateCheckbox(officerChannelText, configFrame, guildChannelCheckbox)
 
   local partyLeaderChannelText =
-  Reported2.Palette.START ..
+      Reported2.Palette.START ..
       Reported2.Events.Colours[REPORTED2_CHAT_MSG_PARTY_LEADER] .. "Party leader" .. Reported2.Palette.END
   partyLeaderChannelCheckbox, partyLeaderChannelLabel =
-  Reported2.UI.Config.CreateCheckbox(partyLeaderChannelText, configFrame, officerChannelCheckbox)
+      Reported2.UI.Config.CreateCheckbox(partyLeaderChannelText, configFrame, officerChannelCheckbox)
 
   local partyChannelText =
-  Reported2.Palette.START ..
+      Reported2.Palette.START ..
       Reported2.Events.Colours[REPORTED2_CHAT_MSG_PARTY] .. "Party chat" .. Reported2.Palette.END
   partyChannelCheckbox, partyChannelLabel =
-  Reported2.UI.Config.CreateCheckbox(partyChannelText, configFrame, partyLeaderChannelCheckbox)
+      Reported2.UI.Config.CreateCheckbox(partyChannelText, configFrame, partyLeaderChannelCheckbox)
 
   local yellChannelText =
-  Reported2.Palette.START .. Reported2.Events.Colours[REPORTED2_CHAT_MSG_YELL] .. "Yell" .. Reported2.Palette.END
+      Reported2.Palette.START .. Reported2.Events.Colours[REPORTED2_CHAT_MSG_YELL] .. "Yell" .. Reported2.Palette.END
   yellChannelCheckbox, yellChannelLabel =
-  Reported2.UI.Config.CreateCheckbox(yellChannelText, configFrame, partyChannelCheckbox)
+      Reported2.UI.Config.CreateCheckbox(yellChannelText, configFrame, partyChannelCheckbox)
 
   -- Right Column
   local rightChannelColumn =
-  CreateFrame(
-    "Frame",
-    "Reported2ConfigFrameChannelsColumnRight",
-    configFrame,
-    BackdropTemplateMixin and "BackdropTemplate"
-  )
+      CreateFrame(
+        "Frame",
+        "Reported2ConfigFrameChannelsColumnRight",
+        configFrame,
+        BackdropTemplateMixin and "BackdropTemplate"
+      )
   Reported2.Utilities.SetPixelScaling(rightChannelColumn)
   rightChannelColumn:SetPoint("TOPLEFT", Reported2.UI.Sizes.Padding + leftChannelColumn:GetWidth(), -270)
   rightChannelColumn:SetSize(200, 200)
 
   local raidLeaderChannelText =
-  Reported2.Palette.START ..
+      Reported2.Palette.START ..
       Reported2.Events.Colours[REPORTED2_CHAT_MSG_RAID_LEADER] .. "Raid leader" .. Reported2.Palette.END
   raidLeaderChannelCheckbox, raidLeaderChannelLabel =
-  Reported2.UI.Config.CreateCheckbox(raidLeaderChannelText, configFrame, rightChannelColumn, relativePoint)
+      Reported2.UI.Config.CreateCheckbox(raidLeaderChannelText, configFrame, rightChannelColumn, relativePoint)
 
   local raidChannelText =
-  Reported2.Palette.START .. Reported2.Events.Colours[REPORTED2_CHAT_MSG_RAID] .. "Raid chat" .. Reported2.Palette.END
+      Reported2.Palette.START ..
+      Reported2.Events.Colours[REPORTED2_CHAT_MSG_RAID] .. "Raid chat" .. Reported2.Palette.END
   raidChannelCheckbox, raidChannelLabel =
-  Reported2.UI.Config.CreateCheckbox(raidChannelText, configFrame, raidLeaderChannelCheckbox)
+      Reported2.UI.Config.CreateCheckbox(raidChannelText, configFrame, raidLeaderChannelCheckbox)
 
   local sayChannelText =
-  Reported2.Palette.START .. Reported2.Events.Colours[REPORTED2_CHAT_MSG_SAY] .. "Say" .. Reported2.Palette.END
+      Reported2.Palette.START .. Reported2.Events.Colours[REPORTED2_CHAT_MSG_SAY] .. "Say" .. Reported2.Palette.END
   sayChannelCheckbox, sayChannelLabel =
-  Reported2.UI.Config.CreateCheckbox(sayChannelText, configFrame, raidChannelCheckbox)
+      Reported2.UI.Config.CreateCheckbox(sayChannelText, configFrame, raidChannelCheckbox)
 
   local instanceLeaderChannelText =
-  Reported2.Palette.START ..
+      Reported2.Palette.START ..
       Reported2.Events.Colours[REPORTED2_CHAT_MSG_INSTANCE_CHAT_LEADER] .. "Instance leader" .. Reported2.Palette.END
   instanceLeaderChannelCheckbox, instanceLeaderChannelLabel =
-  Reported2.UI.Config.CreateCheckbox(instanceLeaderChannelText, configFrame, sayChannelCheckbox)
+      Reported2.UI.Config.CreateCheckbox(instanceLeaderChannelText, configFrame, sayChannelCheckbox)
 
   local instanceChannelText =
-  Reported2.Palette.START ..
+      Reported2.Palette.START ..
       Reported2.Events.Colours[REPORTED2_CHAT_MSG_INSTANCE_CHAT] .. "Instance chat" .. Reported2.Palette.END
   instanceChannelCheckbox, instanceChannelLabel =
-  Reported2.UI.Config.CreateCheckbox(instanceChannelText, configFrame, instanceLeaderChannelCheckbox)
+      Reported2.UI.Config.CreateCheckbox(instanceChannelText, configFrame, instanceLeaderChannelCheckbox)
 
   local whisperChannelText =
-  Reported2.Palette.START ..
+      Reported2.Palette.START ..
       Reported2.Events.Colours[REPORTED2_CHAT_MSG_WHISPER] .. "Whispers" .. Reported2.Palette.END
   whisperChannelCheckbox, whisperChannelLabel =
-  Reported2.UI.Config.CreateCheckbox(whisperChannelText, configFrame, instanceChannelCheckbox)
+      Reported2.UI.Config.CreateCheckbox(whisperChannelText, configFrame, instanceChannelCheckbox)
 
   return globalChannelsCheckbox, guildChannelCheckbox, officerChannelCheckbox, partyLeaderChannelCheckbox,
       partyChannelCheckbox, sayChannelCheckbox, yellChannelCheckbox, raidLeaderChannelCheckbox, raidChannelCheckbox,
@@ -351,12 +352,12 @@ end
 
 function Reported2.UI.Config.CreateModulesFrame(configFrame)
   local modulesFrame =
-  CreateFrame(
-    "Frame",
-    "Reported2ConfigFrame_Modules",
-    InterfaceOptionsFramePanelContainer,
-    BackdropTemplateMixin and "BackdropTemplate"
-  )
+      CreateFrame(
+        "Frame",
+        "Reported2ConfigFrame_Modules",
+        SettingsPanel.Container,
+        BackdropTemplateMixin and "BackdropTemplate"
+      )
   Reported2.Utilities.SetPixelScaling(modulesFrame)
 
   modulesFrame.name = "Modules"

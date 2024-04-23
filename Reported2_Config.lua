@@ -51,17 +51,17 @@ local function CreateModulesPanel()
   local modulesLabel = Reported2.UI.Config.CreateOptionsLabel("Modules", modulesFrame, separator)
 
   local scrollFrame =
-  CreateFrame(
-    "ScrollFrame",
-    "REPORTED2_MODULES_SCROLL_FRAME",
-    modulesFrame,
-    BackdropTemplateMixin and "BackdropTemplate"
-  )
+      CreateFrame(
+        "ScrollFrame",
+        "REPORTED2_MODULES_SCROLL_FRAME",
+        modulesFrame,
+        BackdropTemplateMixin and "BackdropTemplate"
+      )
   Reported2.Utilities.SetPixelScaling(scrollFrame)
   scrollFrame:SetPoint("TOPLEFT", modulesLabel, 0, -modulesLabel:GetHeight() * 1.5)
   scrollFrame:SetSize(
-    InterfaceOptionsFramePanelContainer:GetWidth() - Reported2.UI.Sizes.Padding * 2,
-    InterfaceOptionsFramePanelContainer:GetHeight() - Reported2.UI.Sizes.Padding * 12
+    SettingsPanel.Container:GetWidth() - Reported2.UI.Sizes.Padding * 2,
+    SettingsPanel.Container:GetHeight() - Reported2.UI.Sizes.Padding * 12
   )
   scrollFrame:SetBackdrop(
     {
@@ -102,7 +102,7 @@ local function CreateModulesPanel()
   scrollBar:SetFrameLevel(4)
   scrollBar:SetPoint("TOPLEFT", scrollFrame, "TOPRIGHT", -(Reported2.UI.Sizes.Padding * 1.5), 0)
   scrollBar:SetPoint("BOTTOMLEFT", scrollFrame, "BOTTOMRIGHT", Reported2.UI.Sizes.Padding * 0.5, 0)
-  scrollBar:SetMinMaxValues(1, InterfaceOptionsFramePanelContainer:GetHeight())
+  scrollBar:SetMinMaxValues(1, SettingsPanel.Container:GetHeight())
   scrollBar:SetValueStep(1)
   scrollBar.scrollStep = 1
   scrollBar:SetValue(0)
@@ -114,7 +114,7 @@ local function CreateModulesPanel()
     end
   )
   local scrollbg =
-  CreateFrame("Frame", "MODULES_FRAME_SCROLLBAR_BG", scrollBar, BackdropTemplateMixin and "BackdropTemplate")
+      CreateFrame("Frame", "MODULES_FRAME_SCROLLBAR_BG", scrollBar, BackdropTemplateMixin and "BackdropTemplate")
   Reported2.Utilities.SetPixelScaling(scrollbg)
   scrollbg:SetFrameLevel(3)
   scrollbg:SetAllPoints(scrollBar)
@@ -147,14 +147,14 @@ local function CreateModulesPanel()
     local isLastModule = index == #sortedModules
 
     local moduleCheckboxAndLabelFrame, moduleCheckbox, moduleLabel =
-    Reported2.UI.Config.CreateModuleCheckboxAndLabel(
-      moduleNameText,
-      moduleCreditText,
-      moduleDescriptionText,
-      scrollChild,
-      offset,
-      isLastModule
-    )
+        Reported2.UI.Config.CreateModuleCheckboxAndLabel(
+          moduleNameText,
+          moduleCreditText,
+          moduleDescriptionText,
+          scrollChild,
+          offset,
+          isLastModule
+        )
 
     offset = offset + moduleCheckboxAndLabelFrame:GetHeight() + Reported2.UI.Sizes.Padding * 1.5
   end
@@ -279,37 +279,37 @@ function Reported2.Config.CreatePanel()
   local hideWhenEmptyText = "Hide Waiting Room when it is empty"
   local showOnDetectionText = "Show Waiting Room on detection"
   local showWaitingRoomShortcutText =
-  Reported2.Palette.START .. Reported2.Palette.GREY .. " — Shortcut: /r2 show & /r2 hide" .. Reported2.Palette.END
+      Reported2.Palette.START .. Reported2.Palette.GREY .. " — Shortcut: /r2 show & /r2 hide" .. Reported2.Palette.END
 
   showWaitingRoomCheckbox, showWaitingRoomLabel =
-  Reported2.UI.Config.CreateCheckbox(
-    showWaitingRoomText .. showWaitingRoomShortcutText,
-    configFrame,
-    generalOptionsLabel
-  )
+      Reported2.UI.Config.CreateCheckbox(
+        showWaitingRoomText .. showWaitingRoomShortcutText,
+        configFrame,
+        generalOptionsLabel
+      )
 
   hideInCombatCheckbox, hideInCombatLabel =
-  Reported2.UI.Config.CreateCheckbox(hideInCombatText, configFrame, showWaitingRoomCheckbox)
+      Reported2.UI.Config.CreateCheckbox(hideInCombatText, configFrame, showWaitingRoomCheckbox)
 
   hideWhenEmptyCheckbox, hideWhenEmptyLabel =
-  Reported2.UI.Config.CreateCheckbox(hideWhenEmptyText, configFrame, hideInCombatCheckbox)
+      Reported2.UI.Config.CreateCheckbox(hideWhenEmptyText, configFrame, hideInCombatCheckbox)
 
   showOnDetectionCheckbox, showOnDetectionCheckboxLabel =
-  Reported2.UI.Config.CreateCheckbox(showOnDetectionText, configFrame, hideWhenEmptyCheckbox)
+      Reported2.UI.Config.CreateCheckbox(showOnDetectionText, configFrame, hideWhenEmptyCheckbox)
 
   muteSoundsCheckbox, muteSoundsLabel =
-  Reported2.UI.Config.CreateCheckbox("Mute sounds", configFrame, showOnDetectionCheckbox)
+      Reported2.UI.Config.CreateCheckbox("Mute sounds", configFrame, showOnDetectionCheckbox)
 
   -- Channel Options
   channelOptionsLabel =
-  Reported2.UI.Config.CreateOptionsLabel(
-    "Channel Options",
-    configFrame,
-    muteSoundsCheckbox,
-    Reported2.UI.Sizes.Padding * 3
-  )
+      Reported2.UI.Config.CreateOptionsLabel(
+        "Channel Options",
+        configFrame,
+        muteSoundsCheckbox,
+        Reported2.UI.Sizes.Padding * 3
+      )
   channelOptionsSubLabel =
-  Reported2.UI.Config.CreateOptionsSubLabel("Select which channels to monitor:", configFrame, channelOptionsLabel)
+      Reported2.UI.Config.CreateOptionsSubLabel("Select which channels to monitor:", configFrame, channelOptionsLabel)
 
   -- Channels
   Reported2.UI.Config.CreateChannelCheckboxes(configFrame)

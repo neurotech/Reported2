@@ -1,0 +1,9 @@
+{
+  "Lua.diagnostics.globals": [
+    "SlashCmdList",
+    "InterfaceOptionsFrame_OpenToCategory",
+    "InterfaceOptions_AddCategory",
+    "Settings",
+    "SettingsPanel"
+  ]
+}

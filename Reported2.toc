@@ -1,7 +1,6 @@
-## Interface: 90205
-## Interface-Classic: 11403
-## Interface-BCC: 20504
-## Interface-Wrath: 30400
+## Interface: 100206
+## Interface-Classic: 11502
+## Interface-Wrath: 30403
 ## Title: Reported! |cff6b8bf52|r
 ## Notes: Rewritten to work with Retail & Classic by neurotech#0659. All credit to |cff0070DESneep|r for the original.
 ## Author: neurotech
